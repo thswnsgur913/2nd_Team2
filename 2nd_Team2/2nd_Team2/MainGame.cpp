@@ -14,8 +14,7 @@ long int CMainGame::Score = 0;
 int CMainGame::Level = 1;
 int CMainGame::PlayTime = 0;
 
-CMainGame::CMainGame():
-	m_debug(false)
+CMainGame::CMainGame()
 {
 	ZeroMemory(m_szFPS, sizeof(TCHAR) * 64);
 }
@@ -31,56 +30,33 @@ void CMainGame::Initialize(void)
 	m_hDC = GetDC(g_hWnd);
 	
 	m_player = CAbstractFactory<CPlayer>::Create();
-	m_ObjList[OBJ_PLAYER].push_back(m_player);
+	CObjManager::Instance()->AddObject(OBJ_PLAYER, m_player);
 
 	CPlayer* player = dynamic_cast<CPlayer*>(m_player);
 
 	m_timer = new CTimer;
 	m_timer->StartTimer(ENERMY_PER_SECOND, [&]() {
+	
 	});
 }
 
 void CMainGame::Update(void)
 {
 	PlayTime += g_dwDeltaTime;
-	if (m_ObjList[OBJ_PLAYER].empty()) {
+	CObjManager::Instance()->Update();
+
+	if (!CObjManager::Instance()->GetPlayer()) {
 		m_player = nullptr;
 	}
 
-	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_BULLET]);
-	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_MONSTER]);
-	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BULLET]);
-
-	for (int i = 0; i < OBJ_END; ++i)
-	{
-		for (auto& iter = m_ObjList[i].begin();
-			iter != m_ObjList[i].end(); )
-		{
-			int iResult = (*iter)->Update();
-
-			if (OBJ_DEAD == iResult)
-			{
-				RemovedToTargetClear(*iter);
-				Safe_Delete<CObj*>(*iter);
-				iter = m_ObjList[i].erase(iter);
-			}
-			else
-				++iter;
-		}
-	}
-
-	if (m_ObjList[OBJ_PLAYER].size() > 0) {
+	if (CObjManager::Instance()->GetPlayer()) {
 		m_timer->Update();
 	}
 }
 
 void CMainGame::Late_Update(void)
 {
-	for (int i = 0; i < OBJ_END; ++i)
-	{
-		for (auto & iter : m_ObjList[i])
-			iter->Late_Update();
-	}
+	CObjManager::Instance()->Late_Update();
 }
 
 void CMainGame::Render(void)
@@ -93,10 +69,7 @@ void CMainGame::Render(void)
 	
 	BackgroundRender(backHDC);
 
-	for (int i = 0; i < OBJ_END; ++i) {
-		for (auto & iter : m_ObjList[i])
-			iter->Render(backHDC);
-	}
+	CObjManager::Instance()->Render(backHDC);
 
 	UIRender(backHDC);
 
@@ -107,32 +80,9 @@ void CMainGame::Render(void)
 
 void CMainGame::Release(void)
 {
-	for (int i = 0; i < OBJ_END; ++i)
-	{
-		for (auto& iter : m_ObjList[i])
-			Safe_Delete<CObj*>(iter);
-
-		m_ObjList[i].clear();
-	}
-
+	CObjManager::Instance()->Destroy();
 	ReleaseDC(g_hWnd, m_hDC);
 }
-
-void CMainGame::RemovedToTargetClear(CObj* _pRemovedObject) {
-	for (int i = 0; i < OBJ_END; ++i) {
-		for (auto* iter : m_ObjList[i]) {
-			if (_pRemovedObject == iter) {
-				continue;
-			}
-			
-			CObj* currentTarget = (*iter).GetTarget();
-			if ((iter->GetTarget()) && _pRemovedObject == (iter->GetTarget())) {
-				iter->ClearTarget();
-			}
-		}
-	}
-
-} // 오브젝트가 삭제될때 삭제할 오브젝트를 참조하고있는 오브젝트의 타겟 오브젝트를 nullptr로 바꿔줍니다.
 
 void CMainGame::BackgroundRender(HDC hDC) {
 	HBRUSH	brush;
@@ -168,22 +118,19 @@ void CMainGame::UIRender(HDC hDC) {
 	swprintf_s(szBuff, L"PlayTime: %02d:%02d", minute, second);
 	TextOut(hDC, WINCX * 0.5 - 50, 50, szBuff, lstrlen(szBuff));
 
-	if (m_ObjList[OBJ_PLAYER].empty())
+	if (!CObjManager::Instance()->GetPlayer())
 	{
 		swprintf_s(szBuff, L"GAME OVER");
 		TextOut(hDC, static_cast<int>(WINCX * 0.5f) - 50, static_cast<int>(WINCY * 0.5f), szBuff, lstrlen(szBuff));
 	}
 
-	DebugRender(hDC);
-}
+	++m_iFPS;
 
-void CMainGame::DebugRender(HDC hDC) {
-	if (!m_debug)
-		return;
-	TCHAR szBuff[256] = L"";
-	swprintf_s(szBuff, L"Monster : %zd", m_ObjList[OBJ_MONSTER].size());
-	TextOut(hDC, 200, 200, szBuff, lstrlen(szBuff));
+	if (m_dwTime + 1000 < GetTickCount()) {
+		swprintf_s(m_szFPS, L"FPS : %d", m_iFPS);
+		SetWindowText(g_hWnd, m_szFPS);
 
-	swprintf_s(szBuff, L"총알 : %zd", m_ObjList[OBJ_BULLET].size());
-	TextOut(hDC, 200, 180, szBuff, lstrlen(szBuff));
+		m_iFPS = 0;
+		m_dwTime = GetTickCount();
+	}
 }

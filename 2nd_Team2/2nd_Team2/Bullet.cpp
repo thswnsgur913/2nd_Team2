@@ -6,7 +6,6 @@
 CBullet::CBullet() {
 }
 
-
 CBullet::~CBullet() {
 	Release();
 }

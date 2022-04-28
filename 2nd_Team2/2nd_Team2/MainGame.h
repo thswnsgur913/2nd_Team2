@@ -3,6 +3,7 @@
 #include "Include.h"
 
 #include "Obj.h"
+#include "ObjManager.h"
 #include "Timer.h"
 
 class CMainGame
@@ -18,12 +19,9 @@ public:
 	void	Render(void);
 	void	Release(void);
 
-	void	RemovedToTargetClear(CObj*);
-
 private:
 	void BackgroundRender(HDC);
 	void UIRender(HDC);
-	void DebugRender(HDC);
 
 public:
 	static int TotalKillCount;
@@ -44,8 +42,6 @@ private:
 
 	HDC		m_hDC;
 
-	list<CObj*> m_ObjList[OBJ_END];
-
 	TCHAR m_szFPS[64];
 
 	// map
@@ -54,5 +50,8 @@ private:
 	CObj* m_player;
 
 	bool m_debug;
+
+	int m_iFPS;
+	DWORD m_dwTime;
 };
 
