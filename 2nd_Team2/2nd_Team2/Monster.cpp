@@ -2,7 +2,6 @@
 #include "Monster.h"
 #include "AbstractFactory.h"
 #include "Bullet.h"
-#include "Item.h"
 #include "Effect.h"
 #include "MainGame.h"
 
@@ -156,8 +155,6 @@ void CMonster::Hit() {
 }
 
 void CMonster::CommonDie() {
-	CItem::Create(m_itemList, this);
-
 	CMainGame::KillCount += 1;
 	CMainGame::TotalKillCount += 1;
 	CMainGame::Score += (m_iScore * CMainGame::Level);

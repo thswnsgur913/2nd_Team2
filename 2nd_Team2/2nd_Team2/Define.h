@@ -1,7 +1,7 @@
 #pragma once
 
-#define		WINCX		768
-#define		WINCY		1024
+#define		WINCX		1024
+#define		WINCY		768
 
 #define		PI			3.141592f
 #define		RADIAN		PI / 180.f
