@@ -16,7 +16,7 @@ void CBullet::Initialize() {
 
 	m_fSpeed = 10.f;
 
-	m_fJumpPower = 15.f;
+	m_fJumpPower = 20.f;
 	m_fJumpTime = 0.f;
 	 
 	Update_Rect();

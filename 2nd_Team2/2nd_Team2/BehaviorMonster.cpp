@@ -70,7 +70,7 @@ void CBehaviorMonster::BehaviorEnter()
 		break;
 
 	case Pattern2:
-		Jumping();
+		//Jumping();
 		break;
 
 	case Pattern3: {
@@ -82,7 +82,7 @@ void CBehaviorMonster::BehaviorEnter()
 				return;
 			}
 
-			int shotAngle = 120;
+			int shotAngle = 140;
 			for (int i = 0; i < 3; ++i) {
 				Fire(baseShotAngle + shotAngle);
 				shotAngle -= 10;
@@ -102,7 +102,7 @@ void CBehaviorMonster::BehaviorEnter()
 				return;
 			}
 
-			int shotAngle = 105;
+			int shotAngle = 155;
 			for (int i = 0; i < 5; ++i) {
 				Fire(baseShotAngle + shotAngle);
 				shotAngle -= 10;
@@ -152,7 +152,7 @@ void CBehaviorMonster::BehaviorExit()
 {
 	switch (currentState) {
 	case Create:
-		currentState = Idle;
+		currentState = Pattern1;
 		break;
 
 	case Pattern1:
@@ -160,13 +160,19 @@ void CBehaviorMonster::BehaviorExit()
 		break;
 	
 	case Return:
-	case Pattern3:
-	case Pattern4:
-		currentState = Idle;
+		currentState = Pattern2;
 		break;
 
 	case Pattern2:
-		currentState = Return;
+		currentState = Pattern3;
+		break;
+
+	case Pattern3:
+		currentState = Pattern4;
+		break;
+
+	case Pattern4:
+		currentState = Idle;
 		break;
 
 	case Idle:
