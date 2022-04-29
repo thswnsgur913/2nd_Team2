@@ -1,32 +1,32 @@
 #include "stdafx.h"
-#include "BehaviorBoss.h"
+#include "BehaviorMonster.h"
 
 
-CBehaviorBoss::CBehaviorBoss()
+CBehaviorMonster::CBehaviorMonster()
 {
 }
 
-CBehaviorBoss::~CBehaviorBoss()
+CBehaviorMonster::~CBehaviorMonster()
 {
 	Release();
 }
 
-void CBehaviorBoss::Initialize(void)
+void CBehaviorMonster::Initialize(void)
 {
 	m_bJump = false;
 	m_fJumpPower = 15.f;
 	m_fJumpTime = 0.f;
 }
 
-void CBehaviorBoss::Release(void)
+void CBehaviorMonster::Release(void)
 {
 }
 
-void CBehaviorBoss::Render(HDC hDC)
+void CBehaviorMonster::Render(HDC hDC)
 {
 }
 
-void CBehaviorBoss::BehaviorEnter()
+void CBehaviorMonster::BehaviorEnter()
 {
 	if (!m_targetObj)
 		return;
@@ -110,7 +110,7 @@ void CBehaviorBoss::BehaviorEnter()
 	behaviorState = Execute;
 }
 
-void CBehaviorBoss::BehaviorExecute()
+void CBehaviorMonster::BehaviorExecute()
 {
 	switch (currentState) {
 	case Create:
@@ -131,7 +131,7 @@ void CBehaviorBoss::BehaviorExecute()
 	}
 }
 
-void CBehaviorBoss::BehaviorExit()
+void CBehaviorMonster::BehaviorExit()
 {
 	switch (currentState) {
 	case Create:
@@ -154,7 +154,7 @@ void CBehaviorBoss::BehaviorExit()
 	behaviorState = Enter;
 }
 
-void CBehaviorBoss::Jumping()
+void CBehaviorMonster::Jumping()
 {
 	float		fY = 0.f;
 
@@ -178,7 +178,7 @@ void CBehaviorBoss::Jumping()
 	}*/
 }
 
-void CBehaviorBoss::RandomPattern()
+void CBehaviorMonster::RandomPattern()
 {
 	srand((unsigned int)time((nullptr)));
 

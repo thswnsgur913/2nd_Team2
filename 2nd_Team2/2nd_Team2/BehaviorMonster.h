@@ -1,12 +1,12 @@
 #pragma once
 #include "Monster.h"
 #include "Timer.h"
-class CBehaviorBoss :
+class CBehaviorMonster :
 	public CMonster
 {
 public:
-	CBehaviorBoss();
-	~CBehaviorBoss();
+	CBehaviorMonster();
+	~CBehaviorMonster();
 
 	// CMonster을(를) 통해 상속됨
 	virtual void Initialize(void) override;
