@@ -31,6 +31,7 @@ protected:
 	void EffectRender();
 
 	void BehaviorUpdate();
+	virtual void Render(HDC hDC) PURE;
 	virtual void BehaviorEnter() PURE;
 	virtual void BehaviorExecute() PURE;
 	virtual void BehaviorExit() PURE;

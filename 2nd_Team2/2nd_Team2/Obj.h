@@ -47,5 +47,9 @@ protected:
 	int			m_iHP;
 
 	CObj* m_targetObj;
+
+	bool m_bJump;		// 점프 상태 확인
+	float m_fJumpPower;	// 점프 힘
+	float m_fJumpTime;	// 점프 중 진행 시간
 };
 

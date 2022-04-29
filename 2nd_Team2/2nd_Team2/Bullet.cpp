@@ -15,6 +15,9 @@ void CBullet::Initialize() {
 	m_tInfo.fCY = 10.f;
 
 	m_fSpeed = 10.f;
+
+	m_fJumpPower = 15.f;
+	m_fJumpTime = 0.f;
 	 
 	Update_Rect();
 }
@@ -25,6 +28,8 @@ int CBullet::Update() {
 
 	m_tInfo.fX += m_tDir.fX * m_fSpeed;
 	m_tInfo.fY += m_tDir.fY * m_fSpeed;
+	//m_tInfo.fY -= m_fJumpPower * m_fJumpTime - 9.8f * m_fJumpTime * m_fJumpTime * 0.5f;
+	//m_fJumpTime += 0.2f;
 
 	Update_Rect();
 

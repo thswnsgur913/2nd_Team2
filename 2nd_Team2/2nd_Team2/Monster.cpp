@@ -6,7 +6,7 @@
 #include "MainGame.h"
 
 CMonster::CMonster():
-	baseShotAngle(90),
+	baseShotAngle(0),
 	m_bAIStart(false),
 	m_bRunEffect(false),
 	m_bDisplayInfo(false),

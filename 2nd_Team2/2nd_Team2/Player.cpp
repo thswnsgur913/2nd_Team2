@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "Bullet.h"
 #include "Player.h"
 #include "Monster.h"
 #include "AbstractFactory.h"
@@ -104,6 +105,5 @@ void CPlayer::KeyInput(void)
 
 	if (GetAsyncKeyState(VK_SPACE) & 0x0001)
 	{
-		
 	}
 }
