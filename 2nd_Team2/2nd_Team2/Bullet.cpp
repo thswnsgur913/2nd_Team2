@@ -17,6 +17,10 @@ void CBullet::Initialize() {
 	m_fSpeed = 10.f;
 	 
 	Update_Rect();
+
+	m_bThrow = true;
+	m_fThrowPower = 20.f;
+	m_fThrowTime = 0.f;
 }
 
 int CBullet::Update() {
@@ -25,6 +29,9 @@ int CBullet::Update() {
 
 	m_tInfo.fX += m_tDir.fX * m_fSpeed;
 	m_tInfo.fY += m_tDir.fY * m_fSpeed;
+	m_tInfo.fX += m_fSpeed;
+
+	Throw();
 
 	Update_Rect();
 
@@ -41,14 +48,26 @@ void CBullet::Render(HDC hdc) {
 	HBRUSH brush;
 	HPEN pen;
 	pen = CreatePen(PS_SOLID, 3, RGB(0, 0, 0));
-	brush = CreateSolidBrush(RGB(0, 0, 255));
+	brush = CreateSolidBrush(RGB(255, 255, 255));
 	SelectObject(hdc, pen);
 	SelectObject(hdc, brush);
 
-	Ellipse(hdc, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	Rectangle(hdc, m_tRect.left - 50, m_tRect.top, m_tRect.right - 50, m_tRect.bottom - 50);
 
 	DeleteObject(pen);
 	DeleteObject(brush);
+
+	pen = CreatePen(PS_SOLID, 3, RGB(0, 0, 0));
+	brush = CreateSolidBrush(RGB(0, 0, 0));
+	SelectObject(hdc, pen);
+	SelectObject(hdc, brush);
+
+	Rectangle(hdc, m_tRect.left-80, m_tRect.top-40, m_tRect.right-20, m_tRect.bottom - 100);
+
+	DeleteObject(pen);
+	DeleteObject(brush);
+
+	//Ellipse(hdc, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 }
 
 void CBullet::Release() {
@@ -79,4 +98,23 @@ BULLET_TYPE CBullet::GetType() const
 void CBullet::SetType(BULLET_TYPE eType)
 {
 	m_eBulletType = eType;
+}
+
+void CBullet::Throw()
+{
+	float		fY = 500.f;
+
+	if (m_bThrow)
+	{
+		m_tInfo.fY -= m_fThrowPower * m_fThrowTime - 9.8f * m_fThrowTime * m_fThrowTime * 0.5f;
+		m_fThrowTime += 0.2f;
+
+		if (fY < m_tInfo.fY)
+		{
+			m_bThrow = false;
+			m_fThrowTime = 0.f;
+			//m_tInfo.fY = fY;
+			m_bDead = true;
+		}
+	}
 }
