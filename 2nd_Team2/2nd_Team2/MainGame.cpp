@@ -87,7 +87,7 @@ void CMainGame::Release(void)
 void CMainGame::BackgroundRender(HDC hDC) {
 	HBRUSH	brush;
 	HGDIOBJ h_old_brush;
-	brush = CreateSolidBrush(RGB(0, 0, 105));
+	brush = CreateSolidBrush(RGB(0, 0, 160));
 	h_old_brush = SelectObject(hDC, brush);
 	Rectangle(hDC, 0, 0, WINCX, WINCY);
 	SelectObject(hDC, h_old_brush);
