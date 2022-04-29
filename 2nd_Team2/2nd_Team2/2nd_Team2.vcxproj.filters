@@ -25,6 +25,9 @@
     <Filter Include="Object">
       <UniqueIdentifier>{3054a1f9-e13e-46fb-9d64-f25f00e7c089}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{e2a6f871-84d5-451c-8349-ecec8ebf7e5c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -87,6 +90,21 @@
     <ClInclude Include="ObjManager.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="FrontUI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="BackUI.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgressBar.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponBag.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -121,6 +139,21 @@
     </ClCompile>
     <ClCompile Include="ObjManager.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="FrontUI.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="BackUI.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressBar.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponBag.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
