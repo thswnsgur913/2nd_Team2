@@ -4,6 +4,7 @@
 #include "CollisionMgr.h"
 
 #include "Player.h"
+#include "BehaviorMonster.h"
 
 int CMainGame::TotalKillCount = 0;
 int CMainGame::KillCount = 0;
@@ -33,6 +34,10 @@ void CMainGame::Initialize(void)
 	CObjManager::Instance()->AddObject(OBJ_PLAYER, m_player);
 
 	CPlayer* player = dynamic_cast<CPlayer*>(m_player);
+
+	m_monster = CAbstractFactory<CBehaviorMonster>::Create();
+	dynamic_cast<CBehaviorMonster*>(m_monster)->BehaviorStart(player, nullptr, nullptr, nullptr);
+	CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
 
 	m_timer = new CTimer;
 	m_timer->StartTimer(ENERMY_PER_SECOND, [&]() {

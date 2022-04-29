@@ -13,9 +13,21 @@ CBehaviorMonster::~CBehaviorMonster()
 
 void CBehaviorMonster::Initialize(void)
 {
+	m_tInfo.fX = 100.f;
+	m_tInfo.fY = WINCY - PlayerSize - 10;
+	m_iHP = 100;
+	m_iMaxHP = 100;
+
+	m_tInfo.fCX = PlayerSize;
+	m_tInfo.fCY = PlayerSize;
+
 	m_bJump = false;
 	m_fJumpPower = 15.f;
 	m_fJumpTime = 0.f;
+
+	m_fSpeed = 3.f;
+
+	currentState = Create;
 }
 
 void CBehaviorMonster::Release(void)
@@ -24,6 +36,7 @@ void CBehaviorMonster::Release(void)
 
 void CBehaviorMonster::Render(HDC hDC)
 {
+	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 }
 
 void CBehaviorMonster::BehaviorEnter()
@@ -34,25 +47,21 @@ void CBehaviorMonster::BehaviorEnter()
 	switch (currentState) 
 	{
 	case Create:
-		targetPosition.x = appearPosition.x;
-		targetPosition.y = appearPosition.y;
+		//targetPosition.x = appearPosition.x;
+		//targetPosition.y = appearPosition.y;
 
-		originPosition.x = targetPosition.x;
-		originPosition.y = targetPosition.y;
+		//originPosition.x = targetPosition.x;
+		//originPosition.y = targetPosition.y;
 		break;
 
 	case Pattern1:
-		if (m_targetObj) 
-		{
-			targetPosition.x = m_targetObj->Get_Info().fX;
-			targetPosition.y = m_targetObj->Get_Info().fY;
-		}
-		else 
-		{
-			targetPosition.x = originPosition.x;
-			targetPosition.y = originPosition.y;
-		}
+		targetPosition.x = m_targetObj->Get_Info().fX;
+		targetPosition.y = m_targetObj->Get_Info().fY;
+
+		originPosition.x = m_tInfo.fX;
+		originPosition.y = m_tInfo.fY;
 		break;
+
 	case Return:
 		targetPosition.x = originPosition.x;
 		targetPosition.y = originPosition.y;
@@ -114,6 +123,10 @@ void CBehaviorMonster::BehaviorExecute()
 {
 	switch (currentState) {
 	case Create:
+		behaviorState = Exit;
+		break;
+
+	case Pattern1:
 	case Pattern2:
 	case Return:
 		if (TargetMove()) {
@@ -122,11 +135,10 @@ void CBehaviorMonster::BehaviorExecute()
 		}
 		break;
 
-	case Pattern1:
 	case Pattern3:
 	case Pattern4:
 	case Idle:
-		bossShotTimer->Update();
+		//bossShotTimer->Update();
 		break;
 	}
 }
@@ -135,10 +147,18 @@ void CBehaviorMonster::BehaviorExit()
 {
 	switch (currentState) {
 	case Create:
+		currentState = Pattern1;
+		break;
 	case Pattern1:
+		currentState = Return;
+		break;
+	
+	case Return:
+		currentState = Pattern1;
+		break;
+
 	case Pattern3:
 	case Pattern4:
-	case Return:
 		currentState = Idle;
 		break;
 

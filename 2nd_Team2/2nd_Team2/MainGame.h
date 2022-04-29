@@ -49,6 +49,8 @@ private:
 
 	CObj* m_player;
 
+	CObj* m_monster;
+
 	bool m_debug;
 
 	int m_iFPS;
