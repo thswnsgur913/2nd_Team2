@@ -30,8 +30,6 @@ int CMonster::Update() {
 };
 
 void CMonster::Late_Update() {
-	if (!m_bulletList)
-		return;
 };
 
 
@@ -44,15 +42,9 @@ void CMonster::CollisionEnter(CObj* _sour) {
 }
 
 void CMonster::BehaviorStart(
-	CObj* _targetObj, 
-	std::list<CObj*>* _pBulletList, 
-	std::list<CObj*>* _pItemList,
-	std::list<CObj*>* _pEffectList
+	CObj* _targetObj 
 ) {
 	m_targetObj = _targetObj;
-	m_bulletList = _pBulletList;
-	m_itemList = _pItemList;
-	m_effectList = _pEffectList;
 
 	m_bAIStart = true;
 	behaviorState = Enter;
@@ -94,15 +86,14 @@ bool CMonster::TargetMove() {
 }
 
 void CMonster::Fire(const int _degree) {
-	if (!m_bulletList)
-		return;
-	
+
 	CObj* newBullet = CAbstractFactory<CBullet>::Create(m_tInfo.fX, static_cast<float>(m_tRect.bottom));
 
 	CBullet* BulletObj = dynamic_cast<CBullet*>(newBullet);
 	BulletObj->SetType(MONSTER_BULLET);
 	BulletObj->SetDirection(cosf(_degree * RADIAN), sinf(_degree * RADIAN));
-	m_bulletList->push_back(newBullet);
+
+	CObjManager::Instance()->AddObject(OBJ_BULLET, newBullet);
 }
 
 void CMonster::DisplayInfo(HDC hDC, const int _displayState) {
@@ -161,7 +152,7 @@ void CMonster::CommonDie() {
 
 	CObj* newEffect = CAbstractFactory<CEffect>::Create(m_tInfo.fX, m_tInfo.fY);
 	dynamic_cast<CEffect*>(newEffect)->SetEndSize(m_tInfo.fCX, m_tInfo.fCY);
-	m_effectList->push_back(newEffect);
+	CObjManager::Instance()->AddObject(OBJ_EFFECT, newEffect);
 
 	m_bDead = true;
 	m_bAIStart = false;

@@ -36,7 +36,7 @@ void CMainGame::Initialize(void)
 	CPlayer* player = dynamic_cast<CPlayer*>(m_player);
 
 	m_monster = CAbstractFactory<CBehaviorMonster>::Create();
-	dynamic_cast<CBehaviorMonster*>(m_monster)->BehaviorStart(player, nullptr, nullptr, nullptr);
+	dynamic_cast<CBehaviorMonster*>(m_monster)->BehaviorStart(player);
 	CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
 
 	m_timer = new CTimer;

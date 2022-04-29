@@ -13,7 +13,7 @@ CBehaviorMonster::~CBehaviorMonster()
 
 void CBehaviorMonster::Initialize(void)
 {
-	m_tInfo.fX = 100.f;
+	m_tInfo.fX = 700.f;
 	m_tInfo.fY = WINCY - PlayerSize - 10;
 	m_iHP = 100;
 	m_iMaxHP = 100;
@@ -26,6 +26,8 @@ void CBehaviorMonster::Initialize(void)
 	m_fJumpTime = 0.f;
 
 	m_fSpeed = 3.f;
+
+	bossShotTimer = new CTimer;
 
 	currentState = Create;
 }
@@ -47,11 +49,11 @@ void CBehaviorMonster::BehaviorEnter()
 	switch (currentState) 
 	{
 	case Create:
-		//targetPosition.x = appearPosition.x;
-		//targetPosition.y = appearPosition.y;
+		targetPosition.x = appearPosition.x;
+		targetPosition.y = appearPosition.y;
 
-		//originPosition.x = targetPosition.x;
-		//originPosition.y = targetPosition.y;
+		originPosition.x = targetPosition.x;
+		originPosition.y = targetPosition.y;
 		break;
 
 	case Pattern1:
@@ -80,7 +82,7 @@ void CBehaviorMonster::BehaviorEnter()
 				return;
 			}
 
-			int shotAngle = 60;
+			int shotAngle = 120;
 			for (int i = 0; i < 3; ++i) {
 				Fire(baseShotAngle + shotAngle);
 				shotAngle -= 10;
@@ -100,8 +102,8 @@ void CBehaviorMonster::BehaviorEnter()
 				return;
 			}
 
-			int shotAngle = 75;
-			for (int i = 0; i < 3; ++i) {
+			int shotAngle = 105;
+			for (int i = 0; i < 5; ++i) {
 				Fire(baseShotAngle + shotAngle);
 				shotAngle -= 10;
 			}
@@ -137,8 +139,11 @@ void CBehaviorMonster::BehaviorExecute()
 
 	case Pattern3:
 	case Pattern4:
+		bossShotTimer->Update();
+		break;
+
 	case Idle:
-		//bossShotTimer->Update();
+		behaviorState = Exit;
 		break;
 	}
 }
@@ -147,16 +152,14 @@ void CBehaviorMonster::BehaviorExit()
 {
 	switch (currentState) {
 	case Create:
-		currentState = Pattern1;
+		currentState = Idle;
 		break;
+
 	case Pattern1:
 		currentState = Return;
 		break;
 	
 	case Return:
-		currentState = Pattern1;
-		break;
-
 	case Pattern3:
 	case Pattern4:
 		currentState = Idle;
