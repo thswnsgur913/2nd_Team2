@@ -20,9 +20,14 @@ public:
 
 private:
 	void KeyInput();
+	void Jumping();
 
 private:
 	list<CObj*>* m_bulletList; // 총알 리스트
 	list<CObj*>* m_MonsterList; // 몬스터 리스트
+
+	bool					m_bJump;		// 점프 상태 확인
+	float					m_fJumpPower;	// 점프 힘
+	float					m_fJumpTime;	// 점프 중 진행 시간
 };
 
