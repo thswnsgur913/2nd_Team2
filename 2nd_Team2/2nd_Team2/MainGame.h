@@ -31,6 +31,7 @@ public:
 	static long Score;
 	static int Level;
 	static int PlayTime;
+	static float DeadTime;
 
 private:
 	enum monsterType {

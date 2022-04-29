@@ -15,7 +15,10 @@ public:
 	void CollisionEnter(CObj* _sour) override;
 
 	void InitProgress(const Vector2D, const Vector2D, const float, const float);
-	void SetCurrent(const float _value) { m_current = _value; m_rate = m_current / m_max; };
+	void SetCurrent(float _value) { 
+		m_current = _value >= m_max ? m_max : _value;
+		m_rate = m_current / m_max; 
+	};
 
 private:
 	float m_max;

@@ -156,6 +156,7 @@
     <ClInclude Include="FrontUI.h" />
     <ClInclude Include="Functor.h" />
     <ClInclude Include="Include.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Obj.h" />
@@ -177,6 +178,7 @@
     <ClCompile Include="CollisionMgr.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="FrontUI.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Obj.cpp" />
