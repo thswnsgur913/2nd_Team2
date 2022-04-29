@@ -39,7 +39,7 @@ void CMainGame::Initialize(void)
 	
 	});
 
-	CLineMgr::Instance()->Initialize();
+	CLineMgr::Get_Instance()->Initialize();
 }
 
 void CMainGame::Update(void)
@@ -81,12 +81,16 @@ void CMainGame::Render(void)
 	BitBlt(m_hDC, 0, 0, WINCX, WINCY, backHDC, 0, 0, SRCCOPY);
 	DeleteObject(SelectObject(backHDC, backBitmapStage));
 	DeleteDC(backHDC);
+
+	CLineMgr::Get_Instance()->Render(m_hDC);
 }
 
 void CMainGame::Release(void)
 {
 	CObjManager::Instance()->Destroy();
 	ReleaseDC(g_hWnd, m_hDC);
+	CLineMgr::Get_Instance()->Destroy_Instance();
+	CScrollMgr::Get_Scroll()->Destroy_Scroll();
 }
 
 void CMainGame::BackgroundRender(HDC hDC) {

@@ -31,6 +31,9 @@
     <Filter Include="LineMgr\Line">
       <UniqueIdentifier>{c76388ad-c9b4-4575-8cf0-52f3953c9908}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ScrollMgr">
+      <UniqueIdentifier>{c95b2bc3-679c-45fa-9e2d-2294c578098d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -99,6 +102,9 @@
     <ClInclude Include="LineMgr.h">
       <Filter>LineMgr</Filter>
     </ClInclude>
+    <ClInclude Include="ScrollMgr.h">
+      <Filter>ScrollMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -139,6 +145,9 @@
     </ClCompile>
     <ClCompile Include="LineMgr.cpp">
       <Filter>LineMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="ScrollMgr.cpp">
+      <Filter>ScrollMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -6,6 +6,7 @@
 #include "ObjManager.h"
 #include "Timer.h"
 #include "LineMgr.h"
+#include "ScrollMgr.h"
 
 class CMainGame
 {

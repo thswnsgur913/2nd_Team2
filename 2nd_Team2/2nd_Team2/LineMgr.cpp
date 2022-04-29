@@ -18,6 +18,7 @@ void CLineMgr::Initialize(void)
 	//저장된 라인이 있다면 불러오기.
 
 	//없다면 그리기.
+	//일단은 시작하는 지형 그림.(추후에 좌표를 넘기는 방식으로 여러 패턴의 라인을 연결 시키고 싶음.)
 	LINEPOINT LLinePoint[4] =
 	{
 		{ -100.f,(float)WINCY - 200.f },
@@ -26,8 +27,10 @@ void CLineMgr::Initialize(void)
 		{ 600.f ,(float)WINCY - 350.f }
 	};
 
-	m_LineList.push_back(new CLine(LLinePoint[0], { 250.f,(float)WINCY - 200.f }));
-	m_LineList.push_back(new CLine({ 250.f,(float)WINCY - 200.f }, {}));
+	m_LineList.push_back(new CLine(LLinePoint[0], LLinePoint[1]));
+	m_LineList.push_back(new CLine(LLinePoint[1],LLinePoint[2]));
+	m_LineList.push_back(new CLine(LLinePoint[2], LLinePoint[3]));
+
 }
 
 void CLineMgr::Render(HDC hDC)

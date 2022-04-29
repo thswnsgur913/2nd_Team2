@@ -16,7 +16,7 @@ public:
 	bool Collision_Line(float& fX, float* pY);
 
 public:
-	static CLineMgr* Get_Instace(void)
+	static CLineMgr* Get_Instance(void)
 	{
 		if (!m_pInstance)
 		{
