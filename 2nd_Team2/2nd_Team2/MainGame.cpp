@@ -38,6 +38,8 @@ void CMainGame::Initialize(void)
 	m_timer->StartTimer(ENERMY_PER_SECOND, [&]() {
 	
 	});
+
+	CLineMgr::Instance()->Initialize();
 }
 
 void CMainGame::Update(void)
@@ -52,6 +54,9 @@ void CMainGame::Update(void)
 	if (CObjManager::Instance()->GetPlayer()) {
 		m_timer->Update();
 	}
+
+	
+
 }
 
 void CMainGame::Late_Update(void)

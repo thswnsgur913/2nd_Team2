@@ -5,6 +5,7 @@
 #include "Obj.h"
 #include "ObjManager.h"
 #include "Timer.h"
+#include "LineMgr.h"
 
 class CMainGame
 {

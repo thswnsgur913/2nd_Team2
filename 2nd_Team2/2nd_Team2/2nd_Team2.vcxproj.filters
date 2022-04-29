@@ -25,6 +25,12 @@
     <Filter Include="Object">
       <UniqueIdentifier>{3054a1f9-e13e-46fb-9d64-f25f00e7c089}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LineMgr">
+      <UniqueIdentifier>{ff993f00-c0f1-42f6-84fc-1ba8211d91b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LineMgr\Line">
+      <UniqueIdentifier>{c76388ad-c9b4-4575-8cf0-52f3953c9908}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -87,6 +93,12 @@
     <ClInclude Include="ObjManager.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="Line.h">
+      <Filter>LineMgr\Line</Filter>
+    </ClInclude>
+    <ClInclude Include="LineMgr.h">
+      <Filter>LineMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -121,6 +133,12 @@
     </ClCompile>
     <ClCompile Include="ObjManager.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Line.cpp">
+      <Filter>LineMgr\Line</Filter>
+    </ClCompile>
+    <ClCompile Include="LineMgr.cpp">
+      <Filter>LineMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
