@@ -4,7 +4,10 @@
 
 #include "Obj.h"
 #include "ObjManager.h"
+#include "UIManager.h"
 #include "Timer.h"
+
+#include "ProgressBar.h"
 
 class CMainGame
 {
@@ -19,11 +22,8 @@ public:
 	void	Render(void);
 	void	Release(void);
 
-private:
-	void BackgroundRender(HDC);
-	void UIRender(HDC);
-
 public:
+	static int Life;
 	static int TotalKillCount;
 	static int KillCount;
 	static int BossCount;
@@ -31,6 +31,7 @@ public:
 	static long Score;
 	static int Level;
 	static int PlayTime;
+	static float DeadTime;
 
 private:
 	enum monsterType {
@@ -42,16 +43,14 @@ private:
 
 	HDC		m_hDC;
 
-	TCHAR m_szFPS[64];
-
 	// map
 	CTimer* m_timer;
 
 	CObj* m_player;
+	CProgressBar* m_timeProgress;
 
 	bool m_debug;
 
-	int m_iFPS;
-	DWORD m_dwTime;
+	float m_test;
 };
 
