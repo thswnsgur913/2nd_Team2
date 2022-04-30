@@ -60,6 +60,8 @@ void CPlayer::Render(HDC hDC)
 {
 	int	iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
 	int	iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();
+	//Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
+
 	if (m_Dir == true)
 	{
 		/*Ellipse(hDC, m_tInfo.fX - 70, m_tInfo.fY + 40, m_tInfo.fX - 10, m_tInfo.fY + 110);//¿À¸¥¹ß

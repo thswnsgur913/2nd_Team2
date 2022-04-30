@@ -1,20 +1,22 @@
 #include "stdafx.h"
-#include "BehaviorMonster.h"
+#include "BehaviorBoss.h"
+#include "ScrollMgr.h"
 
 
-CBehaviorMonster::CBehaviorMonster()
+CBehaviorBoss::CBehaviorBoss()
 {
 }
 
-CBehaviorMonster::~CBehaviorMonster()
+CBehaviorBoss::~CBehaviorBoss()
 {
 	Release();
 }
 
-void CBehaviorMonster::Initialize(void)
+void CBehaviorBoss::Initialize(void)
 {
+
 	m_tInfo.fX = 700.f;
-	m_tInfo.fY = 708.f;
+	m_tInfo.fY = 600.f;
 
 	m_tInfo.fCX = 50;
 	m_tInfo.fCY = 50;
@@ -33,17 +35,22 @@ void CBehaviorMonster::Initialize(void)
 	currentState = Create;
 }
 
-void CBehaviorMonster::Release(void)
+void CBehaviorBoss::Release(void)
 {
 }
 
-void CBehaviorMonster::Render(HDC hDC)
+void CBehaviorBoss::Render(HDC hDC)
 {
-	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	int iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
+	int iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();
+	Rectangle(hDC, (m_tRect.left + iScrollX), (m_tRect.top + iScrollY), (m_tRect.right + iScrollX), (m_tRect.bottom + iScrollY));
+	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 }
 
-void CBehaviorMonster::BehaviorEnter()
+void CBehaviorBoss::BehaviorEnter()
 {
+	int iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();
+
 	if (!m_targetObj)
 		return;
 
@@ -59,7 +66,7 @@ void CBehaviorMonster::BehaviorEnter()
 
 	case Pattern1:
 		targetPosition.x = m_targetObj->Get_Info().fX;
-		targetPosition.y = m_targetObj->Get_Info().fY;
+		targetPosition.y = (m_targetObj->Get_Info().fY - iScrollY);
 
 		originPosition.x = m_tInfo.fX;
 		originPosition.y = m_tInfo.fY;
@@ -126,7 +133,7 @@ void CBehaviorMonster::BehaviorEnter()
 	behaviorState = Execute;
 }
 
-void CBehaviorMonster::BehaviorExecute()
+void CBehaviorBoss::BehaviorExecute()
 {
 	switch (currentState) {
 	case Create:
@@ -159,7 +166,7 @@ void CBehaviorMonster::BehaviorExecute()
 	}
 }
 
-void CBehaviorMonster::BehaviorExit()
+void CBehaviorBoss::BehaviorExit()
 {
 	switch (currentState) {
 	case Pattern1:
@@ -182,7 +189,7 @@ void CBehaviorMonster::BehaviorExit()
 	behaviorState = Enter;
 }
 
-bool CBehaviorMonster::Jumping()
+bool CBehaviorBoss::Jumping()
 {
 
 	//bool		bLineCol = CLineMgr::Get_Instance()->Collision_Line(m_tInfo.fX, &fY);
@@ -207,7 +214,7 @@ bool CBehaviorMonster::Jumping()
 	}*/
 }
 
-void CBehaviorMonster::RandomPattern()
+void CBehaviorBoss::RandomPattern()
 {
 	srand((unsigned int)time((nullptr)));
 
