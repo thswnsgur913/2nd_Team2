@@ -1,5 +1,9 @@
 #pragma once
+
 #include "Scene.h"
+#include "ObjManager.h"
+#include "UIManager.h"
+#include "ScrollMgr.h"
 
 class GameClient
 {
@@ -13,10 +17,8 @@ public:
 		return m_runningScene;
 	}
 
-	void LoadScene(CScene* _scene) {
-		_scene->Initialize();
-		m_runningScene = _scene;
-	}
+	void ClearManagers();
+	void LoadScene(CScene*);
 
 	void SceneLifeCycle();
 

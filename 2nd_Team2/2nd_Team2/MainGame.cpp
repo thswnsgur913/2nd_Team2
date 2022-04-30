@@ -42,7 +42,6 @@ void CMainGame::Initialize(void)
 	CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(ITEM_CLOCK,	{ 200.f, 200.f }));
 	CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(ITEM_SCORE,	{ 300.f, 200.f }));
 
-
 	CUIManager::Instance()->AddUI(UI_BACK, CAbstractFactory<CBackUI>::Create());
 	CUIManager::Instance()->AddUI(UI_FRONT, CAbstractFactory<CFrontUI>::Create());
 
@@ -89,9 +88,6 @@ void CMainGame::Update(void)
 	if (CObjManager::Instance()->GetPlayer()) {
 		m_timer->Update();
 	}
-
-	
-
 }
 
 void CMainGame::Late_Update(void)
@@ -110,12 +106,8 @@ void CMainGame::Render(HDC hdc)
 	for (auto& plat : m_map) {
 		plat->Render(hdc);
 	}
-
 }
 
 void CMainGame::Release(void)
 {
-	CObjManager::Instance()->Destroy();
-	CUIManager::Instance()->Destroy();	
-	CScrollMgr::Get_Scroll()->Destroy_Scroll();
 }
