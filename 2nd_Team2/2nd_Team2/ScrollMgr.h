@@ -8,6 +8,8 @@ private:
 public:
 	const float& Get_ScrollX(void) { return m_ScrollX; }
 	void Set_ScrollX(float fXX) { m_ScrollX += fXX; }
+	const float& Get_ScrollY(void) { return m_ScrollY; }
+	void Set_ScrollY(float fYY) { m_ScrollY += fYY; }
 
 public:
 	static CScrollMgr* Get_Scroll(void)

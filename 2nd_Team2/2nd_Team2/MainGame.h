@@ -5,7 +5,7 @@
 #include "Obj.h"
 #include "ObjManager.h"
 #include "Timer.h"
-#include "LineMgr.h"
+#include "LinePlat.h"
 #include "ScrollMgr.h"
 
 class CMainGame
@@ -55,5 +55,7 @@ private:
 
 	int m_iFPS;
 	DWORD m_dwTime;
+
+	list<CLinePlat*> m_map;
 };
 

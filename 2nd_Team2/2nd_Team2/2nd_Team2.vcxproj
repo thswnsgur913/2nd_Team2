@@ -155,7 +155,7 @@
     <ClInclude Include="Functor.h" />
     <ClInclude Include="Include.h" />
     <ClInclude Include="Line.h" />
-    <ClInclude Include="LineMgr.h" />
+    <ClInclude Include="LinePlat.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Obj.h" />
@@ -174,7 +174,7 @@
     <ClCompile Include="CollisionMgr.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Line.cpp" />
-    <ClCompile Include="LineMgr.cpp" />
+    <ClCompile Include="LinePlat.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Obj.cpp" />

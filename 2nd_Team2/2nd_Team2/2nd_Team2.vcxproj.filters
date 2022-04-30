@@ -99,11 +99,11 @@
     <ClInclude Include="Line.h">
       <Filter>LineMgr\Line</Filter>
     </ClInclude>
-    <ClInclude Include="LineMgr.h">
-      <Filter>LineMgr</Filter>
-    </ClInclude>
     <ClInclude Include="ScrollMgr.h">
       <Filter>ScrollMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="LinePlat.h">
+      <Filter>LineMgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -143,11 +143,11 @@
     <ClCompile Include="Line.cpp">
       <Filter>LineMgr\Line</Filter>
     </ClCompile>
-    <ClCompile Include="LineMgr.cpp">
-      <Filter>LineMgr</Filter>
-    </ClCompile>
     <ClCompile Include="ScrollMgr.cpp">
       <Filter>ScrollMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="LinePlat.cpp">
+      <Filter>LineMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

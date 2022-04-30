@@ -33,6 +33,8 @@ int CPlayer::Update(void)
 
 	KeyInput();
 
+	OffSet();
+
 	Update_Rect();
 
 	return OBJ_NOEVENT;
@@ -44,7 +46,9 @@ void CPlayer::Late_Update(void)
 
 void CPlayer::Render(HDC hDC)
 {
-	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	int		iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
+	Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
+	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 }
 
 void CPlayer::Release(void)
@@ -106,4 +110,28 @@ void CPlayer::KeyInput(void)
 	{
 		
 	}
+}
+
+void CPlayer::OffSet(void)
+{
+	int		iOffSetX = WINCX >> 1;
+	int     iOffSetY = WINCY >> 1;
+	int		iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
+	int     iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();
+	int		iItv = 30;
+	int     iItv2 = 50;
+
+
+	if (iOffSetX - iItv > m_tInfo.fX + iScrollX)
+		CScrollMgr::Get_Scroll()->Set_ScrollX(m_fSpeed);
+
+	// 라인 체크용.
+	if (iOffSetX + iItv < m_tInfo.fX + iScrollX)
+		CScrollMgr::Get_Scroll()->Set_ScrollX(-m_fSpeed);
+
+	if (iOffSetY - iItv2 > m_tInfo.fY + iScrollY)
+		CScrollMgr::Get_Scroll()->Set_ScrollY(m_fSpeed);
+
+	if (iOffSetY + iItv2 < m_tInfo.fY + iScrollY)
+		CScrollMgr::Get_Scroll()->Set_ScrollY(-m_fSpeed);
 }

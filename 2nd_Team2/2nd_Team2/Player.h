@@ -1,5 +1,6 @@
 #pragma once
 #include "Obj.h"
+#include "ScrollMgr.h"
 
 class CPlayer :
 	public CObj
@@ -20,6 +21,7 @@ public:
 
 private:
 	void KeyInput();
+	void		OffSet(void);
 
 private:
 	list<CObj*>* m_bulletList; // ÃÑ¾Ë ¸®½ºÆ®
