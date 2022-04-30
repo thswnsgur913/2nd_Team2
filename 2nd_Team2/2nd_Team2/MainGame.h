@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Include.h"
+#include "Scene.h"
 
 #include "Obj.h"
 #include "ObjManager.h"
@@ -9,18 +9,17 @@
 
 #include "ProgressBar.h"
 
-class CMainGame
-{
+class CMainGame : public CScene {
 public:
 	CMainGame();
-	~CMainGame();
+	virtual ~CMainGame();
 
 public:
-	void	Initialize(void);
-	void	Update(void);
-	void	Late_Update(void);
-	void	Render(void);
-	void	Release(void);
+	void Initialize(void) override;
+	void Update(void) override;
+	void Late_Update(void) override;
+	void Render(HDC) override;
+	void Release(void) override;
 
 public:
 	static int Life;
@@ -40,8 +39,6 @@ private:
 		Monster3,
 		MonsterEnd
 	};
-
-	HDC		m_hDC;
 
 	// map
 	CTimer* m_timer;

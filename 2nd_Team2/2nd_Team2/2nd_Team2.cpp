@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "2nd_Team2.h"
 #include "MainGame.h"
+#include "GameClient.h"
 
 #define MAX_LOADSTRING 100
 
@@ -38,12 +39,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	MSG msg;
 	msg.message = WM_NULL;
 
-	CMainGame*	pMainGame = new CMainGame;
+	GameClient* pGameClient = new GameClient;
 
-	if (nullptr == pMainGame)
+	if (nullptr == pGameClient)
 		return FALSE;
-
-	pMainGame->Initialize();
+	
+	pGameClient->Initialize();
+	pGameClient->LoadScene(new CMainGame);
 
 	DWORD dwOldTime = GetTickCount();
 	g_dwCurrentTime = static_cast<DWORD>(GetTickCount() * TICKSCALE);
@@ -70,10 +72,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 				DWORD currentTime = static_cast<DWORD>(GetTickCount() * TICKSCALE);
 				g_dwDeltaTime = currentTime - g_dwCurrentTime;
 				g_dwCurrentTime = currentTime;
-
-				pMainGame->Update();
-				pMainGame->Late_Update();
-				pMainGame->Render();
+				
+				pGameClient->SceneLifeCycle();
 				dwOldTime = GetTickCount();
 
 			}
@@ -82,7 +82,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		}
 	}
 
-	Safe_Delete<CMainGame*>(pMainGame);
+	Safe_Delete<GameClient*>(pGameClient);
 	return (int)msg.wParam;
 }
 

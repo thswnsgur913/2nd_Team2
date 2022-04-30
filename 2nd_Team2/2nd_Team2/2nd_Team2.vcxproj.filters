@@ -19,14 +19,14 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{6c85f08b-f0f2-4e8d-aa19-81ad89b0f368}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core">
-      <UniqueIdentifier>{e8f0229a-9c16-491c-9f87-df81903cd402}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object">
       <UniqueIdentifier>{3054a1f9-e13e-46fb-9d64-f25f00e7c089}</UniqueIdentifier>
     </Filter>
     <Filter Include="UI">
       <UniqueIdentifier>{e2a6f871-84d5-451c-8349-ecec8ebf7e5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{e8f0229a-9c16-491c-9f87-df81903cd402}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -76,7 +76,7 @@
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="MainGame.h">
-      <Filter>Core</Filter>
+      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Object</Filter>
@@ -111,6 +111,15 @@
     <ClInclude Include="KeyMgr.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="GameClient.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -132,7 +141,7 @@
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="MainGame.cpp">
-      <Filter>Core</Filter>
+      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Object</Filter>
@@ -166,6 +175,15 @@
     </ClCompile>
     <ClCompile Include="KeyMgr.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClient.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

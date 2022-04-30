@@ -35,8 +35,6 @@ CMainGame::~CMainGame()
 
 void CMainGame::Initialize(void)
 {
-	m_hDC = GetDC(g_hWnd);
-	
 	m_player = CAbstractFactory<CPlayer>::Create();
 	CObjManager::Instance()->AddObject(OBJ_PLAYER, m_player);
 	CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(ITEM_LIFE,	{ 100.f, 200.f }));
@@ -70,7 +68,7 @@ void CMainGame::Update(void)
 	CObjManager::Instance()->Update();
 
 	DeadTime -= DeadTime > 0 ? 0.01f : 0.f;
-	m_timeProgress->SetCurrent(static_cast<int>(DeadTime));
+	m_timeProgress->SetCurrent(DeadTime);
 
 	if (!CObjManager::Instance()->GetPlayer()) {
 		m_player = nullptr;
@@ -86,27 +84,17 @@ void CMainGame::Late_Update(void)
 	CObjManager::Instance()->Late_Update();
 }
 
-void CMainGame::Render(void)
+void CMainGame::Render(HDC hdc)
 {
-	HBITMAP backBitmap = NULL;
-	HBITMAP backBitmapStage = NULL;
-	HDC backHDC = CreateCompatibleDC(m_hDC);
-	backBitmap = CreateCompatibleBitmap(m_hDC, WINCX, WINCY);
-	backBitmapStage = (HBITMAP)SelectObject(backHDC, backBitmap);
+	CUIManager::Instance()->BackRender(hdc);
 
-	CUIManager::Instance()->BackRender(backHDC);
+	CObjManager::Instance()->Render(hdc);
 
-	CObjManager::Instance()->Render(backHDC);
-
-	CUIManager::Instance()->FrontRender(backHDC);
-
-	BitBlt(m_hDC, 0, 0, WINCX, WINCY, backHDC, 0, 0, SRCCOPY);
-	DeleteObject(SelectObject(backHDC, backBitmapStage));
-	DeleteDC(backHDC);
+	CUIManager::Instance()->FrontRender(hdc);
 }
 
 void CMainGame::Release(void)
 {
 	CObjManager::Instance()->Destroy();
-	ReleaseDC(g_hWnd, m_hDC);
+	CUIManager::Instance()->Destroy();	
 }
