@@ -1,10 +1,6 @@
 #include "stdafx.h"
 #include "Player.h"
-#include "Bullet.h"
-#include "Monster.h"
-#include "AbstractFactory.h"
-#include "KeyMgr.h"
-#include "ObjManager.h"
+
 
 CPlayer::CPlayer() {
 }
@@ -19,8 +15,10 @@ CPlayer::~CPlayer()
 
 void CPlayer::Initialize(void)
 {
+	m_tPstat = { 5,3,true };
+
 	m_tInfo.fX = 300.f;
-	m_tInfo.fY = WINCY - PlayerSize-168 ;
+	m_tInfo.fY = WINCY - PlayerSize-218 ;
 	m_iHP = 100;
 	m_iMaxHP = 100;
 
@@ -32,6 +30,9 @@ void CPlayer::Initialize(void)
 	m_bJump = false;
 	m_fJumpPower = 15.f;
 	m_fJumpTime = 0.f;
+
+	m_Dir = true;
+
 }
 
 int CPlayer::Update(void)
@@ -49,19 +50,43 @@ int CPlayer::Update(void)
 
 void CPlayer::Late_Update(void)
 {
+
 }
 
 void CPlayer::Render(HDC hDC)
 {
-	Ellipse(hDC, m_tInfo.fX - 70, m_tInfo.fY+40, m_tInfo.fX-10, m_tInfo.fY+110);//ø¿∏•πﬂ
+	if (m_Dir == true)
+	{
+		/*Ellipse(hDC, m_tInfo.fX - 70, m_tInfo.fY + 40, m_tInfo.fX - 10, m_tInfo.fY + 110);//ø¿∏•πﬂ
+		Ellipse(hDC, m_tInfo.fX + 10, m_tInfo.fY + 45, m_tInfo.fX + 100, m_tInfo.fY + 90);//øﬁπﬂ
+		Ellipse(hDC, m_tInfo.fX + 80, m_tInfo.fY - 10, m_tInfo.fX + 30, m_tInfo.fY + 40);//ø¿∏•∆»
+		Ellipse(hDC, m_tInfo.fX - 75, m_tInfo.fY, m_tInfo.fX + 75, m_tInfo.fY - 150);//∏”∏Æ
+		Ellipse(hDC, m_tInfo.fX - 80, m_tInfo.fY - 10, m_tInfo.fX - 30, m_tInfo.fY + 40);//øﬁ∆»*/
 
-	Ellipse(hDC, m_tInfo.fX + 10, m_tInfo.fY+45, m_tInfo.fX +100, m_tInfo.fY +90);//øﬁπﬂ
+		Ellipse(hDC, m_tRect.left-20, m_tRect.top+40, m_tRect.right-30, m_tRect.bottom+35);//øﬁπﬂ
+		Ellipse(hDC, m_tRect.left+30 , m_tRect.top + 40, m_tRect.right+30, m_tRect.bottom+20);//ø¿∏•πﬂ
+		Ellipse(hDC, m_tRect.left+40, m_tRect.top+10, m_tRect.right+20, m_tRect.bottom-10);//ø¿∏•∆»
+		Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);//∏ˆ≈Î
+		Ellipse(hDC, m_tRect.left-15, m_tRect.top-60, m_tRect.right+15, m_tRect.bottom-30);//∏”∏Æ
+		Ellipse(hDC, m_tRect.left-20, m_tRect.top+10, m_tRect.right-40, m_tRect.bottom-10);//øﬁ∆»
+	    //ø¿∏•¬ ¿Ãµø ∑£¥ı
+	}
+	if (m_Dir == false)
+	{
+		/*Ellipse(hDC, m_tInfo.fX + 10, m_tInfo.fY + 40, m_tInfo.fX + 70, m_tInfo.fY + 110);//ø¿∏•πﬂ
+		Ellipse(hDC, m_tInfo.fX - 100, m_tInfo.fY + 45, m_tInfo.fX - 10, m_tInfo.fY + 90);//øﬁπﬂ
+		Ellipse(hDC, m_tInfo.fX - 80, m_tInfo.fY - 10, m_tInfo.fX - 30, m_tInfo.fY + 40);//øﬁ∆»
+		Ellipse(hDC, m_tInfo.fX - 75, m_tInfo.fY, m_tInfo.fX + 75, m_tInfo.fY - 150);//∏”∏Æ
+		Ellipse(hDC, m_tInfo.fX + 80, m_tInfo.fY - 10, m_tInfo.fX + 30, m_tInfo.fY + 40);//ø¿∏•∆»*/
 
-	Ellipse(hDC, m_tInfo.fX + 80, m_tInfo.fY - 10, m_tInfo.fX + 30, m_tInfo.fY + 40);//ø¿∏•∆»
-	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);//∏ˆ≈Î
-	Ellipse(hDC, m_tInfo.fX-75, m_tInfo.fY, m_tInfo.fX+75, m_tInfo.fY -150);//∏”∏Æ
-	Ellipse(hDC, m_tInfo.fX-80, m_tInfo.fY-10, m_tInfo.fX-30, m_tInfo.fY+40);//øﬁ∆»
-
+		Ellipse(hDC, m_tRect.left - 30, m_tRect.top + 40, m_tRect.right - 30, m_tRect.bottom + 20);//øﬁπﬂ
+		Ellipse(hDC, m_tRect.left + 30, m_tRect.top + 40, m_tRect.right + 20, m_tRect.bottom + 35);//ø¿∏•πﬂ
+		Ellipse(hDC, m_tRect.left - 20, m_tRect.top + 10, m_tRect.right - 40, m_tRect.bottom - 10);//øﬁ∆»
+		Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);//∏ˆ≈Î
+		Ellipse(hDC, m_tRect.left - 15, m_tRect.top - 60, m_tRect.right + 15, m_tRect.bottom - 30);//∏”∏Æ
+		Ellipse(hDC, m_tRect.left + 40, m_tRect.top + 10, m_tRect.right + 20, m_tRect.bottom - 10);//ø¿∏•∆»
+		//øﬁ¬ ¿Ãµø∑ª¥ı
+	}
 }
 
 void CPlayer::Release(void)
@@ -70,7 +95,15 @@ void CPlayer::Release(void)
 
 void CPlayer::CollisionEnter(CObj* _sour)
 {
-
+	/*if (_sour== )
+	{
+		//m_tPstat.m_Life -= 1;
+	}*/
+	if(m_tPstat.m_Life<=0)
+	{
+		m_bDead = true;
+		CObjManager::Instance()->AddObject(OBJ_EFFECT, CAbstractFactory<CEffect>::Create((float)m_tInfo.fX, (float)m_tInfo.fY));
+	}
 }
 
 void CPlayer::KeyInput(void)
@@ -78,7 +111,7 @@ void CPlayer::KeyInput(void)
 	// GetKeyState
 	if (GetAsyncKeyState(VK_LEFT))
 	{
-		if (GetAsyncKeyState(VK_DOWN))
+		/*if (GetAsyncKeyState(VK_DOWN))
 		{
 			m_tInfo.fX -= m_fSpeed / sqrtf(2.f);
 			m_tInfo.fY += m_fSpeed / sqrtf(2.f);
@@ -88,13 +121,22 @@ void CPlayer::KeyInput(void)
 			m_tInfo.fX -= m_fSpeed / sqrtf(2.f);
 			m_tInfo.fY -= m_fSpeed / sqrtf(2.f);
 		}
-		else
+		else*/
+		/*if (CKeyMgr::Get_Instance()->Key_Down(VK_LEFT))//¥ÎΩ√ ¥©∏£∞Ì ¿÷¿∏∏È º”µµ ¡ı∞°
+		{
+			m_fSpeed += 10;
+			if (CKeyMgr::Get_Instance()->Key_Up(VK_LEFT))//πˆ∆∞ãÛ∏È º”µµ 10¿∏∑Œ∫π±Õ
+			{
+				m_fSpeed = 10.f;
+			}
+		}*/
 
+		m_Dir = false;
 		m_tInfo.fX -= m_fSpeed;
 	}
 	else if (GetAsyncKeyState(VK_RIGHT))
 	{
-		if (GetAsyncKeyState(VK_DOWN))
+		/*if (GetAsyncKeyState(VK_DOWN))
 		{
 			m_tInfo.fX += m_fSpeed / sqrtf(2.f);
 			m_tInfo.fY += m_fSpeed / sqrtf(2.f);
@@ -104,28 +146,30 @@ void CPlayer::KeyInput(void)
 			m_tInfo.fX += m_fSpeed / sqrtf(2.f);
 			m_tInfo.fY -= m_fSpeed / sqrtf(2.f);
 		}
-		else
-			m_tInfo.fX += m_fSpeed;
+		else*/
 
-	}
-	else if (GetAsyncKeyState(VK_UP))
-		m_tInfo.fY -= m_fSpeed;
+		//if (CKeyMgr::Get_Instance()->Key_Down(VK_RIGHT))//¥ÎΩ√ ¥©∏£∞Ì¿÷¿∏∏È º”µµ¡ı∞°
+			//m_fSpeed += 5;
+		//if (CKeyMgr::Get_Instance()->Key_Up(VK_RIGHT))//πˆ∆∞ãÛ∏È º”µµ 10¿∏∑Œ∫π±Õ
+			//m_fSpeed = 10.f;
 
-	else if (GetAsyncKeyState(VK_DOWN))
-		m_tInfo.fY += m_fSpeed;
-
-
-	if (GetAsyncKeyState('Z') & 0x0001)
-	{
-		CObjManager::Instance()->AddObject(OBJ_BULLET, CAbstractFactory<CBullet>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, DIR_RIGHT));
+		m_Dir = true;
+		m_tInfo.fX += m_fSpeed;
 	}
 
-	/*if (GetAsyncKeyState(VK_SPACE) & 0x0001)
+	if (CKeyMgr::Get_Instance()->Key_Down('Z'))
 	{
-		m_bJump = true;
-		return;
-	}*/
-	if (CKeyMgr::Get_Instance()->Key_Up(VK_SPACE))
+		if (m_tPstat.m_Hammer==true&&m_Dir == true)
+		{
+			CObjManager::Instance()->AddObject(OBJ_BULLET, CAbstractFactory<CHammer>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, DIR_RIGHT));
+		}
+		if (m_tPstat.m_Hammer == true && m_Dir == false)
+		{
+			CObjManager::Instance()->AddObject(OBJ_BULLET, CAbstractFactory<CHammer>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, DIR_LEFT));
+		}
+	}
+
+	if (CKeyMgr::Get_Instance()->Key_Down(VK_SPACE))
 	{
 		m_bJump = true;
 		return;

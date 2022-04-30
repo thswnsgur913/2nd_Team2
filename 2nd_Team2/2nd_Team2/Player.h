@@ -1,5 +1,12 @@
 #pragma once
 #include "Obj.h"
+#include "Bullet.h"
+#include "Hammer.h"
+#include "Monster.h"
+#include "Effect.h"
+#include "AbstractFactory.h"
+#include "KeyMgr.h"
+#include "ObjManager.h"
 
 class CPlayer :
 	public CObj
@@ -17,6 +24,7 @@ public:
 	virtual	void CollisionEnter(CObj* _sour);
 
 public:
+	STAT&	Get_Stat(void) { return m_tPstat; }
 
 private:
 	void KeyInput();
@@ -29,5 +37,10 @@ private:
 	bool					m_bJump;		// 점프 상태 확인
 	float					m_fJumpPower;	// 점프 힘
 	float					m_fJumpTime;	// 점프 중 진행 시간
+
+	bool                    m_Dir; //이동 방향 확인
+
+	STAT		            m_tPstat;//플레이어 스테이터스
+
 };
 
