@@ -14,18 +14,19 @@ CBehaviorMonster::~CBehaviorMonster()
 void CBehaviorMonster::Initialize(void)
 {
 	m_tInfo.fX = 700.f;
-	m_tInfo.fY = WINCY - PlayerSize - 10;
+	m_tInfo.fY = 708.f;
+
+	m_tInfo.fCX = 50;
+	m_tInfo.fCY = 50;
+
 	m_iHP = 100;
 	m_iMaxHP = 100;
 
-	m_tInfo.fCX = PlayerSize;
-	m_tInfo.fCY = PlayerSize;
-
-	m_bJump = false;
+	//m_bJump = false;
 	m_fJumpPower = 18.f;
 	m_fJumpTime = 0.f;
 
-	m_fSpeed = 3.f;
+	m_fSpeed = 10.f;
 
 	bossShotTimer = new CTimer;
 
@@ -62,9 +63,9 @@ void CBehaviorMonster::BehaviorEnter()
 
 		originPosition.x = m_tInfo.fX;
 		originPosition.y = m_tInfo.fY;
-		if (200 >= m_targetObj->Get_Info().fX) // 플레이어 X 좌표가 200보다 작을 경우, 돌진공격의 좌표점을 제한해 플레이어가 회피 할 수 있는 공간을 남김.
+		if (300 >= m_targetObj->Get_Info().fX) // 플레이어 X 좌표가 200보다 작을 경우, 돌진공격의 좌표점을 제한해 플레이어가 회피 할 수 있는 공간을 남김.
 		{
-			targetPosition.x = 200;
+			targetPosition.x = 300;
 		}
 		break;
 
@@ -86,10 +87,10 @@ void CBehaviorMonster::BehaviorEnter()
 				return;
 			}
 
-			int shotAngle = 160;
+			int shotAngle = 100;
 			for (int i = 0; i < 3; ++i) {
 				Fire(baseShotAngle + shotAngle);
-				shotAngle -= 20;
+				shotAngle += 20;
 			}
 
 			--m_iShotCount;
@@ -106,10 +107,10 @@ void CBehaviorMonster::BehaviorEnter()
 				return;
 			}
 
-			int shotAngle = 170;
+			int shotAngle = 100;
 			for (int i = 0; i < 5; ++i) {
 				Fire(baseShotAngle + shotAngle);
-				shotAngle -= 15;
+				shotAngle += 15;
 			}
 
 			--m_iShotCount;
@@ -141,7 +142,6 @@ void CBehaviorMonster::BehaviorExecute()
 		break;
 
 	case Pattern2:
-		//Jumping();
 		if (Jumping()) {
 			behaviorState = Exit;
 			return;
@@ -162,26 +162,14 @@ void CBehaviorMonster::BehaviorExecute()
 void CBehaviorMonster::BehaviorExit()
 {
 	switch (currentState) {
-	case Create:
-		currentState = Pattern1;
-		break;
-
 	case Pattern1:
 		currentState = Return;
 		break;
-	
+
+	case Create:
 	case Return:
-		currentState = Pattern2;
-		break;
-
 	case Pattern2:
-		currentState = Pattern3;
-		break;
-
 	case Pattern3:
-		currentState = Pattern4;
-		break;
-
 	case Pattern4:
 		currentState = Idle;
 		break;
