@@ -17,5 +17,9 @@ public:
 	void Release() override;
 	virtual	void CollisionEnter(CObj* _sour);
 
+	void SetPlayerDepth(int); // 백그라운드 색상 변경을 위한 설정
+
+private:
+	int m_playerDepth;
 };
 

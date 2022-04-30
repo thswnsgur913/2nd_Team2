@@ -42,7 +42,8 @@ void CMainGame::Initialize(void)
 	CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(ITEM_CLOCK,	{ 200.f, 200.f }));
 	CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(ITEM_SCORE,	{ 300.f, 200.f }));
 
-	CUIManager::Instance()->AddUI(UI_BACK, CAbstractFactory<CBackUI>::Create());
+	m_backUI = dynamic_cast<CBackUI*>(CAbstractFactory<CBackUI>::Create());
+	CUIManager::Instance()->AddUI(UI_BACK, m_backUI);
 	CUIManager::Instance()->AddUI(UI_FRONT, CAbstractFactory<CFrontUI>::Create());
 
 	CObj* newTimeProgress = CAbstractFactory<CProgressBar>::Create();
@@ -85,7 +86,10 @@ void CMainGame::Update(void)
 		m_player = nullptr;
 	}
 
-	if (CObjManager::Instance()->GetPlayer()) {
+	const int mapHalfHeight = 250;
+
+	if (m_player) {
+		m_backUI->SetPlayerDepth(static_cast<int>((m_player->Get_Info().fY - mapHalfHeight) / 10));
 		m_timer->Update();
 	}
 }

@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "Player.h"
 #include "Item.h"
 #include "MainGame.h"
 
@@ -40,8 +41,14 @@ void CItem::Release() {
 }
 
 void CItem::CollisionEnter(CObj* _sour) {
+	CPlayer* pPlayer = dynamic_cast<CPlayer*>(_sour);
+	
+	if (!pPlayer)
+		return;
+
 	switch (m_type) {
 	case ITEM_LIFE:
+		// pPlayer->LifeUP();
 		CMainGame::Life += 1;
 		break;
 	case ITEM_SUPER:
@@ -53,6 +60,7 @@ void CItem::CollisionEnter(CObj* _sour) {
 		CMainGame::DeadTime += g_dwDeltaTime;
 		break;
 	case ITEM_WEAPON:
+		// pPlayer->SwapWeapon(CPlayer::Hammer);
 		break;
 	}
 

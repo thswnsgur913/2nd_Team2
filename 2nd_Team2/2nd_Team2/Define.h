@@ -22,6 +22,8 @@ class GameClient;
 #define		BOSS_APPEAR_COUNT 15
 #define		ENERMY_PER_SECOND 0.7f
 
+#define		COLOR_LIMIT(x) (x) < 0 ? 0 : ((x > 255) ? 255 : x)
+
 extern HWND			g_hWnd;
 
 extern DWORD g_dwCurrentTime;
