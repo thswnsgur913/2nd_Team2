@@ -9,7 +9,12 @@ private:
 	~CObjManager();
 
 public:
-	CObj* GetPlayer() { return m_ObjList[OBJ_PLAYER].front(); }
+	CObj* GetPlayer() { 
+		if (m_ObjList[OBJ_PLAYER].empty())
+			return nullptr;
+
+		return m_ObjList[OBJ_PLAYER].front(); 
+	}
 
 public:
 	void AddObject(OBJID eID, CObj* pObj);

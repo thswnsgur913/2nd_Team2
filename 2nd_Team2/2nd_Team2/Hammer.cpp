@@ -15,7 +15,7 @@ void CHammer::Initialize()
 	m_tInfo.fCX = 10.f;
 	m_tInfo.fCY = 10.f;
 
-	m_fSpeed = 10.f;
+	m_fSpeed = 12.f;
 
 	Update_Rect();
 
@@ -50,7 +50,8 @@ int CHammer::Update()
 
 void CHammer::Late_Update()
 {
-	if (m_tRect.left < -100 || m_tRect.right > 10000 || m_tRect.top < -100 || m_tRect.bottom > WINCY + 100) {
+	if (m_tRect.left < -100 || m_tRect.right > 15000 || m_tRect.top < -5000 || m_tRect.bottom > 15000) 
+	{
 		m_bDead = true;
 	}
 }
@@ -106,23 +107,23 @@ void CHammer::CollisionEnter(CObj * _sour)
 {
 	CMonster* collisionMonster = dynamic_cast<CMonster*>(_sour);
 
-	if (collisionMonster && m_eBulletType == PLAYER_BULLET && !collisionMonster->GetDead()) {
+	if (collisionMonster && m_eBulletType == PLAYER_BULLET && !collisionMonster->GetDead()) 
+	{
 		collisionMonster->Hit();
 		m_bDead = true;
-
 	}
 }
 
 void CHammer::Throw()
 {
-	float		fY = 500.f;
+	float		fY = 15000.f;
 
 	if (m_bThrow)
 	{
 		m_tInfo.fY -= m_fThrowPower * m_fThrowTime - 9.8f * m_fThrowTime * m_fThrowTime * 0.5f;
 		m_fThrowTime += 0.2f;
 
-		if (WINCY + 100 < m_tInfo.fY)
+		if (fY < m_tInfo.fY)
 		{
 			m_bThrow = false;
 			m_fThrowTime = 0.f;

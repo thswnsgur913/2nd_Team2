@@ -132,9 +132,6 @@
     <ClInclude Include="LinePlat.h">
       <Filter>LineMgr</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>Object\Bullet</Filter>
-    </ClInclude>
     <ClInclude Include="Hammer.h">
       <Filter>Object\Bullet\Hammer</Filter>
     </ClInclude>
@@ -152,6 +149,9 @@
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Object\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
