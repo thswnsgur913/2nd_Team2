@@ -28,7 +28,7 @@ public :
 		pObj->Initialize();
 		pObj->Set_pos(_fX, _fY);
 
-		if (DIR_END >= _eDir)
+	if (DIR_END >= _eDir)
 		{
 			pObj->Set_Dir(_eDir);
 		}

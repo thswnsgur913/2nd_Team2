@@ -12,7 +12,7 @@
 
 #define		OBJ_NOEVENT	0	
 #define		OBJ_DEAD	1
-#define		PlayerSize  100
+#define		PlayerSize  50
 
 #define		TIMESCALE	0.1f
 #define		TICKSCALE	TIMESCALE * 0.1f

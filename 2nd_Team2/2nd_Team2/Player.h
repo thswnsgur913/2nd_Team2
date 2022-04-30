@@ -1,6 +1,13 @@
 #pragma once
 #include "Obj.h"
 #include "ScrollMgr.h"
+#include "Bullet.h"
+#include "Hammer.h"
+#include "Monster.h"
+#include "Effect.h"
+#include "AbstractFactory.h"
+#include "KeyMgr.h"
+#include "ObjManager.h"
 
 class CPlayer :
 	public CObj
@@ -18,6 +25,7 @@ public:
 	virtual	void CollisionEnter(CObj* _sour);
 
 public:
+	STAT&	Get_Stat(void) { return m_tPstat; }
 
 private:
 	void KeyInput();
@@ -25,11 +33,15 @@ private:
 	void		OffSet(void);
 
 private:
-	list<CObj*>* m_bulletList; // ì´ì•Œ ë¦¬ìŠ¤íŠ¸
-	list<CObj*>* m_MonsterList; // ëª¬ìŠ¤í„° ë¦¬ìŠ¤íŠ¸
+	list<CObj*>* m_bulletList; // ÃÑ¾Ë ¸®½ºÆ®
+	list<CObj*>* m_MonsterList; // ¸ó½ºÅÍ ¸®½ºÆ®
 
-	bool					m_bJump;		// ì í”„ ìƒíƒœ í™•ì¸
-	float					m_fJumpPower;	// ì í”„ í˜
-	float					m_fJumpTime;	// ì í”„ ì¤‘ ì§„í–‰ ì‹œê°„
+	bool					m_bJump;		// Á¡ÇÁ »óÅÂ È®ÀÎ
+	float					m_fJumpPower;	// Á¡ÇÁ Èû
+	float					m_fJumpTime;	// Á¡ÇÁ Áß ÁøÇà ½Ã°£
+	bool                    m_Dir; //ÀÌµ¿ ¹æÇâ È®ÀÎ
+
+	STAT		            m_tPstat; //ÇÃ·¹ÀÌ¾î ½ºÅ×ÀÌÅÍ½º
+
 };
 

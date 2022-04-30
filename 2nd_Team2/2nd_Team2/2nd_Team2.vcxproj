@@ -156,6 +156,7 @@
     <ClInclude Include="FrontUI.h" />
     <ClInclude Include="Functor.h" />
     <ClInclude Include="GameClient.h" />
+    <ClInclude Include="Hammer.h" />
     <ClInclude Include="Include.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="KeyMgr.h" />
@@ -186,6 +187,7 @@
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="FrontUI.cpp" />
     <ClCompile Include="GameClient.cpp" />
+    <ClCompile Include="Hammer.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="KeyMgr.cpp" />
     <ClCompile Include="Line.cpp" />
