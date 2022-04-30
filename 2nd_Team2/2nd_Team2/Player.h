@@ -8,6 +8,7 @@
 #include "AbstractFactory.h"
 #include "KeyMgr.h"
 #include "ObjManager.h"
+#include "LinePlat.h"
 
 class CPlayer :
 	public CObj
@@ -24,8 +25,10 @@ public:
 	virtual void Release(void) override;
 	virtual	void CollisionEnter(CObj* _sour);
 
+
 public:
 	STAT&	Get_Stat(void) { return m_tPstat; }
+	void    Set_line(CLinePlat* Line) { m_Line = Line; }
 
 private:
 	void KeyInput();
@@ -42,6 +45,6 @@ private:
 	bool                    m_Dir; //이동 방향 확인
 
 	STAT		            m_tPstat; //플레이어 스테이터스
-
+	CLinePlat*              m_Line;
 };
 

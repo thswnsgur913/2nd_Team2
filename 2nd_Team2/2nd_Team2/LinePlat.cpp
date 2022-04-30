@@ -38,7 +38,7 @@ bool CLinePlat::Collision_Line(float & fXX, float * pY)// 여기서 fXX는 플레이어�
 
 	// 플레이어가 라인범위에 있는지 검사.
 	CLine* pLine = new CLine;
-
+	
 	for (auto& iter : m_LineList)
 	{
 		if ((fXX >= iter->Get_LINE().tLPoint.fX) && (fXX <= iter->Get_LINE().tRPoint.fX))
@@ -46,7 +46,7 @@ bool CLinePlat::Collision_Line(float & fXX, float * pY)// 여기서 fXX는 플레이어�
 			pLine = iter;
 		}
 	}
-
+	
 	if (!pLine)
 		return false;
 
@@ -234,7 +234,7 @@ void CLinePlat::Create_Underground(void)
 
 	};
 
-	for (int i = 0; i < 33; ++i)
+	for (int i = 0; i < 28; ++i)
 	{
 		m_LineList.push_back(new CLine(LLinePoint[i], LLinePoint[i + 1]));
 	}
