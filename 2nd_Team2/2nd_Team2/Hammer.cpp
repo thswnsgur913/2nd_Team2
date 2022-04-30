@@ -15,12 +15,12 @@ void CHammer::Initialize()
 	m_tInfo.fCX = 10.f;
 	m_tInfo.fCY = 10.f;
 
-	m_fSpeed = 10.f;
+	m_fSpeed = 7.f;
 
 	Update_Rect();
 
 	m_bThrow = true;
-	m_fThrowPower = 20.f;
+	m_fThrowPower = 15.f;
 	m_fThrowTime = 0.f;
 }
 
@@ -120,7 +120,7 @@ void CHammer::Throw()
 	if (m_bThrow)
 	{
 		m_tInfo.fY -= m_fThrowPower * m_fThrowTime - 9.8f * m_fThrowTime * m_fThrowTime * 0.5f;
-		m_fThrowTime += 0.2f;
+		m_fThrowTime += 0.1f;
 
 		if (WINCY + 100 < m_tInfo.fY)
 		{

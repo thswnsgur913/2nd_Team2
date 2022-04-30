@@ -25,8 +25,8 @@ public:
 	virtual void Throw();
 
 private:
-	INFO m_tDir;
-	BULLET_TYPE m_eBulletType;
+	/*INFO m_tDir;
+	BULLET_TYPE m_eBulletType;*/
 
 	bool					m_bThrow;		// 던지기 상태 확인
 	float					m_fThrowPower;	// 던지기 힘

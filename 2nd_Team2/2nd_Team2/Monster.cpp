@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Monster.h"
 #include "AbstractFactory.h"
-#include "Bullet.h"
+#include "Hammer.h"
 #include "Effect.h"
 #include "MainGame.h"
 
@@ -85,12 +85,12 @@ bool CMonster::TargetMove() {
 	return false;
 }
 
-void CMonster::Fire(const int _degree) {
+void CMonster::Fire(const int _degree, DIRECTION _Dir) {
 	int iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
 	int iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();
-	CObj* newBullet = CAbstractFactory<CBullet>::Create(static_cast<float>(m_tRect.left + iScrollX), static_cast<float>((m_tRect.bottom + iScrollY) - (m_tInfo.fCY / 2)));
+	CObj* newBullet = CAbstractFactory<CHammer>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, _Dir);
 
-	CBullet* BulletObj = dynamic_cast<CBullet*>(newBullet);
+	CBullet* BulletObj = dynamic_cast<CHammer*>(newBullet);
 	BulletObj->SetType(MONSTER_BULLET);
 	BulletObj->SetDirection(cosf(_degree * RADIAN), sinf(_degree * RADIAN));
 

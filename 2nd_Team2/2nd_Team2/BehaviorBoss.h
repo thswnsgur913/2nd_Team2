@@ -21,6 +21,9 @@ public:
 private:
 	bool Jumping();
 	void RandomPattern();
+	bool Dir();
+	void ShootPattern3();
+	void ShootPattern4();
 
 private:
 	enum State {
