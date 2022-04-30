@@ -42,6 +42,8 @@ int CPlayer::Update(void)
 	KeyInput();
 	Jumping();
 
+	OffSet();
+
 	Update_Rect();
 
 	return OBJ_NOEVENT;
@@ -62,6 +64,8 @@ void CPlayer::Render(HDC hDC)
 	Ellipse(hDC, m_tInfo.fX-75, m_tInfo.fY, m_tInfo.fX+75, m_tInfo.fY -150);//머리
 	Ellipse(hDC, m_tInfo.fX-80, m_tInfo.fY-10, m_tInfo.fX-30, m_tInfo.fY+40);//왼팔
 
+	int		iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
+	Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 }
 
 void CPlayer::Release(void)
@@ -161,4 +165,28 @@ void CPlayer::Jumping(void)
 	{
 		m_tInfo.fY = fY;
 	}*/
+}
+
+void CPlayer::OffSet(void)
+{
+	int		iOffSetX = WINCX >> 1;
+	int     iOffSetY = WINCY >> 1;
+	int		iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
+	int     iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();
+	int		iItv = 30;
+	int     iItv2 = 50;
+
+
+	if (iOffSetX - iItv > m_tInfo.fX + iScrollX)
+		CScrollMgr::Get_Scroll()->Set_ScrollX(m_fSpeed);
+
+	// 라인 체크용.
+	if (iOffSetX + iItv < m_tInfo.fX + iScrollX)
+		CScrollMgr::Get_Scroll()->Set_ScrollX(-m_fSpeed);
+
+	if (iOffSetY - iItv2 > m_tInfo.fY + iScrollY)
+		CScrollMgr::Get_Scroll()->Set_ScrollY(m_fSpeed);
+
+	if (iOffSetY + iItv2 < m_tInfo.fY + iScrollY)
+		CScrollMgr::Get_Scroll()->Set_ScrollY(-m_fSpeed);
 }

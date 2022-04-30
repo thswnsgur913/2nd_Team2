@@ -60,6 +60,10 @@ void CMainGame::Initialize(void)
 	m_timer->StartTimer(ENERMY_PER_SECOND, [&]() {
 	
 	});
+
+	CLinePlat* plat = new CLinePlat;
+	plat->Initialize();
+	m_map.push_back(plat);
 }
 
 void CMainGame::Update(void)
@@ -77,6 +81,9 @@ void CMainGame::Update(void)
 	if (CObjManager::Instance()->GetPlayer()) {
 		m_timer->Update();
 	}
+
+	
+
 }
 
 void CMainGame::Late_Update(void)
@@ -91,10 +98,16 @@ void CMainGame::Render(HDC hdc)
 	CObjManager::Instance()->Render(hdc);
 
 	CUIManager::Instance()->FrontRender(hdc);
+
+	for (auto& plat : m_map) {
+		plat->Render(hdc);
+	}
+
 }
 
 void CMainGame::Release(void)
 {
 	CObjManager::Instance()->Destroy();
 	CUIManager::Instance()->Destroy();	
+	CScrollMgr::Get_Scroll()->Destroy_Scroll();
 }

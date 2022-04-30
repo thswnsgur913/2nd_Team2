@@ -28,6 +28,15 @@
     <Filter Include="Scene">
       <UniqueIdentifier>{e8f0229a-9c16-491c-9f87-df81903cd402}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LineMgr">
+      <UniqueIdentifier>{ff993f00-c0f1-42f6-84fc-1ba8211d91b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LineMgr\Line">
+      <UniqueIdentifier>{c76388ad-c9b4-4575-8cf0-52f3953c9908}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ScrollMgr">
+      <UniqueIdentifier>{c95b2bc3-679c-45fa-9e2d-2294c578098d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -120,6 +129,15 @@
     <ClInclude Include="TitleScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Line.h">
+      <Filter>LineMgr\Line</Filter>
+    </ClInclude>
+    <ClInclude Include="ScrollMgr.h">
+      <Filter>ScrollMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="LinePlat.h">
+      <Filter>LineMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -184,6 +202,15 @@
     </ClCompile>
     <ClCompile Include="TitleScene.cpp">
       <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Line.cpp">
+      <Filter>LineMgr\Line</Filter>
+    </ClCompile>
+    <ClCompile Include="ScrollMgr.cpp">
+      <Filter>ScrollMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="LinePlat.cpp">
+      <Filter>LineMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

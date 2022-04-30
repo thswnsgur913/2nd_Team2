@@ -6,8 +6,11 @@
 #include "ObjManager.h"
 #include "UIManager.h"
 #include "Timer.h"
+#include "LinePlat.h"
+#include "ScrollMgr.h"
 
 #include "ProgressBar.h"
+
 
 class CMainGame : public CScene {
 public:
@@ -49,5 +52,7 @@ private:
 	bool m_debug;
 
 	float m_test;
+
+	list<CLinePlat*> m_map;
 };
 
