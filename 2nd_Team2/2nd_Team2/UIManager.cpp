@@ -63,7 +63,7 @@ void CUIManager::DebugRender(HDC hDC) {
 }
 
 void CUIManager::Release(void) {
-	for (int i = 0; i < OBJ_END; ++i) {
+	for (int i = 0; i < UI_END; ++i) {
 		for (auto& iter : m_UIList[i])
 			Safe_Delete<CObj*>(iter);
 

@@ -1,5 +1,7 @@
 #pragma once
 
+class GameClient;
+
 #define		WINCX		1024
 #define		WINCY		768
 
@@ -24,3 +26,4 @@ extern HWND			g_hWnd;
 
 extern DWORD g_dwCurrentTime;
 extern DWORD g_dwDeltaTime;
+extern GameClient* g_gameClient;

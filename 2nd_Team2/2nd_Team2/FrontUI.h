@@ -1,5 +1,9 @@
 #pragma once
+
 #include "Obj.h"
+
+// MainGame Front UI
+
 class CFrontUI : public CObj
 {
 public:
