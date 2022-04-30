@@ -50,13 +50,16 @@ int CHammer::Update()
 
 void CHammer::Late_Update()
 {
-	if (m_tRect.left < -100 || m_tRect.right > WINCX + 100 || m_tRect.top < -100 || m_tRect.bottom > WINCY + 100) {
+	if (m_tRect.left < -100 || m_tRect.right > 10000 || m_tRect.top < -100 || m_tRect.bottom > WINCY + 100) {
 		m_bDead = true;
 	}
 }
 
 void CHammer::Render(HDC hDC)
 {
+	int	iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
+	int	iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();
+
 	HBRUSH brush;
 	HPEN pen;
 
@@ -67,11 +70,11 @@ void CHammer::Render(HDC hDC)
 
 	if (m_eDir == DIR_RIGHT)
 	{
-		Rectangle(hDC, m_tRect.left - 40, m_tRect.top, m_tRect.right - 40, m_tRect.bottom - 50);
+		Rectangle(hDC, m_tRect.left - 40 + iScrollX, m_tRect.top + iScrollY, m_tRect.right - 40 + iScrollX, m_tRect.bottom - 50 + iScrollY);
 	}
 	else
 	{
-		Rectangle(hDC, m_tRect.left + 40, m_tRect.top, m_tRect.right +40, m_tRect.bottom - 50);
+		Rectangle(hDC, m_tRect.left + 40 + iScrollX, m_tRect.top + iScrollY, m_tRect.right +40 + iScrollX, m_tRect.bottom - 50 + iScrollY);
 	}
 
 	pen = CreatePen(PS_SOLID, 3, RGB(0, 0, 0));
@@ -81,11 +84,11 @@ void CHammer::Render(HDC hDC)
 
 	if (m_eDir == DIR_RIGHT)
 	{
-		Rectangle(hDC, m_tRect.left - 70, m_tRect.top - 40, m_tRect.right - 10, m_tRect.bottom - 100);
+		Rectangle(hDC, m_tRect.left - 70 + iScrollX, m_tRect.top - 40 + iScrollY, m_tRect.right - 10 + iScrollX, m_tRect.bottom - 100 + iScrollY);
 	}
 	else
 	{
-		Rectangle(hDC, m_tRect.left + 10, m_tRect.top - 40, m_tRect.right + 70, m_tRect.bottom - 100);
+		Rectangle(hDC, m_tRect.left + 10 + iScrollX, m_tRect.top - 40 + iScrollY, m_tRect.right + 70 + iScrollX, m_tRect.bottom - 100 + iScrollY);
 	}
 
 	DeleteObject(pen);

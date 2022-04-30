@@ -69,6 +69,9 @@ void CMainGame::Initialize(void)
 	CLinePlat* plat = new CLinePlat;
 	plat->Initialize();
 	m_map.push_back(plat);
+	
+	dynamic_cast<CPlayer*>(m_player)->Set_line(plat);
+
 }
 
 void CMainGame::Update(void)
