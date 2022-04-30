@@ -11,11 +11,10 @@ public:
 	int Update() override;
 	void Late_Update() override;
 
-	void SetBulletList(std::list<CObj*>* _pList) { m_bulletList = _pList; };
 	void SetAppearPosition(const float _x, const float _y) { appearPosition = { _x, _y }; };
 
 	void CollisionEnter(CObj* _sour);
-	void BehaviorStart(CObj*, std::list<CObj*>*, std::list<CObj*>*, std::list<CObj*>*);
+	void BehaviorStart(CObj*);
 
 	int GetScore() { return m_iScore; }
 
@@ -31,6 +30,7 @@ protected:
 	void EffectRender();
 
 	void BehaviorUpdate();
+	virtual void Render(HDC hDC) PURE;
 	virtual void BehaviorEnter() PURE;
 	virtual void BehaviorExecute() PURE;
 	virtual void BehaviorExit() PURE;
@@ -53,10 +53,6 @@ protected:
 	Vector2D appearPosition; // 생성후 이동할 위치
 
 	Behavior behaviorState;
-
-	std::list<CObj*>* m_bulletList;
-	std::list<CObj*>* m_itemList;
-	std::list<CObj*>* m_effectList;
 	
 	bool m_bAIStart;
 	bool m_bDisplayInfo;

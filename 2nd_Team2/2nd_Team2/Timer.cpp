@@ -22,6 +22,9 @@ void CTimer::StartTimer(const float _repeatRateSecond, std::function<void()> _pC
 }
 
 void CTimer::Update() {
+	if (!pExcuteCallBack)
+		return;
+
 	if (1 <= g_dwCurrentTime - m_iCurrentTime) {
 		m_iCurrentCount += TIMESCALE;
 

@@ -48,6 +48,7 @@ private:
 
 	CObj* m_player;
 	CProgressBar* m_timeProgress;
+	CObj* m_monster;
 
 	bool m_debug;
 

@@ -29,7 +29,7 @@ void CBackUI::Late_Update() {
 void CBackUI::Render(HDC hdc) {
 	HBRUSH	brush;
 	HGDIOBJ h_old_brush;
-	brush = CreateSolidBrush(RGB(0, 0, 105));
+	brush = CreateSolidBrush(RGB(154, 212, 247));
 	h_old_brush = SelectObject(hdc, brush);
 	Rectangle(hdc, 0, 0, WINCX, WINCY);
 	SelectObject(hdc, h_old_brush);
