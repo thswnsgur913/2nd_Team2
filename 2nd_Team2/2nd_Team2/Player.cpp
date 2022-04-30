@@ -58,6 +58,9 @@ void CPlayer::Late_Update(void)
 
 void CPlayer::Render(HDC hDC)
 {
+	int	iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
+	//Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
+
 	if (m_Dir == true)
 	{
 		/*Ellipse(hDC, m_tInfo.fX - 70, m_tInfo.fY + 40, m_tInfo.fX - 10, m_tInfo.fY + 110);//¿À¸¥¹ß
@@ -66,12 +69,12 @@ void CPlayer::Render(HDC hDC)
 		Ellipse(hDC, m_tInfo.fX - 75, m_tInfo.fY, m_tInfo.fX + 75, m_tInfo.fY - 150);//¸Ó¸®
 		Ellipse(hDC, m_tInfo.fX - 80, m_tInfo.fY - 10, m_tInfo.fX - 30, m_tInfo.fY + 40);//¿ÞÆÈ*/
 
-		Ellipse(hDC, m_tRect.left-20, m_tRect.top+40, m_tRect.right-30, m_tRect.bottom+35);//¿Þ¹ß
-		Ellipse(hDC, m_tRect.left+30 , m_tRect.top + 40, m_tRect.right+30, m_tRect.bottom+20);//¿À¸¥¹ß
-		Ellipse(hDC, m_tRect.left+40, m_tRect.top+10, m_tRect.right+20, m_tRect.bottom-10);//¿À¸¥ÆÈ
-		Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);//¸öÅë
-		Ellipse(hDC, m_tRect.left-15, m_tRect.top-60, m_tRect.right+15, m_tRect.bottom-30);//¸Ó¸®
-		Ellipse(hDC, m_tRect.left-20, m_tRect.top+10, m_tRect.right-40, m_tRect.bottom-10);//¿ÞÆÈ
+		Ellipse(hDC, m_tRect.left + iScrollX - 20, m_tRect.top + 40, m_tRect.right + iScrollX - 30, m_tRect.bottom + 35);//¿Þ¹ß
+		Ellipse(hDC, m_tRect.left + iScrollX + 30, m_tRect.top + 40, m_tRect.right + iScrollX + 30, m_tRect.bottom + 20);//¿À¸¥¹ß
+		Ellipse(hDC, m_tRect.left + iScrollX + 40, m_tRect.top + 10, m_tRect.right + iScrollX + 20, m_tRect.bottom - 10);//¿À¸¥ÆÈ
+		Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);//¸öÅë
+		Ellipse(hDC, m_tRect.left + iScrollX - 15, m_tRect.top - 60, m_tRect.right + iScrollX + 15, m_tRect.bottom - 30);//¸Ó¸®
+		Ellipse(hDC, m_tRect.left + iScrollX - 20, m_tRect.top + 10, m_tRect.right + iScrollX - 40, m_tRect.bottom - 10);//¿ÞÆÈ
 	    //¿À¸¥ÂÊÀÌµ¿ ·£´õ
 	}
 	if (m_Dir == false)
@@ -82,17 +85,14 @@ void CPlayer::Render(HDC hDC)
 		Ellipse(hDC, m_tInfo.fX - 75, m_tInfo.fY, m_tInfo.fX + 75, m_tInfo.fY - 150);//¸Ó¸®
 		Ellipse(hDC, m_tInfo.fX + 80, m_tInfo.fY - 10, m_tInfo.fX + 30, m_tInfo.fY + 40);//¿À¸¥ÆÈ*/
 
-		Ellipse(hDC, m_tRect.left - 30, m_tRect.top + 40, m_tRect.right - 30, m_tRect.bottom + 20);//¿Þ¹ß
-		Ellipse(hDC, m_tRect.left + 30, m_tRect.top + 40, m_tRect.right + 20, m_tRect.bottom + 35);//¿À¸¥¹ß
-		Ellipse(hDC, m_tRect.left - 20, m_tRect.top + 10, m_tRect.right - 40, m_tRect.bottom - 10);//¿ÞÆÈ
-		Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);//¸öÅë
-		Ellipse(hDC, m_tRect.left - 15, m_tRect.top - 60, m_tRect.right + 15, m_tRect.bottom - 30);//¸Ó¸®
-		Ellipse(hDC, m_tRect.left + 40, m_tRect.top + 10, m_tRect.right + 20, m_tRect.bottom - 10);//¿À¸¥ÆÈ
+		Ellipse(hDC, m_tRect.left + iScrollX - 30, m_tRect.top + 40, m_tRect.right + iScrollX - 30, m_tRect.bottom + 20);//¿Þ¹ß
+		Ellipse(hDC, m_tRect.left + iScrollX + 30, m_tRect.top + 40, m_tRect.right + iScrollX + 20, m_tRect.bottom + 35);//¿À¸¥¹ß
+		Ellipse(hDC, m_tRect.left + iScrollX - 20, m_tRect.top + 10, m_tRect.right + iScrollX - 40, m_tRect.bottom - 10);//¿ÞÆÈ
+		Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);//¸öÅë
+		Ellipse(hDC, m_tRect.left + iScrollX - 15, m_tRect.top - 60, m_tRect.right + iScrollX + 15, m_tRect.bottom - 30);//¸Ó¸®
+		Ellipse(hDC, m_tRect.left + iScrollX + 40, m_tRect.top + 10, m_tRect.right + iScrollX + 20, m_tRect.bottom - 10);//¿À¸¥ÆÈ
 		//¿ÞÂÊÀÌµ¿·»´õ
 	}
-
-	int	iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
-	Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 
 }
 

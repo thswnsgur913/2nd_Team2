@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "BehaviorMonster.h"
+#include "ScrollMgr.h"
 
 
 CBehaviorMonster::CBehaviorMonster()
@@ -14,7 +15,7 @@ CBehaviorMonster::~CBehaviorMonster()
 void CBehaviorMonster::Initialize(void)
 {
 	m_tInfo.fX = 700.f;
-	m_tInfo.fY = 708.f;
+	m_tInfo.fY = 500.f;
 
 	m_tInfo.fCX = 50;
 	m_tInfo.fCY = 50;
@@ -39,7 +40,9 @@ void CBehaviorMonster::Release(void)
 
 void CBehaviorMonster::Render(HDC hDC)
 {
-	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	int	iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
+	Rectangle(hDC, (m_tRect.left + iScrollX), (m_tRect.top), (m_tRect.right + iScrollX), (m_tRect.bottom));
+	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 }
 
 void CBehaviorMonster::BehaviorEnter()
