@@ -19,7 +19,7 @@ public:
 	virtual void BehaviorExit() override;
 
 private:
-	void Jumping();
+	bool Jumping();
 	void RandomPattern();
 
 private:
@@ -40,5 +40,7 @@ private:
 	int patternAngle;
 
 	int m_iShotCount;
+
+	float fY;
 };
 

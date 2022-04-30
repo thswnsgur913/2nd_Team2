@@ -22,7 +22,7 @@ void CBehaviorMonster::Initialize(void)
 	m_tInfo.fCY = PlayerSize;
 
 	m_bJump = false;
-	m_fJumpPower = 15.f;
+	m_fJumpPower = 18.f;
 	m_fJumpTime = 0.f;
 
 	m_fSpeed = 3.f;
@@ -62,6 +62,10 @@ void CBehaviorMonster::BehaviorEnter()
 
 		originPosition.x = m_tInfo.fX;
 		originPosition.y = m_tInfo.fY;
+		if (200 >= m_targetObj->Get_Info().fX) // 플레이어 X 좌표가 200보다 작을 경우, 돌진공격의 좌표점을 제한해 플레이어가 회피 할 수 있는 공간을 남김.
+		{
+			targetPosition.x = 200;
+		}
 		break;
 
 	case Return:
@@ -70,7 +74,7 @@ void CBehaviorMonster::BehaviorEnter()
 		break;
 
 	case Pattern2:
-		//Jumping();
+		fY = m_tInfo.fY;
 		break;
 
 	case Pattern3: {
@@ -82,10 +86,10 @@ void CBehaviorMonster::BehaviorEnter()
 				return;
 			}
 
-			int shotAngle = 140;
+			int shotAngle = 160;
 			for (int i = 0; i < 3; ++i) {
 				Fire(baseShotAngle + shotAngle);
-				shotAngle -= 10;
+				shotAngle -= 20;
 			}
 
 			--m_iShotCount;
@@ -102,10 +106,10 @@ void CBehaviorMonster::BehaviorEnter()
 				return;
 			}
 
-			int shotAngle = 155;
+			int shotAngle = 170;
 			for (int i = 0; i < 5; ++i) {
 				Fire(baseShotAngle + shotAngle);
-				shotAngle -= 10;
+				shotAngle -= 15;
 			}
 
 			--m_iShotCount;
@@ -129,9 +133,16 @@ void CBehaviorMonster::BehaviorExecute()
 		break;
 
 	case Pattern1:
-	case Pattern2:
 	case Return:
 		if (TargetMove()) {
+			behaviorState = Exit;
+			return;
+		}
+		break;
+
+	case Pattern2:
+		//Jumping();
+		if (Jumping()) {
 			behaviorState = Exit;
 			return;
 		}
@@ -183,24 +194,25 @@ void CBehaviorMonster::BehaviorExit()
 	behaviorState = Enter;
 }
 
-void CBehaviorMonster::Jumping()
+bool CBehaviorMonster::Jumping()
 {
-	float		fY = 0.f;
 
 	//bool		bLineCol = CLineMgr::Get_Instance()->Collision_Line(m_tInfo.fX, &fY);
 
-	if (m_bJump)
-	{
-		targetPosition.y -= m_fJumpPower * m_fJumpTime - 9.8f * m_fJumpTime * m_fJumpTime * 0.5f;
-		m_fJumpTime += 0.2f;
+	//if (m_bJump)
+	//{
+		m_tInfo.fY -= m_fJumpPower * m_fJumpTime - 9.8f * m_fJumpTime * m_fJumpTime * 0.5f;
+		m_fJumpTime += 0.1f;
 
-		/*if (bLineCol && (fY < targetPosition.y))
+		if (/*bLineCol &&*/ (fY < m_tInfo.fY))
 		{
-			m_bJump = false;
+			//m_bJump = false;
 			m_fJumpTime = 0.f;
-			targetPosition.y = fY;
-		}*/
-	}
+			m_tInfo.fY = fY;
+			return true;
+		}
+		return false;
+	//}
 	/*else if (bLineCol)
 	{
 		targetPosition.y = fY;
