@@ -14,9 +14,8 @@ CBehaviorBoss::~CBehaviorBoss()
 
 void CBehaviorBoss::Initialize(void)
 {
-
 	m_tInfo.fX = 700.f;
-	m_tInfo.fY = 600.f;
+	m_tInfo.fY = 300.f;
 
 	m_tInfo.fCX = 50;
 	m_tInfo.fCY = 50;
@@ -154,27 +153,23 @@ void CBehaviorBoss::BehaviorExit()
 
 bool CBehaviorBoss::Jumping()
 {
+	//fY = m_tInfo.fY;
+	//bool bLineCol = m_Line->Collision_Line(m_tInfo.fX, &fY);
 
-	//bool		bLineCol = CLineMgr::Get_Instance()->Collision_Line(m_tInfo.fX, &fY);
+	m_tInfo.fY -= m_fJumpPower * m_fJumpTime - 9.8f * m_fJumpTime * m_fJumpTime * 0.5f;
+	m_fJumpTime += 0.1f;
 
-	//if (m_bJump)
-	//{
-		m_tInfo.fY -= m_fJumpPower * m_fJumpTime - 9.8f * m_fJumpTime * m_fJumpTime * 0.5f;
-		m_fJumpTime += 0.1f;
-
-		if (/*bLineCol &&*/ (fY < m_tInfo.fY))
-		{
-			//m_bJump = false;
-			m_fJumpTime = 0.f;
-			m_tInfo.fY = fY;
-			return true;
-		}
-		return false;
-	//}
+	if (/*bLineCol &&*/ (fY < m_tInfo.fY))
+	{
+		m_fJumpTime = 0.f;
+		m_tInfo.fY = fY;
+		return true;
+	}
 	/*else if (bLineCol)
 	{
-		targetPosition.y = fY;
+		m_tInfo.fY = fY;
 	}*/
+	return false;
 }
 
 void CBehaviorBoss::RandomPattern()
