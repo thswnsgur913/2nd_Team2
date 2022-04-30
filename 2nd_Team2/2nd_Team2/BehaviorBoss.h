@@ -1,6 +1,7 @@
 #pragma once
 #include "Monster.h"
 #include "Timer.h"
+#include "LinePlat.h"
 class CBehaviorBoss :
 	public CMonster
 {
@@ -18,9 +19,14 @@ public:
 	virtual void BehaviorExecute() override;
 	virtual void BehaviorExit() override;
 
+	//void    Set_line(CLinePlat* Line) { m_Line = Line; }
+
 private:
 	bool Jumping();
 	void RandomPattern();
+	bool Dir();
+	void ShootPattern3();
+	void ShootPattern4();
 
 private:
 	enum State {
@@ -36,6 +42,8 @@ private:
 	State currentState;
 
 	CTimer* bossShotTimer;
+
+	//CLinePlat* m_Line;
 
 	int patternAngle;
 

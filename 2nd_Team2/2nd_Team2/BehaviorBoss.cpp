@@ -14,9 +14,8 @@ CBehaviorBoss::~CBehaviorBoss()
 
 void CBehaviorBoss::Initialize(void)
 {
-
 	m_tInfo.fX = 700.f;
-	m_tInfo.fY = 600.f;
+	m_tInfo.fY = 300.f;
 
 	m_tInfo.fCX = 50;
 	m_tInfo.fCY = 50;
@@ -24,7 +23,6 @@ void CBehaviorBoss::Initialize(void)
 	m_iHP = 100;
 	m_iMaxHP = 100;
 
-	//m_bJump = false;
 	m_fJumpPower = 18.f;
 	m_fJumpTime = 0.f;
 
@@ -44,13 +42,10 @@ void CBehaviorBoss::Render(HDC hDC)
 	int iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
 	int iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();
 	Rectangle(hDC, (m_tRect.left + iScrollX), (m_tRect.top + iScrollY), (m_tRect.right + iScrollX), (m_tRect.bottom + iScrollY));
-	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 }
 
 void CBehaviorBoss::BehaviorEnter()
 {
-	int iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();
-
 	if (!m_targetObj)
 		return;
 
@@ -66,7 +61,7 @@ void CBehaviorBoss::BehaviorEnter()
 
 	case Pattern1:
 		targetPosition.x = m_targetObj->Get_Info().fX;
-		targetPosition.y = (m_targetObj->Get_Info().fY - iScrollY);
+		targetPosition.y = (m_targetObj->Get_Info().fY);
 
 		originPosition.x = m_tInfo.fX;
 		originPosition.y = m_tInfo.fY;
@@ -85,48 +80,15 @@ void CBehaviorBoss::BehaviorEnter()
 		fY = m_tInfo.fY;
 		break;
 
-	case Pattern3: {
+	case Pattern3:
+		bossShotTimer->StartTimer(0.5f, [&]() { ShootPattern3(); });
+		break;
 
-		m_iShotCount = 1;
-		bossShotTimer->StartTimer(0.5f, [&]() {
-			if (m_iShotCount <= 0) {
-				behaviorState = Exit;
-				return;
-			}
+	case Pattern4:
+		bossShotTimer->StartTimer(0.5f, [&]() { ShootPattern4(); });
+		break;
 
-			int shotAngle = 100;
-			for (int i = 0; i < 3; ++i) {
-				Fire(baseShotAngle + shotAngle);
-				shotAngle += 20;
-			}
-
-			--m_iShotCount;
-		});
-	}
-				   break;
-
-	case Pattern4: {
-
-		m_iShotCount = 1;
-		bossShotTimer->StartTimer(0.5f, [&]() {
-			if (m_iShotCount <= 0) {
-				behaviorState = Exit;
-				return;
-			}
-
-			int shotAngle = 100;
-			for (int i = 0; i < 5; ++i) {
-				Fire(baseShotAngle + shotAngle);
-				shotAngle += 15;
-			}
-
-			--m_iShotCount;
-		});
-	}
-				   break;
-
-	case Idle:
-		
+	case Idle:		
 		break;
 	}
 
@@ -191,27 +153,23 @@ void CBehaviorBoss::BehaviorExit()
 
 bool CBehaviorBoss::Jumping()
 {
+	//fY = m_tInfo.fY;
+	//bool bLineCol = m_Line->Collision_Line(m_tInfo.fX, &fY);
 
-	//bool		bLineCol = CLineMgr::Get_Instance()->Collision_Line(m_tInfo.fX, &fY);
+	m_tInfo.fY -= m_fJumpPower * m_fJumpTime - 9.8f * m_fJumpTime * m_fJumpTime * 0.5f;
+	m_fJumpTime += 0.1f;
 
-	//if (m_bJump)
-	//{
-		m_tInfo.fY -= m_fJumpPower * m_fJumpTime - 9.8f * m_fJumpTime * m_fJumpTime * 0.5f;
-		m_fJumpTime += 0.1f;
-
-		if (/*bLineCol &&*/ (fY < m_tInfo.fY))
-		{
-			//m_bJump = false;
-			m_fJumpTime = 0.f;
-			m_tInfo.fY = fY;
-			return true;
-		}
-		return false;
-	//}
+	if (/*bLineCol &&*/ (fY < m_tInfo.fY))
+	{
+		m_fJumpTime = 0.f;
+		m_tInfo.fY = fY;
+		return true;
+	}
 	/*else if (bLineCol)
 	{
-		targetPosition.y = fY;
+		m_tInfo.fY = fY;
 	}*/
+	return false;
 }
 
 void CBehaviorBoss::RandomPattern()
@@ -238,4 +196,64 @@ void CBehaviorBoss::RandomPattern()
 		currentState = Pattern4;
 		return;
 	}
+}
+
+bool CBehaviorBoss::Dir()
+{
+	if (m_tInfo.fX > m_targetObj->Get_Info().fX)
+	{
+		return true; // 몬스터가 우측에
+	}
+	else
+	{
+		return false; // 몬스터가 좌측에
+	}
+}
+
+void CBehaviorBoss::ShootPattern3()
+{
+	if (Dir())
+	{
+		int shotAngle = 1;
+		for (int i = 0; i < 3; ++i)
+		{
+			Fire(baseShotAngle + shotAngle, DIR_LEFT);
+			shotAngle += 40;
+		}
+		behaviorState = Exit;
+	}
+	else
+	{
+		int shotAngle = -1;
+		for (int i = 0; i < 3; ++i)
+		{
+			Fire(baseShotAngle + shotAngle, DIR_RIGHT);
+			shotAngle -= 20;
+		}
+		behaviorState = Exit;
+	}
+}
+
+void CBehaviorBoss::ShootPattern4()
+{
+		if (Dir())
+		{
+			int shotAngle = 1;
+			for (int i = 0; i < 5; ++i)
+			{
+				Fire(baseShotAngle + shotAngle, DIR_LEFT);
+				shotAngle += 20;
+			}
+			behaviorState = Exit;
+		}
+		else
+		{
+			int shotAngle = -1;
+			for (int i = 0; i < 5; ++i)
+			{
+				Fire(baseShotAngle + shotAngle, DIR_RIGHT);
+				shotAngle -= 15;
+			}
+			behaviorState = Exit;
+		}
 }

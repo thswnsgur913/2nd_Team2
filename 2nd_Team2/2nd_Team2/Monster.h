@@ -24,7 +24,7 @@ protected:
 	const int baseShotAngle;
 
 	bool TargetMove(); 
-	void Fire(const int); 
+	void Fire(const int,DIRECTION);
 	void DisplayInfo(HDC, const int);
 	void RunEffect();
 	void EffectRender();
