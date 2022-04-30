@@ -43,21 +43,18 @@
     <Filter Include="Object\Bullet\Hammer">
       <UniqueIdentifier>{804d15dd-9af6-4618-b29d-1a6accc5f2db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{29eedca1-47d2-4096-9808-9f4a02c3d81d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="2nd_Team2.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="AbstractFactory.h">
@@ -120,9 +117,6 @@
     <ClInclude Include="KeyMgr.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="GameClient.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Scene</Filter>
     </ClInclude>
@@ -144,18 +138,24 @@
     <ClInclude Include="Hammer.h">
       <Filter>Object\Bullet\Hammer</Filter>
     </ClInclude>
-    <ClInclude Include="BehaviorMonster.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="BackUI.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="BehaviorBoss.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="2nd_Team2.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClient.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="2nd_Team2.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="CollisionMgr.cpp">
@@ -200,9 +200,6 @@
     <ClCompile Include="KeyMgr.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="GameClient.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
@@ -224,11 +221,17 @@
     <ClCompile Include="Hammer.cpp">
       <Filter>Object\Bullet\Hammer</Filter>
     </ClCompile>
-    <ClCompile Include="BehaviorMonster.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="BackUI.cpp">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="BehaviorBoss.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="2nd_Team2.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClient.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

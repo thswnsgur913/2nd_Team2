@@ -27,7 +27,6 @@ int CBullet::Update() {
 		return OBJ_DEAD;
 
 	m_tInfo.fX += m_tDir.fX * m_fSpeed;
-	//m_tInfo.fY += m_tDir.fY * m_fSpeed;
 	m_tInfo.fY -= m_fJumpPower * m_fJumpTime - 9.8f * m_fJumpTime * m_fJumpTime * 0.5f;
 	m_fJumpTime += 0.1f;
 
@@ -42,7 +41,7 @@ void CBullet::Late_Update()
 }
 
 void CBullet::Render(HDC hdc) {
-	
+	Ellipse(hdc, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 }
 
 void CBullet::Release() 

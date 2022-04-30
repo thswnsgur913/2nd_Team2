@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "GameClient.h"
 
-
 GameClient::GameClient() {
 }
 
@@ -12,6 +11,17 @@ GameClient::~GameClient() {
 
 void GameClient::Initialize() {
 	m_hDC = GetDC(g_hWnd);
+}
+
+void GameClient::LoadScene(CScene* _scene) {
+	if (m_runningScene)
+		Safe_Delete<CScene*>(m_runningScene);
+
+	ClearManagers();
+
+	_scene->Initialize();
+
+	m_runningScene = _scene;
 }
 
 void GameClient::Render() {
@@ -34,8 +44,16 @@ void GameClient::SceneLifeCycle() {
 	Render();
 }
 
+void GameClient::ClearManagers() {
+	CObjManager::Instance()->Destroy();
+	CUIManager::Instance()->Destroy();
+	CScrollMgr::Get_Scroll()->Destroy_Scroll();
+
+}
+
 void GameClient::Release() {
 	if (m_runningScene)
 		Safe_Delete<CScene*>(m_runningScene);
+	
 	ReleaseDC(g_hWnd, m_hDC);
 }

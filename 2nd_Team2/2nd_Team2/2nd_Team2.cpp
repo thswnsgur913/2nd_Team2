@@ -1,7 +1,9 @@
 #include "stdafx.h"
 #include "2nd_Team2.h"
-#include "MainGame.h"
+
 #include "GameClient.h"
+#include "MainGame.h"
+#include "TitleScene.h"
 
 #define MAX_LOADSTRING 100
 
@@ -11,6 +13,7 @@ WCHAR	szWindowClass[MAX_LOADSTRING];
 HWND	g_hWnd;
 DWORD	g_dwCurrentTime;
 DWORD	g_dwDeltaTime;
+GameClient* g_gameClient;
 
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
@@ -39,13 +42,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	MSG msg;
 	msg.message = WM_NULL;
 
-	GameClient* pGameClient = new GameClient;
+	g_gameClient = new GameClient;
 
-	if (nullptr == pGameClient)
+	if (nullptr == g_gameClient)
 		return FALSE;
 	
-	pGameClient->Initialize();
-	pGameClient->LoadScene(new CMainGame);
+	g_gameClient->Initialize();
+	//pGameClient->LoadScene(new CMainGame);
+	g_gameClient->LoadScene(new CTitleScene);
 
 	DWORD dwOldTime = GetTickCount();
 	g_dwCurrentTime = static_cast<DWORD>(GetTickCount() * TICKSCALE);
@@ -73,7 +77,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 				g_dwDeltaTime = currentTime - g_dwCurrentTime;
 				g_dwCurrentTime = currentTime;
 				
-				pGameClient->SceneLifeCycle();
+				g_gameClient->SceneLifeCycle();
 				dwOldTime = GetTickCount();
 
 			}
@@ -82,7 +86,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		}
 	}
 
-	Safe_Delete<GameClient*>(pGameClient);
+	Safe_Delete<GameClient*>(g_gameClient);
 	return (int)msg.wParam;
 }
 

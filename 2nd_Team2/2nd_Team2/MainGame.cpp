@@ -6,7 +6,7 @@
 // OBJ
 #include "Player.h"
 #include "Item.h"
-#include "BehaviorMonster.h"
+#include "BehaviorBoss.h"
 
 // UI
 #include "FrontUI.h"
@@ -42,7 +42,6 @@ void CMainGame::Initialize(void)
 	CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(ITEM_CLOCK,	{ 200.f, 200.f }));
 	CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(ITEM_SCORE,	{ 300.f, 200.f }));
 
-
 	CUIManager::Instance()->AddUI(UI_BACK, CAbstractFactory<CBackUI>::Create());
 	CUIManager::Instance()->AddUI(UI_FRONT, CAbstractFactory<CFrontUI>::Create());
 
@@ -57,8 +56,8 @@ void CMainGame::Initialize(void)
 	CUIManager::Instance()->AddUI(UI_FRONT, CAbstractFactory<CWeaponBag>::Create());
 
 
-	m_monster = CAbstractFactory<CBehaviorMonster>::Create();
-	dynamic_cast<CBehaviorMonster*>(m_monster)->BehaviorStart(m_player);
+	m_monster = CAbstractFactory<CBehaviorBoss>::Create();
+	dynamic_cast<CBehaviorBoss*>(m_monster)->BehaviorStart(m_player);
 	CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
 
 	m_timer = new CTimer;
@@ -69,6 +68,9 @@ void CMainGame::Initialize(void)
 	CLinePlat* plat = new CLinePlat;
 	plat->Initialize();
 	m_map.push_back(plat);
+	
+	dynamic_cast<CPlayer*>(m_player)->Set_line(plat);
+
 }
 
 void CMainGame::Update(void)
@@ -86,9 +88,6 @@ void CMainGame::Update(void)
 	if (CObjManager::Instance()->GetPlayer()) {
 		m_timer->Update();
 	}
-
-	
-
 }
 
 void CMainGame::Late_Update(void)
@@ -107,12 +106,8 @@ void CMainGame::Render(HDC hdc)
 	for (auto& plat : m_map) {
 		plat->Render(hdc);
 	}
-
 }
 
 void CMainGame::Release(void)
 {
-	CObjManager::Instance()->Destroy();
-	CUIManager::Instance()->Destroy();	
-	CScrollMgr::Get_Scroll()->Destroy_Scroll();
 }

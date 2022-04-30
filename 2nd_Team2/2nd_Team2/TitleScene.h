@@ -8,10 +8,25 @@ public:
 	CTitleScene();
 	virtual ~CTitleScene();
 
-	virtual void Initialize(void) PURE;
-	virtual void Update(void) PURE;
-	virtual void Late_Update(void) PURE;
-	virtual void Render(HDC) PURE;
-	virtual void Release(void) PURE;
+	void Initialize(void) override;
+	void Update(void) override;
+	void Late_Update(void) override;
+	void Render(HDC) override;
+	void Release(void) override;
+
+private:
+	void RunSeleteMenu();
+
+private:
+	enum menu {
+		START,
+		QUIT,
+		MENU_LENGTH
+	};
+
+	INFO m_SelectHighlight;
+	Vector2D TargetHighlightPosition;
+
+	int m_currentMenuSelect;
 };
 
