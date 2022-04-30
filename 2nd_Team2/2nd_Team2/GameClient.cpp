@@ -14,6 +14,7 @@ GameClient::~GameClient() {
 
 void GameClient::Initialize() {
 	m_hDC = GetDC(g_hWnd);
+	ShowCursor(false);
 }
 
 void GameClient::LoadScene(CScene* _scene) {
