@@ -14,8 +14,9 @@ CBehaviorBoss::~CBehaviorBoss()
 
 void CBehaviorBoss::Initialize(void)
 {
+
 	m_tInfo.fX = 700.f;
-	m_tInfo.fY = 500.f;
+	m_tInfo.fY = 600.f;
 
 	m_tInfo.fCX = 50;
 	m_tInfo.fCY = 50;
@@ -40,13 +41,16 @@ void CBehaviorBoss::Release(void)
 
 void CBehaviorBoss::Render(HDC hDC)
 {
-	int	iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
-	Rectangle(hDC, (m_tRect.left + iScrollX), (m_tRect.top), (m_tRect.right + iScrollX), (m_tRect.bottom));
+	int iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
+	int iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();
+	Rectangle(hDC, (m_tRect.left + iScrollX), (m_tRect.top + iScrollY), (m_tRect.right + iScrollX), (m_tRect.bottom + iScrollY));
 	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 }
 
 void CBehaviorBoss::BehaviorEnter()
 {
+	int iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();
+
 	if (!m_targetObj)
 		return;
 
@@ -62,7 +66,7 @@ void CBehaviorBoss::BehaviorEnter()
 
 	case Pattern1:
 		targetPosition.x = m_targetObj->Get_Info().fX;
-		targetPosition.y = m_targetObj->Get_Info().fY;
+		targetPosition.y = (m_targetObj->Get_Info().fY - iScrollY);
 
 		originPosition.x = m_tInfo.fX;
 		originPosition.y = m_tInfo.fY;

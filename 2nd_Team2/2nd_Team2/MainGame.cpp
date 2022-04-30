@@ -6,7 +6,7 @@
 // OBJ
 #include "Player.h"
 #include "Item.h"
-#include "BehaviorMonster.h"
+#include "BehaviorBoss.h"
 
 // UI
 #include "FrontUI.h"
@@ -57,8 +57,8 @@ void CMainGame::Initialize(void)
 	CUIManager::Instance()->AddUI(UI_FRONT, CAbstractFactory<CWeaponBag>::Create());
 
 
-	m_monster = CAbstractFactory<CBehaviorMonster>::Create();
-	dynamic_cast<CBehaviorMonster*>(m_monster)->BehaviorStart(m_player);
+	m_monster = CAbstractFactory<CBehaviorBoss>::Create();
+	dynamic_cast<CBehaviorBoss*>(m_monster)->BehaviorStart(m_player);
 	CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
 
 	m_timer = new CTimer;
