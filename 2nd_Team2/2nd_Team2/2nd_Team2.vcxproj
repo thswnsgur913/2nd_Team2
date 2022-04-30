@@ -155,6 +155,7 @@
     <ClInclude Include="Enum.h" />
     <ClInclude Include="FrontUI.h" />
     <ClInclude Include="Functor.h" />
+    <ClInclude Include="Hammer.h" />
     <ClInclude Include="Include.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="KeyMgr.h" />
@@ -179,6 +180,7 @@
     <ClCompile Include="CollisionMgr.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="FrontUI.cpp" />
+    <ClCompile Include="Hammer.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="KeyMgr.cpp" />
     <ClCompile Include="MainGame.cpp" />

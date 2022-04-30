@@ -28,6 +28,12 @@
     <Filter Include="UI">
       <UniqueIdentifier>{e2a6f871-84d5-451c-8349-ecec8ebf7e5c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Bullet">
+      <UniqueIdentifier>{9b0edf7e-b9c5-4582-a40e-7c8bca2cf57d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Bullet\Hammer">
+      <UniqueIdentifier>{804d15dd-9af6-4618-b29d-1a6accc5f2db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -81,9 +87,6 @@
     <ClInclude Include="Player.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>Object</Filter>
     </ClInclude>
@@ -111,6 +114,12 @@
     <ClInclude Include="KeyMgr.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Object\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Hammer.h">
+      <Filter>Object\Bullet\Hammer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -135,9 +144,6 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Bullet.cpp">
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="Effect.cpp">
@@ -166,6 +172,12 @@
     </ClCompile>
     <ClCompile Include="KeyMgr.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Object\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Hammer.cpp">
+      <Filter>Object\Bullet\Hammer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
