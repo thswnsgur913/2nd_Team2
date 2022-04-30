@@ -34,10 +34,13 @@ void CMonster::Late_Update() {
 
 
 void CMonster::CollisionEnter(CObj* _sour) {
+
 	CBullet* bulletObj = dynamic_cast<CBullet*>(_sour);
-	if (bulletObj && bulletObj->GetType() == PLAYER_BULLET) {
+	if (bulletObj && bulletObj->GetType() == PLAYER_BULLET) 
+	{
 		Hit();
 		bulletObj->Set_Dead();
+		m_bDead = true;
 	}
 }
 
@@ -51,7 +54,7 @@ void CMonster::BehaviorStart(
 }
 
 void CMonster::BehaviorUpdate() {
-	if (!m_bAIStart)
+	if (!m_bAIStart || !m_targetObj)
 		return;
 
 	switch (behaviorState) {

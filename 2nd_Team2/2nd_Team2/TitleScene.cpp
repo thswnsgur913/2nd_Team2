@@ -73,7 +73,7 @@ void CTitleScene::Render(HDC hdc) {
 	swprintf_s(szBuff, L"select : %d", m_currentMenuSelect);
 	TextOut(hdc, static_cast<int>(WINCX * 0.5) - 50, 20, szBuff, lstrlen(szBuff));
 
-	swprintf_s(szBuff, L"Test");
+	swprintf_s(szBuff, L"모험도");
 	TextOut(hdc, static_cast<int>(WINCX * 0.5) - 30, 80, szBuff, lstrlen(szBuff));
 
 	swprintf_s(szBuff, L"게임시작");

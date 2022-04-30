@@ -26,8 +26,7 @@ int CObjManager::Update(void) {
 	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_ITEM]);
 
 	for (int i = 0; i < OBJ_END; ++i) {
-		for (auto& iter = m_ObjList[i].begin();
-			iter != m_ObjList[i].end(); ) {
+		for (auto& iter = m_ObjList[i].begin(); iter != m_ObjList[i].end();) {
 			int iResult = (*iter)->Update();
 
 			if (OBJ_DEAD == iResult) {

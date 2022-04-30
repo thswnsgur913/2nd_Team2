@@ -97,6 +97,9 @@ void CBehaviorBoss::BehaviorEnter()
 
 void CBehaviorBoss::BehaviorExecute()
 {
+	if (!m_targetObj)
+		return;
+
 	switch (currentState) {
 	case Create:
 		behaviorState = Exit;

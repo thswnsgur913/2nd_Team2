@@ -27,13 +27,31 @@ public:
 
 
 public:
-	STAT&	Get_Stat(void) { return m_tPstat; }
-	void    Set_line(CLinePlat* Line) { m_Line = Line; }
+	//STAT&	Get_Stat(void) { return m_tPstat; }
+
+	int	Swap_Weapon(int Weapon) 
+	{ 
+		if      (Weapon == HAMMER)
+			m_tPstat.m_Hammer = true;
+		else if (Weapon == LANCE)
+			m_tPstat.m_Lance = true;
+
+		if (m_tPstat.m_Hammer == true)
+			return HAMMER;
+		else if (m_tPstat.m_Lance == true)
+			return LANCE;
+		else
+			return NO_WEAPON;
+	}
+	bool Get_life() { ++m_tPstat.m_Life;  return true; }
+
+	void Set_line(CLinePlat* Line) { m_Line = Line; }
 
 private:
 	void KeyInput();
 	void Jumping();
-	void		OffSet(void);
+
+	void OffSet(void);
 
 private:
 	list<CObj*>* m_bulletList; // 총알 리스트
@@ -41,5 +59,7 @@ private:
 
 	STAT		            m_tPstat; //플레이어 스테이터스
 	CLinePlat*              m_Line;
+
+	enum WEAPONID { NO_WEAPON,HAMMER,LANCE };
 };
 
