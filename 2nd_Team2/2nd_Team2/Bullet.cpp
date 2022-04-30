@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Bullet.h"
-#include "Monster.h"
+
 
 
 CBullet::CBullet() {
@@ -36,37 +36,21 @@ int CBullet::Update() {
 	return OBJ_NOEVENT;
 }
 
-void CBullet::Late_Update() {
-	if (m_tRect.left < -100 || m_tRect.right > WINCX + 100 || m_tRect.top < -100 || m_tRect.bottom > WINCY + 100) {
-		m_bDead = true;
-	}
+void CBullet::Late_Update() 
+{
+
 }
 
 void CBullet::Render(HDC hdc) {
-	HBRUSH brush;
-	HPEN pen;
-	pen = CreatePen(PS_SOLID, 3, RGB(0, 0, 0));
-	brush = CreateSolidBrush(RGB(0, 0, 255));
-	SelectObject(hdc, pen);
-	SelectObject(hdc, brush);
-
-	Ellipse(hdc, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-
-	DeleteObject(pen);
-	DeleteObject(brush);
+	
 }
 
-void CBullet::Release() {
+void CBullet::Release() 
+{
 }
 
-void CBullet::CollisionEnter(CObj* _sour) {
-	CMonster* collisionMonster = dynamic_cast<CMonster*>(_sour);
-
-	if (collisionMonster && m_eBulletType == PLAYER_BULLET && !collisionMonster->GetDead()) {
-		collisionMonster->Hit();
-		m_bDead = true;
-
-	}
+void CBullet::CollisionEnter(CObj* _sour) 
+{
 }
 
 BULLET_TYPE CBullet::GetType() const
@@ -85,3 +69,4 @@ void CBullet::SetType(BULLET_TYPE eType)
 {
 	m_eBulletType = eType;
 }
+

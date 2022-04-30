@@ -1,11 +1,12 @@
 #pragma once
 #include "Obj.h"
+#include "Monster.h"
 class CBullet : public CObj
 {
 public:
 	CBullet();
 	~CBullet();
-
+public:
 	void Initialize() override;
 	int Update() override;
 	void Late_Update() override;
@@ -21,5 +22,6 @@ public:
 private:
 	INFO m_tDir;
 	BULLET_TYPE m_eBulletType;
+
 };
 

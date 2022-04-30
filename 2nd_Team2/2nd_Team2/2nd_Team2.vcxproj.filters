@@ -19,11 +19,29 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{6c85f08b-f0f2-4e8d-aa19-81ad89b0f368}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core">
-      <UniqueIdentifier>{e8f0229a-9c16-491c-9f87-df81903cd402}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object">
       <UniqueIdentifier>{3054a1f9-e13e-46fb-9d64-f25f00e7c089}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{e2a6f871-84d5-451c-8349-ecec8ebf7e5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{e8f0229a-9c16-491c-9f87-df81903cd402}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LineMgr">
+      <UniqueIdentifier>{ff993f00-c0f1-42f6-84fc-1ba8211d91b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LineMgr\Line">
+      <UniqueIdentifier>{c76388ad-c9b4-4575-8cf0-52f3953c9908}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ScrollMgr">
+      <UniqueIdentifier>{c95b2bc3-679c-45fa-9e2d-2294c578098d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Bullet">
+      <UniqueIdentifier>{9b0edf7e-b9c5-4582-a40e-7c8bca2cf57d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Bullet\Hammer">
+      <UniqueIdentifier>{804d15dd-9af6-4618-b29d-1a6accc5f2db}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -73,12 +91,9 @@
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="MainGame.h">
-      <Filter>Core</Filter>
+      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Bullet.h">
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="Effect.h">
@@ -87,8 +102,53 @@
     <ClInclude Include="ObjManager.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="FrontUI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgressBar.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponBag.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyMgr.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClient.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Line.h">
+      <Filter>LineMgr\Line</Filter>
+    </ClInclude>
+    <ClInclude Include="ScrollMgr.h">
+      <Filter>ScrollMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="LinePlat.h">
+      <Filter>LineMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Object\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Hammer.h">
+      <Filter>Object\Bullet\Hammer</Filter>
+    </ClInclude>
     <ClInclude Include="BehaviorMonster.h">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="BackUI.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -111,12 +171,9 @@
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="MainGame.cpp">
-      <Filter>Core</Filter>
+      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Bullet.cpp">
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="Effect.cpp">
@@ -125,8 +182,53 @@
     <ClCompile Include="ObjManager.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="FrontUI.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressBar.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponBag.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyMgr.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClient.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Line.cpp">
+      <Filter>LineMgr\Line</Filter>
+    </ClCompile>
+    <ClCompile Include="ScrollMgr.cpp">
+      <Filter>ScrollMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="LinePlat.cpp">
+      <Filter>LineMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Object\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Hammer.cpp">
+      <Filter>Object\Bullet\Hammer</Filter>
+    </ClCompile>
     <ClCompile Include="BehaviorMonster.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="BackUI.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

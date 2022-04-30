@@ -1,29 +1,31 @@
 #pragma once
 
-#include "Include.h"
+#include "Scene.h"
 
 #include "Obj.h"
 #include "ObjManager.h"
+#include "UIManager.h"
 #include "Timer.h"
+#include "LinePlat.h"
+#include "ScrollMgr.h"
 
-class CMainGame
-{
+#include "ProgressBar.h"
+
+
+class CMainGame : public CScene {
 public:
 	CMainGame();
-	~CMainGame();
+	virtual ~CMainGame();
 
 public:
-	void	Initialize(void);
-	void	Update(void);
-	void	Late_Update(void);
-	void	Render(void);
-	void	Release(void);
-
-private:
-	void BackgroundRender(HDC);
-	void UIRender(HDC);
+	void Initialize(void) override;
+	void Update(void) override;
+	void Late_Update(void) override;
+	void Render(HDC) override;
+	void Release(void) override;
 
 public:
+	static int Life;
 	static int TotalKillCount;
 	static int KillCount;
 	static int BossCount;
@@ -31,6 +33,7 @@ public:
 	static long Score;
 	static int Level;
 	static int PlayTime;
+	static float DeadTime;
 
 private:
 	enum monsterType {
@@ -40,19 +43,17 @@ private:
 		MonsterEnd
 	};
 
-	HDC		m_hDC;
-
-	TCHAR m_szFPS[64];
-
 	// map
 	CTimer* m_timer;
 
 	CObj* m_player;
+	CProgressBar* m_timeProgress;
 	CObj* m_monster;
 
 	bool m_debug;
 
-	int m_iFPS;
-	DWORD m_dwTime;
+	float m_test;
+
+	list<CLinePlat*> m_map;
 };
 

@@ -8,6 +8,8 @@
 
 #define		PURE		= 0
 
+#define		VK_MAX		 0xff
+
 #define		OBJ_NOEVENT	0	
 #define		OBJ_DEAD	1
 #define		PlayerSize  50
