@@ -11,6 +11,7 @@
 
 #include "ProgressBar.h"
 
+class CBackUI;
 
 class CMainGame : public CScene {
 public:
@@ -49,6 +50,7 @@ private:
 	CObj* m_player;
 	CProgressBar* m_timeProgress;
 	CObj* m_monster;
+	CBackUI* m_backUI;
 
 	bool m_debug;
 
