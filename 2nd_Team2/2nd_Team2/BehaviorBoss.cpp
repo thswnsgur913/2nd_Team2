@@ -15,10 +15,13 @@ CBehaviorBoss::~CBehaviorBoss()
 void CBehaviorBoss::Initialize(void)
 {
 	m_tInfo.fX = 700.f;
-	m_tInfo.fY = 300.f;
+	m_tInfo.fY = 500.f;
 
-	m_tInfo.fCX = 50;
-	m_tInfo.fCY = 50;
+	m_tInfo.fWidth = 50.f;
+	m_tInfo.fHeight = 50.f;
+
+	m_tInfo.fColWidth = 50.f;
+	m_tInfo.fColHeight = 50.f;
 
 	m_iHP = 100;
 	m_iMaxHP = 100;
@@ -77,7 +80,7 @@ void CBehaviorBoss::BehaviorEnter()
 		break;
 
 	case Pattern2:
-		fY = m_tInfo.fY;
+		m_fY = m_tInfo.fY;
 		break;
 
 	case Pattern3:
@@ -99,6 +102,7 @@ void CBehaviorBoss::BehaviorExecute()
 {
 	switch (currentState) {
 	case Create:
+		Jumping();
 		behaviorState = Exit;
 		break;
 
@@ -159,10 +163,10 @@ bool CBehaviorBoss::Jumping()
 	m_tInfo.fY -= m_fJumpPower * m_fJumpTime - 9.8f * m_fJumpTime * m_fJumpTime * 0.5f;
 	m_fJumpTime += 0.1f;
 
-	if (/*bLineCol &&*/ (fY < m_tInfo.fY))
+	if (/*bLineCol &&*/ (m_fY < m_tInfo.fY))
 	{
 		m_fJumpTime = 0.f;
-		m_tInfo.fY = fY;
+		m_tInfo.fY = m_fY;
 		return true;
 	}
 	/*else if (bLineCol)
@@ -202,11 +206,11 @@ bool CBehaviorBoss::Dir()
 {
 	if (m_tInfo.fX > m_targetObj->Get_Info().fX)
 	{
-		return true; // 몬스터가 우측에
+		return true; // 좌측을 향해 공격
 	}
 	else
 	{
-		return false; // 몬스터가 좌측에
+		return false; // 우측을 향해 공격
 	}
 }
 

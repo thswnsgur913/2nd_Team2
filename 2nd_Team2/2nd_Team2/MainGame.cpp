@@ -6,6 +6,9 @@
 // OBJ
 #include "Player.h"
 #include "Item.h"
+#include "BehaviorA.h"
+#include "BehaviorB.h"
+#include "BehaviorC.h"
 #include "BehaviorBoss.h"
 
 // UI
@@ -25,6 +28,7 @@ int CMainGame::PlayTime = 0;
 float CMainGame::DeadTime = 0.f;
 
 CMainGame::CMainGame()
+	: m_dwTime(GetTickCount())
 {
 }
 
@@ -55,11 +59,6 @@ void CMainGame::Initialize(void)
 
 	CUIManager::Instance()->AddUI(UI_FRONT, CAbstractFactory<CWeaponBag>::Create());
 
-
-	m_monster = CAbstractFactory<CBehaviorBoss>::Create();
-	dynamic_cast<CBehaviorBoss*>(m_monster)->BehaviorStart(m_player);
-	CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
-
 	m_timer = new CTimer;
 	m_timer->StartTimer(ENERMY_PER_SECOND, [&]() {
 	
@@ -70,6 +69,7 @@ void CMainGame::Initialize(void)
 	m_map.push_back(plat);
 	
 	dynamic_cast<CPlayer*>(m_player)->Set_line(plat);
+	//dynamic_cast<CBehaviorBoss*>(m_monster)->Set_line(plat);
 
 }
 
@@ -88,6 +88,8 @@ void CMainGame::Update(void)
 	if (CObjManager::Instance()->GetPlayer()) {
 		m_timer->Update();
 	}
+
+	RandomMonster();
 }
 
 void CMainGame::Late_Update(void)
@@ -110,4 +112,63 @@ void CMainGame::Render(HDC hdc)
 
 void CMainGame::Release(void)
 {
+}
+
+void CMainGame::RandomMonster(void)
+{
+	if (m_dwTime + 10000 < GetTickCount())
+	{
+		srand((unsigned int)time((nullptr)));
+		int iRanMon = rand() % 4 + 1;
+		switch (iRanMon)
+		{
+		case 1:
+			CreateMonster(MONSTER_BOSS); // A
+			break;
+
+		case 2:
+			CreateMonster(MONSTER_BOSS); // B
+			break;
+
+		case 3:
+			CreateMonster(MONSTER_BOSS); // C
+			break;
+
+		case 4:
+			CreateMonster(MONSTER_BOSS); // BOSS
+			break;
+		}
+
+		m_dwTime = GetTickCount();
+	}
+}
+
+void CMainGame::CreateMonster(MONSTERTYPE _type)
+{
+	switch (_type)
+	{
+	case MONSTER_A:
+		m_monster = CAbstractFactory<CBehaviorA>::Create();
+		dynamic_cast<CBehaviorA*>(m_monster)->BehaviorStart(m_player);
+		CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
+		break;
+
+	case MONSTER_B:
+		m_monster = CAbstractFactory<CBehaviorB>::Create();
+		dynamic_cast<CBehaviorB*>(m_monster)->BehaviorStart(m_player);
+		CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
+		break;
+
+	case MONSTER_C:
+		m_monster = CAbstractFactory<CBehaviorC>::Create();
+		dynamic_cast<CBehaviorC*>(m_monster)->BehaviorStart(m_player);
+		CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
+		break;
+
+	case MONSTER_BOSS:
+		m_monster = CAbstractFactory<CBehaviorBoss>::Create();
+		dynamic_cast<CBehaviorBoss*>(m_monster)->BehaviorStart(m_player);
+		CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
+		break;
+	}
 }

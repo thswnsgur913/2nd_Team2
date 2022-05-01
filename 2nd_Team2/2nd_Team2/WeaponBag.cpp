@@ -14,11 +14,11 @@ CWeaponBag::~CWeaponBag()
 
 void CWeaponBag::Initialize() {
 	float gap = 10.f;
-	m_tInfo.fCX = 100.f;
-	m_tInfo.fCY = 100.f;
+	m_tInfo.fWidth = 100.f;
+	m_tInfo.fHeight = 100.f;
 	
-	m_tInfo.fX = (m_tInfo.fCX * 0.5f) + gap;
-	m_tInfo.fY = WINCY - (m_tInfo.fCY * 0.5f) - gap;
+	m_tInfo.fX = (m_tInfo.fWidth * 0.5f) + gap;
+	m_tInfo.fY = WINCY - (m_tInfo.fHeight * 0.5f) - gap;
 
 	Update_Rect();
 }

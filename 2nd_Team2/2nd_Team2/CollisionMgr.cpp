@@ -20,7 +20,7 @@ void CCollisionMgr::Collision_Rect(list<CObj*> _Dest, list<CObj*> _Sour)
 	{
 		for (auto& Sour : _Sour)
 		{
-			if (IntersectRect(&rc, &(Dest->Get_Rect()), &(Sour->Get_Rect())))
+			if (IntersectRect(&rc, &(Dest->Get_ColRect()), &(Sour->Get_ColRect())))
 			{
 				Dest->CollisionEnter(Sour);
 				Sour->CollisionEnter(Dest);
@@ -41,7 +41,7 @@ void CCollisionMgr::Collision_ObjListRect(CObj* _Dest, list<CObj*> _Sour)
 
 	for (auto& Sour : _Sour)
 	{
-		if (IntersectRect(&rc, &(_Dest->Get_Rect()), &(Sour->Get_Rect())))
+		if (IntersectRect(&rc, &(_Dest->Get_ColRect()), &(Sour->Get_ColRect())))
 		{
 			_Dest->CollisionEnter(Sour);
 			Sour->CollisionEnter(_Dest);
@@ -59,7 +59,7 @@ bool CCollisionMgr::Check_Sphere(CObj* pDest, CObj* pSour)
 	// sqrt : 루트를 씌워주는 함수
 	float	fDiagonal = sqrtf(fWidth * fWidth + fHeight * fHeight);
 
-	float	fRadius = (pDest->Get_Info().fCX + pSour->Get_Info().fCX) * 0.5f;
+	float	fRadius = (pDest->Get_Info().fWidth + pSour->Get_Info().fWidth) * 0.5f;
 
 	return fRadius > fDiagonal;
 }

@@ -24,6 +24,9 @@ public:
 	void Render(HDC) override;
 	void Release(void) override;
 
+	void RandomMonster(void);
+	void CreateMonster(MONSTERTYPE _type);
+
 public:
 	static int Life;
 	static int TotalKillCount;
@@ -36,13 +39,6 @@ public:
 	static float DeadTime;
 
 private:
-	enum monsterType {
-		Monster1,
-		Monster2,
-		Monster3,
-		MonsterEnd
-	};
-
 	// map
 	CTimer* m_timer;
 
@@ -53,6 +49,7 @@ private:
 	bool m_debug;
 
 	float m_test;
+	DWORD m_dwTime;
 
 	list<CLinePlat*> m_map;
 };

@@ -19,8 +19,8 @@ void CTitleScene::Initialize(void) {
 	TargetHighlightPosition.x = m_SelectHighlight.fX;
 	TargetHighlightPosition.y = m_SelectHighlight.fY;
 
-	m_SelectHighlight.fCX = 200.f;
-	m_SelectHighlight.fCY = 50.f;
+	m_SelectHighlight.fWidth = 200.f;
+	m_SelectHighlight.fHeight = 50.f;
 };
 
 void CTitleScene::Update(void) {
@@ -63,8 +63,8 @@ void CTitleScene::Render(HDC hdc) {
 	SelectObject(hdc, h_old_brush);
 	DeleteObject(brush);
 
-	int selectBarHalfWidth = static_cast<int>(m_SelectHighlight.fCX * 0.5f);
-	int selectBarHalfHeight = static_cast<int>(m_SelectHighlight.fCY * 0.5f);
+	int selectBarHalfWidth = static_cast<int>(m_SelectHighlight.fWidth * 0.5f);
+	int selectBarHalfHeight = static_cast<int>(m_SelectHighlight.fHeight * 0.5f);
 	Rectangle(hdc, m_SelectHighlight.fX - selectBarHalfWidth, m_SelectHighlight.fY - selectBarHalfHeight, m_SelectHighlight.fX + selectBarHalfWidth, m_SelectHighlight.fY + selectBarHalfHeight);
 
 

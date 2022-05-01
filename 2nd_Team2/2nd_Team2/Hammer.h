@@ -1,6 +1,7 @@
 #pragma once
 #include "obj.h"
 #include "Bullet.h"
+#include "Player.h"
 #include "ScrollMgr.h"
 
 class CHammer:public CBullet

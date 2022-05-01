@@ -86,8 +86,8 @@ bool CMonster::TargetMove() {
 }
 
 void CMonster::Fire(const int _degree, DIRECTION _Dir) {
-	int iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
-	int iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();
+	//int iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
+	//int iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();
 	CObj* newBullet = CAbstractFactory<CHammer>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, _Dir);
 
 	CBullet* BulletObj = dynamic_cast<CHammer*>(newBullet);
@@ -152,7 +152,7 @@ void CMonster::CommonDie() {
 	CMainGame::Score += (m_iScore * CMainGame::Level);
 
 	CObj* newEffect = CAbstractFactory<CEffect>::Create(m_tInfo.fX, m_tInfo.fY);
-	dynamic_cast<CEffect*>(newEffect)->SetEndSize(m_tInfo.fCX, m_tInfo.fCY);
+	dynamic_cast<CEffect*>(newEffect)->SetEndSize(m_tInfo.fWidth, m_tInfo.fHeight);
 	CObjManager::Instance()->AddObject(OBJ_EFFECT, newEffect);
 
 	m_bDead = true;

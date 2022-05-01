@@ -23,13 +23,16 @@ void CPlayer::Initialize(void)
 	m_iHP = 100;
 	m_iMaxHP = 100;
 
-	m_tInfo.fCX = PlayerSize;
-	m_tInfo.fCY = PlayerSize;
+	m_tInfo.fWidth = PlayerSize;
+	m_tInfo.fHeight = PlayerSize;
+
+	m_tInfo.fColWidth = 80.f;
+	m_tInfo.fColHeight = 130.f;
 
 	m_fSpeed = 10.f;
 
 	m_bJump = false;
-	m_fJumpPower = 15.f;
+	m_fJumpPower = 20.f;
 	m_fJumpTime = 0.f;
 
 	m_Dir = true;
@@ -53,7 +56,7 @@ int CPlayer::Update(void)
 
 void CPlayer::Late_Update(void)
 {
-
+	
 }
 
 void CPlayer::Render(HDC hDC)
@@ -108,10 +111,21 @@ void CPlayer::Release(void)
 
 void CPlayer::CollisionEnter(CObj* _sour)
 {
-	/*if (_sour== )
+	//CBullet* bulletObj = dynamic_cast<CBullet*>(_sour);
+
+	if (dynamic_cast<CBullet*>(_sour))
 	{
-		//m_tPstat.m_Life -= 1;
-	}*/
+		// 플레이어와 총알이 충돌
+		CBullet* bulletObj = dynamic_cast<CBullet*>(_sour);
+		if (bulletObj && bulletObj->GetType() == MONSTER_BULLET) {
+			bulletObj->Set_Dead();
+			
+		}
+	}
+	if (dynamic_cast<CMonster*>(_sour))
+	{
+		// 플레이어와 몬스터가 충돌
+	}
 	if(m_tPstat.m_Life<=0)
 	{
 		m_bDead = true;

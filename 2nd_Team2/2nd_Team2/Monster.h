@@ -31,9 +31,13 @@ protected:
 
 	void BehaviorUpdate();
 	virtual void Render(HDC hDC) PURE;
+
 	virtual void BehaviorEnter() PURE;
 	virtual void BehaviorExecute() PURE;
 	virtual void BehaviorExit() PURE;
+
+	virtual bool Jumping() PURE;
+	virtual bool Dir() PURE;
 
 	void CommonDie();
 	virtual void Die();
@@ -60,6 +64,8 @@ protected:
 	int m_effectCount;
 	
 	int m_iScore;
+
+	float m_fY;
 
 private:
 	bool m_bRunEffect;

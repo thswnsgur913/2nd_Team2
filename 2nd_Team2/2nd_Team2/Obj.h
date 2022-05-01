@@ -21,6 +21,7 @@ public :
 
 	const INFO& Get_Info(void) const { return m_tInfo; }
 	const RECT& Get_Rect(void) const { return m_tRect; }
+	const RECT& Get_ColRect(void) const { return m_tColRect; }
 
 	void SetTarget(CObj* _targetObj) { m_targetObj = _targetObj; }
 	CObj* GetTarget() { return m_targetObj; }
@@ -40,6 +41,7 @@ protected:
 protected:
 	INFO		m_tInfo;
 	RECT		m_tRect;
+	RECT		m_tColRect;
 	DIRECTION	m_eDir;
 	float		m_fSpeed;
 	bool		m_bDead;

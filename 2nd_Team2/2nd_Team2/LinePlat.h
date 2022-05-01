@@ -20,7 +20,7 @@ public:
 	void Create_Underground(void);
 	CLinePlat* Get_LinePlat(void) { return this; }
 
-/*public://임의 추가
+public://임의 추가
 	static CLinePlat*		Get_Instance(void)
 	{
 		if (!m_pInstance)
@@ -29,11 +29,11 @@ public:
 		}
 
 		return m_pInstance;
-	}*/
+	}
 
 private:
 
-	//static CLinePlat*		m_pInstance;//임의 추가
+	static CLinePlat*		m_pInstance;//임의 추가
 
 	list<CLine*> m_LineList;
 };

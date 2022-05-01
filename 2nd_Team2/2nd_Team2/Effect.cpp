@@ -10,8 +10,11 @@ CEffect::~CEffect() {
 }
 
 void CEffect::Initialize() {
-	m_tInfo.fCX = 10;
-	m_tInfo.fCY = 10;
+	m_tInfo.fWidth = 10.f;
+	m_tInfo.fHeight = 10.f;
+
+	m_tInfo.fColWidth = 10.f;
+	m_tInfo.fColHeight = 10.f;
 
 	m_fSpeed = 8.f;
 };
@@ -21,12 +24,12 @@ int CEffect::Update() {
 		return OBJ_DEAD;
 	}
 
-	if (m_tInfo.fCX >= m_effectEndSize.fX && m_tInfo.fCY >= m_effectEndSize.fY) {
+	if (m_tInfo.fWidth >= m_effectEndSize.fX && m_tInfo.fHeight >= m_effectEndSize.fY) {
 		m_bDead = true;
 	}
 
-	m_tInfo.fCX += m_fSpeed;
-	m_tInfo.fCY += m_fSpeed;
+	m_tInfo.fWidth += m_fSpeed;
+	m_tInfo.fHeight += m_fSpeed;
 
 	Update_Rect();
 

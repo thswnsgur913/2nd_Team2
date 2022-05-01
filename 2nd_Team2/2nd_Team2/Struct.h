@@ -4,8 +4,12 @@ typedef	struct tagInfo
 {
 	float	fX;
 	float	fY;
-	float	fCX;
-	float	fCY;
+
+	float	fWidth;
+	float	fHeight;
+
+	float	fColWidth;
+	float	fColHeight;
 
 }INFO;
 

@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "LinePlat.h"
 
+CLinePlat* CLinePlat::m_pInstance = nullptr;
+
 CLinePlat::CLinePlat()
 {
 }
