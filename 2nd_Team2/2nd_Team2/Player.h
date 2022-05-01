@@ -55,6 +55,10 @@ public:
 	void Set_GodMode(bool GodMode) { m_GodMode = GodMode;}
 	void Set_Damage();
 	void Set_line(CLinePlat* Line) { m_Line = Line; }
+	STAT&	Get_Stat(void) { return m_tPstat; }
+	void PlatEnter(float); // 플랫폼 충돌
+	void PlatEnterX(float); // 수직 라인 플랫폼 충돌
+	void PlatEnterX2(float);
 
 private:
 	void KeyInput();
@@ -68,6 +72,8 @@ public:
 	enum WEAPONID { NO_WEAPON, HAMMER, LANCE };
 	bool m_GodMode;
 	//int m_iCount;
+	void Drop(void);
+
 
 private:
 	const float GodModeSecond = 5.f;
@@ -77,6 +83,5 @@ private:
 
 	STAT		            m_tPstat; //플레이어 스테이터스
 	CLinePlat*              m_Line;
-
 };
 

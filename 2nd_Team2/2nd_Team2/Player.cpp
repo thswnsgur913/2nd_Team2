@@ -2,6 +2,7 @@
 #include "Bullet.h"
 #include "Player.h"
 #include "MainGame.h"
+#include "LinePlat.h"
 
 
 CPlayer::CPlayer() {
@@ -49,7 +50,6 @@ int CPlayer::Update(void)
 {
 	if (m_bDead)
 		return OBJ_DEAD;
-
 	KeyInput();
 	Jumping();
 
@@ -124,6 +124,36 @@ void CPlayer::Release(void)
 {
 }
 
+void CPlayer::PlatEnter(float _fY) {
+	//float fY = m_tInfo.fY;
+
+	if ((_fY < m_tInfo.fY) && m_bJump) {
+		m_bJump = false;
+		m_fJumpTime = 0.f;
+		m_tInfo.fY = _fY - PlayerSize * 0.5;
+	}
+	else {
+		if (m_tInfo.fY < _fY - PlayerSize * 0.5)
+			Drop();
+		else
+			m_tInfo.fY = _fY - PlayerSize * 0.5;
+		//Drop();
+		//m_bJump = true;
+	}
+}
+
+void CPlayer::PlatEnterX(float _fX)
+{
+	// 플레이어가 수직선 좌우에서 부동한 효과 주기.
+	m_tInfo.fX -= 10.f;	
+}
+
+void CPlayer::PlatEnterX2(float _fX)
+{
+	// 플레이어가 수직선 좌우에서 부동한 효과 주기.
+	m_tInfo.fX += 10.f;
+}
+
 void CPlayer::CollisionEnter(CObj* _sour)
 {
 
@@ -145,6 +175,7 @@ void CPlayer::CollisionEnter(CObj* _sour)
 	{
 		m_bDead = true;
 	}
+
 }
 
 void CPlayer::Set_Damage()
@@ -272,28 +303,13 @@ void CPlayer::KeyInput(void)
 		return;
 	}
 }
+
 void CPlayer::Jumping(void)
 {
-	float		fY = m_tInfo.fY;
-
-	bool		bLineCol = m_Line->Collision_Line(m_tInfo.fX, &fY);
-
 	if (m_bJump)
 	{
 		m_tInfo.fY -= m_fJumpPower * m_fJumpTime - 9.8f * m_fJumpTime * m_fJumpTime * 0.5f;
 		m_fJumpTime += 0.2f;
-		
-
-		if (bLineCol&&(fY < m_tInfo.fY))
-		{
-			m_bJump = false;
-			m_fJumpTime = 0.f;
-			m_tInfo.fY = fY-PlayerSize*0.5f;
-		}
-	}
-	else if (bLineCol)
-	{
- 		m_tInfo.fY = fY-PlayerSize*0.5f;
 	}
 }
 void CPlayer::GodMode(void)
@@ -314,20 +330,25 @@ void CPlayer::OffSet(void)
 	int     iOffSetY = WINCY >> 1;
 	int		iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
 	int     iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();
-	int		iItv = 30;
-	int     iItv2 = 50;
+	int		iItv = 300;
+	int     iItv2 = 100;
 
 
-	if (iOffSetX - iItv > m_tInfo.fX + iScrollX)
-		CScrollMgr::Get_Scroll()->Set_ScrollX(m_fSpeed);
-
-	// 라인 체크용.
-	if (iOffSetX + iItv < m_tInfo.fX + iScrollX)
+	if ((iOffSetX - iItv <= m_tInfo.fX + iScrollX)&& (iOffSetX >= m_tInfo.fX + iScrollX))
 		CScrollMgr::Get_Scroll()->Set_ScrollX(-m_fSpeed);
 
-	if (iOffSetY - iItv2 > m_tInfo.fY + iScrollY)
+	// 왼쪽으로 스크롤은 금지.(왼쪽으로 이동불가),현재는 테스트용으로 존재
+	if (iOffSetX - iItv - 10> m_tInfo.fX + iScrollX)
+		CScrollMgr::Get_Scroll()->Set_ScrollX(m_fSpeed);
+
+	if (iOffSetY - iItv2 >= m_tInfo.fY + iScrollY)
 		CScrollMgr::Get_Scroll()->Set_ScrollY(m_fSpeed);
 
 	if (iOffSetY + iItv2 < m_tInfo.fY + iScrollY)
 		CScrollMgr::Get_Scroll()->Set_ScrollY(-m_fSpeed);
+}
+
+void CPlayer::Drop(void)
+{
+	m_tInfo.fY += m_fSpeed;
 }
