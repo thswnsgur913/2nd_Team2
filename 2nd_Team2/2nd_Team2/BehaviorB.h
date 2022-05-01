@@ -1,6 +1,6 @@
 #pragma once
 #include "Monster.h"
-class CBehaviorB :
+class CBehaviorB : // 제자리에서 점프
 	public CMonster
 {
 public:

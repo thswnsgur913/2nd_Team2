@@ -295,15 +295,15 @@ void CMainGame::RandomMonster(void)
 		switch (iRanMon)
 		{
 		case 1:
-			CreateMonster(MONSTER_BOSS); // A
+			CreateMonster(MONSTER_A); // A
 			break;
 
 		case 2:
-			CreateMonster(MONSTER_BOSS); // B
+			CreateMonster(MONSTER_B); // B
 			break;
 
 		case 3:
-			CreateMonster(MONSTER_BOSS); // C
+			CreateMonster(MONSTER_C); // C
 			break;
 
 		case 4:

@@ -89,9 +89,9 @@ bool CMonster::TargetMove() {
 }
 
 void CMonster::Fire(const int _degree, DIRECTION _Dir) {
-	//int iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
-	//int iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();
-	CObj* newBullet = CAbstractFactory<CHammer>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, _Dir);
+	/*int iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
+	int iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();*/
+	CObj* newBullet = CAbstractFactory<CHammer>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, _Dir, 6.5f);
 
 	CBullet* BulletObj = dynamic_cast<CHammer*>(newBullet);
 	BulletObj->SetType(MONSTER_BULLET);

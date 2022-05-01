@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "BehaviorBoss.h"
-#include "ScrollMgr.h"
-
 
 CBehaviorBoss::CBehaviorBoss()
 {
@@ -68,7 +66,7 @@ void CBehaviorBoss::BehaviorEnter()
 
 		originPosition.x = m_tInfo.fX;
 		originPosition.y = m_tInfo.fY;
-		if (300 >= m_targetObj->Get_Info().fX) // 플레이어 X 좌표가 200보다 작을 경우, 돌진공격의 좌표점을 제한해 플레이어가 회피 할 수 있는 공간을 남김.
+		if (300 >= m_targetObj->Get_Info().fX) // 플레이어 X 좌표가 300보다 작을 경우, 돌진공격의 좌표점을 제한해 플레이어가 회피 할 수 있는 공간을 남김.
 		{
 			targetPosition.x = 300;
 		}
@@ -105,7 +103,6 @@ void CBehaviorBoss::BehaviorExecute()
 
 	switch (currentState) {
 	case Create:
-		Jumping();
 		behaviorState = Exit;
 		break;
 

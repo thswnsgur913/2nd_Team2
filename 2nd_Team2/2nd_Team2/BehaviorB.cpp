@@ -40,18 +40,67 @@ void CBehaviorB::Release(void)
 
 void CBehaviorB::Render(HDC hDC)
 {
+	int iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
+	int iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();
+	Rectangle(hDC, (m_tRect.left + iScrollX), (m_tRect.top + iScrollY), (m_tRect.right + iScrollX), (m_tRect.bottom + iScrollY));
 }
 
 void CBehaviorB::BehaviorEnter()
 {
+	if (!m_targetObj)
+		return;
+
+	switch (currentState)
+	{
+	case Create:
+		targetPosition.x = appearPosition.x;
+		targetPosition.y = appearPosition.y;
+
+		originPosition.x = targetPosition.x;
+		originPosition.y = targetPosition.y;
+		break;
+
+	case Pattern2:
+		m_fY = m_tInfo.fY;
+		break;
+	}
+
+	behaviorState = Execute;
 }
 
 void CBehaviorB::BehaviorExecute()
 {
+	if (!m_targetObj)
+		return;
+
+	switch (currentState) {
+	case Create:
+		behaviorState = Exit;
+		break;
+
+	case Pattern2:
+		if (Jumping()) {
+			behaviorState = Exit;
+			return;
+		}
+		break;
+	}
 }
 
 void CBehaviorB::BehaviorExit()
 {
+	if (m_dwTime + 3000 < GetTickCount())
+	{
+		switch (currentState) {
+		case Create:
+		case Pattern2:
+			currentState = Pattern2;
+			break;
+		}
+
+		behaviorState = Enter;
+		m_dwTime = GetTickCount();
+	}
 }
 
 bool CBehaviorB::Jumping()
@@ -77,12 +126,5 @@ bool CBehaviorB::Jumping()
 
 bool CBehaviorB::Dir()
 {
-	if (m_tInfo.fX > m_targetObj->Get_Info().fX)
-	{
-		return true; // 좌측을 향해 공격
-	}
-	else
-	{
-		return false; // 우측을 향해 공격
-	}
+	return false;
 }

@@ -1,5 +1,8 @@
 #pragma once
 #include "Obj.h"
+#include "Timer.h"
+#include "LinePlat.h"
+#include "ScrollMgr.h"
 
 class CMonster : public CObj
 {
@@ -19,6 +22,8 @@ public:
 	int GetScore() { return m_iScore; }
 
 	void Hit(); // 공격당함
+
+	//void    Set_line(CLinePlat* Line) { m_Line = Line; }
 
 protected:
 	const int baseShotAngle;
@@ -51,12 +56,30 @@ protected:
 		Exit
 	};
 
+	enum State {
+		Create,
+		Pattern1,        // 타겟 돌진
+		Pattern2,        // 상하 점프
+		Pattern3,        // 3연속 공격
+		Pattern4,        // 5연속 공격
+		Return,          // 돌진 복귀
+		Idle
+	};
+
 
 	Vector2D originPosition;
 	Vector2D targetPosition;
 	Vector2D appearPosition; // 생성후 이동할 위치
 
 	Behavior behaviorState;
+	State currentState;
+
+	DWORD m_dwTime;
+	CTimer* bossShotTimer;
+	//CLinePlat* m_Line;
+
+	float m_fY;
+	int m_iShotCount;
 	
 	bool m_bAIStart;
 	bool m_bDisplayInfo;
@@ -64,8 +87,6 @@ protected:
 	int m_effectCount;
 	
 	int m_iScore;
-
-	float m_fY;
 
 private:
 	bool m_bRunEffect;
