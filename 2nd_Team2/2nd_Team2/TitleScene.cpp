@@ -3,6 +3,7 @@
 #include "GameClient.h"
 #include "MainGame.h"
 #include "KeyMgr.h"
+#include "Label.h"
 
 CTitleScene::CTitleScene():
 	m_currentMenuSelect(0) {
@@ -21,10 +22,14 @@ void CTitleScene::Initialize(void) {
 
 	m_SelectHighlight.fCX = 200.f;
 	m_SelectHighlight.fCY = 50.f;
+
+	CLabel* title = new CLabel(L"모험의 섬");
+	title->Set_pos(static_cast<int>(WINCX * 0.5), 80);
+	CUIManager::Instance()->AddUI(UI_FRONT, title);
 };
 
 void CTitleScene::Update(void) {
-	if (CKeyMgr::Get_Instance()->Key_Down(VK_SPACE)) {
+	if (CKeyMgr::Get_Instance()->Key_Down(VK_SPACE) || CKeyMgr::Get_Instance()->Key_Down(VK_RETURN)) {
 		RunSeleteMenu();
 	}
 	if (CKeyMgr::Get_Instance()->Key_Down(VK_UP)) {
@@ -73,14 +78,18 @@ void CTitleScene::Render(HDC hdc) {
 	swprintf_s(szBuff, L"select : %d", m_currentMenuSelect);
 	TextOut(hdc, static_cast<int>(WINCX * 0.5) - 50, 20, szBuff, lstrlen(szBuff));
 
-	swprintf_s(szBuff, L"모험도");
-	TextOut(hdc, static_cast<int>(WINCX * 0.5) - 30, 80, szBuff, lstrlen(szBuff));
+
+	//swprintf_s(szBuff, L"모험의 섬");
+	//TextOut(hdc, static_cast<int>(WINCX * 0.5) - 30, 80, szBuff, lstrlen(szBuff));
+
 
 	swprintf_s(szBuff, L"게임시작");
 	TextOut(hdc, static_cast<int>(WINCX * 0.5) - 30, WINCY - 110, szBuff, lstrlen(szBuff));
 
 	swprintf_s(szBuff, L"게임종료");
 	TextOut(hdc, static_cast<int>(WINCX * 0.5) - 30, WINCY - 60, szBuff, lstrlen(szBuff));
+	
+	CUIManager::Instance()->FrontRender(hdc);
 };
 
 void CTitleScene::Release(void) {

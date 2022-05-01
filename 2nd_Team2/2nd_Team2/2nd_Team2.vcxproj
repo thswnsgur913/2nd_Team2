@@ -161,6 +161,7 @@
     <ClInclude Include="Include.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="KeyMgr.h" />
+    <ClInclude Include="Label.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="LinePlat.h" />
     <ClInclude Include="MainGame.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="UIManager.h" />
     <ClInclude Include="WeaponBag.h" />
   </ItemGroup>
@@ -193,6 +195,7 @@
     <ClCompile Include="Hammer.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="KeyMgr.cpp" />
+    <ClCompile Include="Label.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="LinePlat.cpp" />
     <ClCompile Include="MainGame.cpp" />
@@ -212,6 +215,7 @@
     </ClCompile>
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="UI.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="WeaponBag.cpp" />
   </ItemGroup>

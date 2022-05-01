@@ -44,6 +44,8 @@ private:
 		MonsterEnd
 	};
 
+	const float StageDeadTime = 100.f;
+
 	// map
 	CTimer* m_timer;
 
