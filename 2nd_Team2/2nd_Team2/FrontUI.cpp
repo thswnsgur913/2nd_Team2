@@ -2,9 +2,10 @@
 #include "MainGame.h"
 #include "FrontUI.h"
 
+#include "Player.h"
 
-CFrontUI::CFrontUI()
-{
+CFrontUI::CFrontUI():
+	m_player(nullptr) {
 }
 
 
@@ -13,6 +14,7 @@ CFrontUI::~CFrontUI()
 }
 
 void CFrontUI::Initialize() {
+	m_player = dynamic_cast<CPlayer*>(CObjManager::Instance()->GetPlayer());
 }
 
 int CFrontUI::Update() {
@@ -29,8 +31,20 @@ void CFrontUI::Late_Update() {
 
 void CFrontUI::Render(HDC hdc) {
 	TCHAR	szBuff[32] = L"";
+	int life;
 
-	swprintf_s(szBuff, L"Life : %d", CMainGame::Life);
+	if (!CObjManager::Instance()->GetPlayer()) {
+		m_player = nullptr;
+		life = 0;
+
+		swprintf_s(szBuff, L"GAME OVER");
+		TextOut(hdc, static_cast<int>(WINCX * 0.5f) - 50, static_cast<int>(WINCY * 0.5f), szBuff, lstrlen(szBuff));
+	}
+	else {
+		life = m_player->Get_life();
+	}
+
+	swprintf_s(szBuff, L"Life : %d", life);
 	TextOut(hdc, 50, 50, szBuff, lstrlen(szBuff));
 
 	swprintf_s(szBuff, L"SCORE : %d", CMainGame::Score);
@@ -55,12 +69,6 @@ void CFrontUI::Render(HDC hdc) {
 	swprintf_s(szBuff, L"LEVEL %d", CMainGame::Level);
 	TextOutW(hdc, 350, 950, szBuff, lstrlen(szBuff));
 
-	if (!CObjManager::Instance()->GetPlayer())
-	{
-		swprintf_s(szBuff, L"GAME OVER");
-		TextOut(hdc, static_cast<int>(WINCX * 0.5f) - 50, static_cast<int>(WINCY * 0.5f), szBuff, lstrlen(szBuff));
-	}
-
 	++m_iFPS;
 
 	if (m_dwTime + 1000 < GetTickCount()) {
@@ -73,7 +81,4 @@ void CFrontUI::Render(HDC hdc) {
 }
 
 void CFrontUI::Release() {
-}
-
-void CFrontUI::CollisionEnter(CObj* _sour) {
 }

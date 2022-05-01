@@ -42,6 +42,3 @@ void CWeaponBag::Render(HDC hdc) {
 
 void CWeaponBag::Release() {
 }
-
-void CWeaponBag::CollisionEnter(CObj* _sour) {
-}

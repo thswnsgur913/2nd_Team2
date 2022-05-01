@@ -1,17 +1,17 @@
 #pragma once
-
-#include "UI.h"
-
-class CWeaponBag : public CUI
+#include "Obj.h"
+class CUI : public CObj
 {
 public:
-	CWeaponBag();
-	virtual ~CWeaponBag();
+	CUI();
+	~CUI();
 
 	void Initialize() override;
 	int Update() override;
 	void Late_Update() override;
 	void Render(HDC hDC) override;
 	void Release() override;
+	void CollisionEnter(CObj*) override;
+
 };
 

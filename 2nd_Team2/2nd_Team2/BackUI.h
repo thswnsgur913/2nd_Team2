@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Obj.h"
+#include "UI.h"
 
 // MainGame Back UI
 
-class CBackUI : public CObj
+class CBackUI : public CUI
 {
 public:
 	CBackUI();
@@ -15,7 +15,6 @@ public:
 	void Late_Update() override;
 	void Render(HDC hDC) override;
 	void Release() override;
-	virtual	void CollisionEnter(CObj* _sour);
 
 	void SetPlayerDepth(int); // 백그라운드 색상 변경을 위한 설정
 

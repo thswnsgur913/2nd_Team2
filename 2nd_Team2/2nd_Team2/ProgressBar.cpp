@@ -44,9 +44,6 @@ void CProgressBar::Render(HDC hdc) {
 void CProgressBar::Release() {
 }
 
-void CProgressBar::CollisionEnter(CObj* _sour) {
-}
-
 void CProgressBar::InitProgress(const Vector2D position, const Vector2D size, const float _max, const float _current) {
 	m_tInfo.fX = position.x;
 	m_tInfo.fY = position.y;

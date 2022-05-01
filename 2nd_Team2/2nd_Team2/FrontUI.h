@@ -1,10 +1,13 @@
 #pragma once
 
 #include "Obj.h"
+#include "UI.h"
 
 // MainGame Front UI
 
-class CFrontUI : public CObj
+class CPlayer;
+
+class CFrontUI : public CUI
 {
 public:
 	CFrontUI();
@@ -13,15 +16,15 @@ public:
 	void Initialize() override;
 	int Update() override;
 	void Late_Update() override;
-	void Render(HDC hDC) override;
+	void Render(HDC) override;
 	void Release() override;
-	virtual	void CollisionEnter(CObj* _sour);
 
 public:
 
 private:
-
 	int m_iFPS;
 	DWORD m_dwTime;
+
+	CPlayer* m_player;
 };
 
