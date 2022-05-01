@@ -23,7 +23,6 @@ public:
 
 public:
 	virtual void Throw();
-
 private:
 	/*INFO m_tDir;
 	BULLET_TYPE m_eBulletType;*/

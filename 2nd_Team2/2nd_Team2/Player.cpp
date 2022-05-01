@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Bullet.h"
 #include "Player.h"
+#include "MainGame.h"
 
 
 CPlayer::CPlayer() {
@@ -16,7 +17,7 @@ CPlayer::~CPlayer()
 
 void CPlayer::Initialize(void)
 {
-	m_tPstat = { 5,3,true };
+	m_tPstat = { 5,3,true,true };
 
 	m_tInfo.fX = 100.f;
 	//m_tInfo.fY = WINCY - PlayerSize-500 ;
@@ -35,6 +36,13 @@ void CPlayer::Initialize(void)
 
 	m_Dir = true;
 
+	m_GodMode=false;
+
+	//m_iCount = GetTickCount();
+
+	m_godModeTimer = new CTimer;
+
+	GodMode();
 }
 
 int CPlayer::Update(void)
@@ -46,6 +54,8 @@ int CPlayer::Update(void)
 	Jumping();
 
 	OffSet();
+
+	m_godModeTimer->Update();
 
 	Update_Rect();
 
@@ -59,18 +69,16 @@ void CPlayer::Late_Update(void)
 
 void CPlayer::Render(HDC hDC)
 {
+	HBRUSH brush;
+
 	int	iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
 	int	iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();
 	//Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 
 	if (m_Dir == true)
 	{
-		/*Ellipse(hDC, m_tInfo.fX - 70, m_tInfo.fY + 40, m_tInfo.fX - 10, m_tInfo.fY + 110);//¿À¸¥¹ß
-		Ellipse(hDC, m_tInfo.fX + 10, m_tInfo.fY + 45, m_tInfo.fX + 100, m_tInfo.fY + 90);//¿Þ¹ß
-		Ellipse(hDC, m_tInfo.fX + 80, m_tInfo.fY - 10, m_tInfo.fX + 30, m_tInfo.fY + 40);//¿À¸¥ÆÈ
-		Ellipse(hDC, m_tInfo.fX - 75, m_tInfo.fY, m_tInfo.fX + 75, m_tInfo.fY - 150);//¸Ó¸®
-		Ellipse(hDC, m_tInfo.fX - 80, m_tInfo.fY - 10, m_tInfo.fX - 30, m_tInfo.fY + 40);//¿ÞÆÈ*/
-
+		brush = CreateSolidBrush(RGB(0, 255, 0));
+		SelectObject(hDC, brush);
 		Ellipse(hDC, m_tRect.left - 20 + iScrollX, m_tRect.top + 40 + iScrollY, m_tRect.right - 30 + iScrollX, m_tRect.bottom + 35 + iScrollY);//¿Þ¹ß
 		Ellipse(hDC, m_tRect.left + 30 + iScrollX, m_tRect.top + 40 + iScrollY, m_tRect.right + 30 + iScrollX, m_tRect.bottom + 20 + iScrollY);//¿À¸¥¹ß
 		Ellipse(hDC, m_tRect.left + 40 + iScrollX, m_tRect.top + 10 + iScrollY, m_tRect.right + 20 + iScrollX, m_tRect.bottom - 10 + iScrollY);//¿À¸¥ÆÈ
@@ -78,16 +86,21 @@ void CPlayer::Render(HDC hDC)
 		Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top + iScrollY, m_tRect.right + iScrollX, m_tRect.bottom + iScrollY);
 		Ellipse(hDC, m_tRect.left - 15 + iScrollX, m_tRect.top - 60 + iScrollY, m_tRect.right + 15 + iScrollX, m_tRect.bottom - 30 + iScrollY);//¸Ó¸®
 		Ellipse(hDC, m_tRect.left - 20 + iScrollX, m_tRect.top + 10 + iScrollY, m_tRect.right - 40 + iScrollX, m_tRect.bottom - 10 + iScrollY);//¿ÞÆÈ
+		DeleteObject(brush);
 	    //¿À¸¥ÂÊÀÌµ¿ ·£´õ
+		if (m_GodMode == true)
+		{
+			brush = CreateSolidBrush(RGB(255, 255, 0));
+			SelectObject(hDC, brush);
+			Ellipse(hDC, m_tRect.left - 65 + iScrollX, m_tRect.top - 65 + iScrollY, m_tRect.right - 64 + iScrollX, m_tRect.bottom - 63 + iScrollY);
+
+			DeleteObject(brush);
+		}
 	}
 	if (m_Dir == false)
 	{
-		/*Ellipse(hDC, m_tInfo.fX + 10, m_tInfo.fY + 40, m_tInfo.fX + 70, m_tInfo.fY + 110);//¿À¸¥¹ß
-		Ellipse(hDC, m_tInfo.fX - 100, m_tInfo.fY + 45, m_tInfo.fX - 10, m_tInfo.fY + 90);//¿Þ¹ß
-		Ellipse(hDC, m_tInfo.fX - 80, m_tInfo.fY - 10, m_tInfo.fX - 30, m_tInfo.fY + 40);//¿ÞÆÈ
-		Ellipse(hDC, m_tInfo.fX - 75, m_tInfo.fY, m_tInfo.fX + 75, m_tInfo.fY - 150);//¸Ó¸®
-		Ellipse(hDC, m_tInfo.fX + 80, m_tInfo.fY - 10, m_tInfo.fX + 30, m_tInfo.fY + 40);//¿À¸¥ÆÈ*/
-
+		brush = CreateSolidBrush(RGB(0, 255,0 ));
+		SelectObject(hDC, brush);
 		Ellipse(hDC, m_tRect.left - 30 + iScrollX, m_tRect.top + 40 + iScrollY, m_tRect.right - 30 + iScrollX, m_tRect.bottom + 20 + iScrollY);//¿Þ¹ß
 		Ellipse(hDC, m_tRect.left + 30 + iScrollX, m_tRect.top + 40 + iScrollY, m_tRect.right + 20 + iScrollX, m_tRect.bottom + 35 + iScrollY);//¿À¸¥¹ß
 		Ellipse(hDC, m_tRect.left - 20 + iScrollX, m_tRect.top + 10 + iScrollY, m_tRect.right - 40 + iScrollX, m_tRect.bottom - 10 + iScrollY);//¿ÞÆÈ
@@ -96,11 +109,15 @@ void CPlayer::Render(HDC hDC)
 		Ellipse(hDC, m_tRect.left - 15 + iScrollX, m_tRect.top - 60 + iScrollY, m_tRect.right + 15 + iScrollX, m_tRect.bottom - 30 + iScrollY);//¸Ó¸®
 		Ellipse(hDC, m_tRect.left + 40 + iScrollX, m_tRect.top + 10 + iScrollY, m_tRect.right + 20 + iScrollX, m_tRect.bottom - 10 + iScrollY);//¿À¸¥ÆÈ
 		//¿ÞÂÊÀÌµ¿·»´õ
+		DeleteObject(brush);
+		if (m_GodMode == true)
+		{
+			brush = CreateSolidBrush(RGB(255, 255, 0));
+			SelectObject(hDC, brush);
+			Ellipse(hDC, m_tRect.left + 64 + iScrollX, m_tRect.top - 65 + iScrollY, m_tRect.right + 65 + iScrollX, m_tRect.bottom - 63 + iScrollY);
+			DeleteObject(brush);
+		}
 	}
-
-	//int	iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
-	//Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
-
 }
 
 void CPlayer::Release(void)
@@ -112,22 +129,31 @@ void CPlayer::CollisionEnter(CObj* _sour)
 
 	CMonster* MonsterObj = dynamic_cast<CMonster*>(_sour);
 
-
 	if (MonsterObj)
 	{
-		MonsterObj->Hit();
-
-		--m_tPstat.m_Life;
-
-		m_tInfo.fX = 100.f;
-		m_tInfo.fY = WINCY - 250.f;
+		if (m_GodMode == true)
+		{
+			MonsterObj->Set_Dead();
+		}
+		if (m_GodMode == false)
+		{
+			Set_Damage();
+		}
 	}
 
 	if(m_tPstat.m_Life<=0)
 	{
-		CObjManager::Instance()->AddObject(OBJ_EFFECT, CAbstractFactory<CEffect>::Create((float)m_tInfo.fX, (float)m_tInfo.fY));
 		m_bDead = true;
 	}
+}
+
+void CPlayer::Set_Damage()
+{
+	CObjManager::Instance()->AddObject(OBJ_EFFECT, CAbstractFactory<CEffect>::Create((float)m_tInfo.fX, (float)m_tInfo.fY));
+	CMainGame::Life -= 1;
+
+	m_tInfo.fX = 100.f;
+	m_tInfo.fY = WINCY - 250.f;
 }
 
 void CPlayer::KeyInput(void)
@@ -139,11 +165,19 @@ void CPlayer::KeyInput(void)
 		{
 			if (m_tPstat.m_Hammer == true && m_Dir == true)
 			{
-				CObjManager::Instance()->AddObject(OBJ_BULLET, CAbstractFactory<CHammer>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, DIR_RIGHT));
+				CObjManager::Instance()->AddObject(OBJ_BULLET, CAbstractFactory<CHammer>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, DIR_RIGHT,m_fSpeed+5));
 			}
 			if (m_tPstat.m_Hammer == true && m_Dir == false)
 			{
-				CObjManager::Instance()->AddObject(OBJ_BULLET, CAbstractFactory<CHammer>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, DIR_LEFT));
+				CObjManager::Instance()->AddObject(OBJ_BULLET, CAbstractFactory<CHammer>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, DIR_LEFT,m_fSpeed+5));
+			}
+			if (m_tPstat.m_Lance == true && m_Dir == true)
+			{
+				CObjManager::Instance()->AddObject(OBJ_BULLET, CAbstractFactory<CLance>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, DIR_RIGHT));
+			}
+			if (m_tPstat.m_Lance == true && m_Dir == false)
+			{
+				CObjManager::Instance()->AddObject(OBJ_BULLET, CAbstractFactory<CLance>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, DIR_LEFT));
 			}
 		}
 		if (CKeyMgr::Get_Instance()->Key_Down(VK_SPACE))
@@ -161,6 +195,7 @@ void CPlayer::KeyInput(void)
 		if (m_fSpeed<20)
 		{
 			m_fSpeed += 0.1f;
+			
 		}
 	}
 	if (CKeyMgr::Get_Instance()->Key_Up(VK_LEFT))
@@ -174,11 +209,19 @@ void CPlayer::KeyInput(void)
 		{
 			if (m_tPstat.m_Hammer == true && m_Dir == true)
 			{
-				CObjManager::Instance()->AddObject(OBJ_BULLET, CAbstractFactory<CHammer>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, DIR_RIGHT));
+				CObjManager::Instance()->AddObject(OBJ_BULLET, CAbstractFactory<CHammer>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, DIR_RIGHT, m_fSpeed+5));
 			}
 			if (m_tPstat.m_Hammer == true && m_Dir == false)
 			{
-				CObjManager::Instance()->AddObject(OBJ_BULLET, CAbstractFactory<CHammer>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, DIR_LEFT));
+				CObjManager::Instance()->AddObject(OBJ_BULLET, CAbstractFactory<CHammer>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, DIR_LEFT, m_fSpeed+5));
+			}
+			if (m_tPstat.m_Lance == true && m_Dir == true)
+			{
+				CObjManager::Instance()->AddObject(OBJ_BULLET, CAbstractFactory<CLance>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, DIR_RIGHT));
+			}
+			if (m_tPstat.m_Lance == true && m_Dir == false)
+			{
+				CObjManager::Instance()->AddObject(OBJ_BULLET, CAbstractFactory<CLance>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, DIR_LEFT));
 			}
 		}
 		if (CKeyMgr::Get_Instance()->Key_Down(VK_SPACE))
@@ -207,11 +250,19 @@ void CPlayer::KeyInput(void)
 	{
 		if (m_tPstat.m_Hammer==true&&m_Dir == true)
 		{
-			CObjManager::Instance()->AddObject(OBJ_BULLET, CAbstractFactory<CHammer>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, DIR_RIGHT));
+			CObjManager::Instance()->AddObject(OBJ_BULLET, CAbstractFactory<CHammer>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, DIR_RIGHT,m_fSpeed));
+		}
+		if (m_tPstat.m_Lance == true && m_Dir == true)
+		{
+			CObjManager::Instance()->AddObject(OBJ_BULLET, CAbstractFactory<CLance>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, DIR_RIGHT));
 		}
 		if (m_tPstat.m_Hammer == true && m_Dir == false)
 		{
-			CObjManager::Instance()->AddObject(OBJ_BULLET, CAbstractFactory<CHammer>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, DIR_LEFT));
+			CObjManager::Instance()->AddObject(OBJ_BULLET, CAbstractFactory<CHammer>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, DIR_LEFT, m_fSpeed));
+		}
+		if (m_tPstat.m_Lance == true && m_Dir == false)
+		{
+			CObjManager::Instance()->AddObject(OBJ_BULLET, CAbstractFactory<CLance>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, DIR_LEFT));
 		}
 	}
 
@@ -245,7 +296,18 @@ void CPlayer::Jumping(void)
  		m_tInfo.fY = fY-PlayerSize*0.5f;
 	}
 }
+void CPlayer::GodMode(void)
+{
+	m_GodMode = true;
 
+	m_godModeTimer->StartTimer(GodModeSecond, [&]() {m_GodMode = false;m_godModeTimer->StopTimer();});
+/*
+	if (m_GodMode==true&& m_iCount+5000<GetTickCount())
+	{
+		m_GodMode = false;
+		m_iCount = GetTickCount();
+	}*/
+}
 void CPlayer::OffSet(void)
 {
 	int		iOffSetX = WINCX >> 1;

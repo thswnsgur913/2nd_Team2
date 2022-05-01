@@ -46,6 +46,9 @@
     <Filter Include="Core">
       <UniqueIdentifier>{29eedca1-47d2-4096-9808-9f4a02c3d81d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Bullet\Lance">
+      <UniqueIdentifier>{6447be2f-a627-44f8-8347-18a359140fb7}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Object\Bullet\MonBullet">
       <UniqueIdentifier>{c610af58-3d36-437d-8446-64979622c8e7}</UniqueIdentifier>
     </Filter>
@@ -159,6 +162,9 @@
     <ClInclude Include="Bullet.h">
       <Filter>Object\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="Lance.h">
+      <Filter>Object\Bullet\Lance</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -241,6 +247,9 @@
     </ClCompile>
     <ClCompile Include="MonBullet.cpp">
       <Filter>Object\Bullet\MonBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Lance.cpp">
+      <Filter>Object\Bullet\Lance</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

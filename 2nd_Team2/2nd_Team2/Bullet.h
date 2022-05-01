@@ -1,6 +1,7 @@
 #pragma once
 #include "Obj.h"
 #include "Monster.h"
+#include "KeyMgr.h"
 class CBullet : public CObj
 {
 public:
