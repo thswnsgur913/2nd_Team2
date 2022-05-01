@@ -14,17 +14,17 @@ public:
 	virtual void Release(void) override;
 	virtual void Render(HDC hDC) override;
 
-
 	virtual void BehaviorEnter() override;
 	virtual void BehaviorExecute() override;
 	virtual void BehaviorExit() override;
 
+	virtual bool Jumping() override;
+	virtual bool Dir() override;
+
 	//void    Set_line(CLinePlat* Line) { m_Line = Line; }
 
 private:
-	bool Jumping();
 	void RandomPattern();
-	bool Dir();
 	void ShootPattern3();
 	void ShootPattern4();
 
@@ -48,7 +48,5 @@ private:
 	int patternAngle;
 
 	int m_iShotCount;
-
-	float fY;
 };
 

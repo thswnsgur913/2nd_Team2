@@ -167,6 +167,9 @@
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="MonBullet.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="BehaviorA.h" />
+    <ClInclude Include="BehaviorB.h" />
+    <ClInclude Include="BehaviorC.h" />
     <ClInclude Include="Obj.h" />
     <ClInclude Include="ObjLine.h" />
     <ClInclude Include="ObjManager.h" />
@@ -201,6 +204,9 @@
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="MonBullet.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="BehaviorA.cpp" />
+    <ClCompile Include="BehaviorB.cpp" />
+    <ClCompile Include="BehaviorC.cpp" />
     <ClCompile Include="Obj.cpp" />
     <ClCompile Include="ObjLine.cpp" />
     <ClCompile Include="ObjManager.cpp" />

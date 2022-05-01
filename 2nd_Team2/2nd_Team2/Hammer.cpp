@@ -12,8 +12,11 @@ CHammer::~CHammer()
 
 void CHammer::Initialize()
 {
-	m_tInfo.fCX = 10.f;
-	m_tInfo.fCY = 10.f;
+	m_tInfo.fWidth = 10.f;
+	m_tInfo.fHeight = 10.f;
+
+	m_tInfo.fColWidth = 50.f;
+	m_tInfo.fColHeight = 70.f;
 
 	Update_Rect();
 
@@ -98,13 +101,14 @@ void CHammer::Release()
 
 void CHammer::CollisionEnter(CObj * _sour)
 {
-	CMonster* collisionMonster = dynamic_cast<CMonster*>(_sour);
+	//CObj* collision = dynamic_cast<CObj*>(_sour);
 
-	if (collisionMonster && m_eBulletType == PLAYER_BULLET && !collisionMonster->GetDead()) 
-	{
-		collisionMonster->Hit();
-		m_bDead = true;
-	}
+	//if (dynamic_cast<CMonster*>(_sour) && m_eBulletType == PLAYER_BULLET /*&& !_sour->GetDead()*/) {
+	//	m_bDead = true;
+	//}
+	//if (dynamic_cast<CPlayer*>(_sour) && m_eBulletType == MONSTER_BULLET /*&& !_sour->GetDead()*/) {
+	//	m_bDead = true;
+	//}
 }
 
 void CHammer::Throw()

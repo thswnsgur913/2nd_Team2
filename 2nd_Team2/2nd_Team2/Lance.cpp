@@ -13,8 +13,8 @@ CLance::~CLance()
 
 void CLance::Initialize()
 {
-	m_tInfo.fCX = 10.f;
-	m_tInfo.fCY = 10.f;
+	m_tInfo.fWidth = 10.f;
+	m_tInfo.fHeight = 10.f;
 
 	m_fSpeed = 30.f;
 

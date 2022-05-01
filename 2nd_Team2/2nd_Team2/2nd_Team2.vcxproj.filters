@@ -55,6 +55,21 @@
     <Filter Include="Object\Bullet\MonBullet">
       <UniqueIdentifier>{c610af58-3d36-437d-8446-64979622c8e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Monster">
+      <UniqueIdentifier>{a3945b9e-8b66-453a-bb9c-6376f7edcfa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Monster\Boss">
+      <UniqueIdentifier>{a7330799-98fb-4085-b105-2d04c293731a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Monster\MonsterA">
+      <UniqueIdentifier>{bdc1c8c0-a68f-4576-a9d7-b8160e1582cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Monster\MonsterB">
+      <UniqueIdentifier>{991c8b0e-f3d2-4f14-b2db-b75fa37b2a3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Monster\MonsterC">
+      <UniqueIdentifier>{21874edd-1905-4db1-8a24-3028b26058bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -91,9 +106,6 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Obj.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Monster.h">
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="MainGame.h">
@@ -150,9 +162,6 @@
     <ClInclude Include="BackUI.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="BehaviorBoss.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="2nd_Team2.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -177,6 +186,21 @@
     <ClInclude Include="LinePlat.h">
       <Filter>LinePlat</Filter>
     </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Object\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="BehaviorBoss.h">
+      <Filter>Object\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="BehaviorA.h">
+      <Filter>Object\Monster\MonsterA</Filter>
+    </ClInclude>
+    <ClInclude Include="BehaviorB.h">
+      <Filter>Object\Monster\MonsterB</Filter>
+    </ClInclude>
+    <ClInclude Include="BehaviorC.h">
+      <Filter>Object\Monster\MonsterC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -189,9 +213,6 @@
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="Obj.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Monster.cpp">
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="MainGame.cpp">
@@ -245,9 +266,6 @@
     <ClCompile Include="BackUI.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="BehaviorBoss.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="2nd_Team2.cpp">
       <Filter>Core</Filter>
     </ClCompile>
@@ -265,6 +283,21 @@
     </ClCompile>
     <ClCompile Include="LinePlat.cpp">
       <Filter>LinePlat</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Object\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="BehaviorBoss.cpp">
+      <Filter>Object\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BehaviorA.cpp">
+      <Filter>Object\Monster\MonsterA</Filter>
+    </ClCompile>
+    <ClCompile Include="BehaviorB.cpp">
+      <Filter>Object\Monster\MonsterB</Filter>
+    </ClCompile>
+    <ClCompile Include="BehaviorC.cpp">
+      <Filter>Object\Monster\MonsterC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

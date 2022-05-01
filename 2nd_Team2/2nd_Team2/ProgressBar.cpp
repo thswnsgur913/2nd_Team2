@@ -35,7 +35,7 @@ void CProgressBar::Render(HDC hdc) {
 
 	// progress
 	h_old_brush = SelectObject(hdc, brush);
-	Rectangle(hdc, m_tRect.left, m_tRect.top, m_tRect.left + static_cast<int>(m_tInfo.fCX * m_rate), m_tRect.bottom);
+	Rectangle(hdc, m_tRect.left, m_tRect.top, m_tRect.left + static_cast<int>(m_tInfo.fWidth * m_rate), m_tRect.bottom);
 
 	SelectObject(hdc, h_old_brush);
 	DeleteObject(brush);
@@ -51,8 +51,8 @@ void CProgressBar::InitProgress(const Vector2D position, const Vector2D size, co
 	m_tInfo.fX = position.x;
 	m_tInfo.fY = position.y;
 
-	m_tInfo.fCX = size.x;
-	m_tInfo.fCY = size.y;
+	m_tInfo.fWidth = size.x;
+	m_tInfo.fHeight = size.y;
 
 	m_max = _max;
 	m_current = _current;

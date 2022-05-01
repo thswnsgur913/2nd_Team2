@@ -12,8 +12,11 @@ CItem::~CItem() {
 
 
 void CItem::Initialize() {
-	m_tInfo.fCX = 80.f;
-	m_tInfo.fCY = 80.f;
+	m_tInfo.fWidth = 80.f;
+	m_tInfo.fHeight = 80.f;
+
+	m_tInfo.fColWidth = 80.f;
+	m_tInfo.fColHeight = 80.f;
 
 	m_score = 100;
 
