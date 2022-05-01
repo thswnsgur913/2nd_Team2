@@ -51,5 +51,6 @@ protected:
 	bool m_bJump;		// 점프 상태 확인
 	float m_fJumpPower;	// 점프 힘
 	float m_fJumpTime;	// 점프 중 진행 시간
+	bool m_bDrop;       // 자유낙하 확인(우물등등지역에서.)
 };
 

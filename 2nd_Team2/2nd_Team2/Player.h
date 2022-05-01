@@ -29,11 +29,16 @@ public:
 public:
 	STAT&	Get_Stat(void) { return m_tPstat; }
 	void    Set_line(CLinePlat* Line) { m_Line = Line; }
+	void PlatEnter(float); // 플랫폼 충돌
+	void PlatEnterX(float); // 수직 라인 플랫폼 충돌
+	void PlatEnterX2(float);
 
 private:
 	void KeyInput();
 	void Jumping();
-	void		OffSet(void);
+	void OffSet(void);
+	void Drop(void);
+
 
 private:
 	list<CObj*>* m_bulletList; // 총알 리스트
@@ -46,5 +51,7 @@ private:
 
 	STAT		            m_tPstat; //플레이어 스테이터스
 	CLinePlat*              m_Line;
+	int                     m_iStage;// 플레이어가 존재하는 스테이지.
+	//bool                    m_bDrop;//플레이어가 자유낙하 하는지 판단.
 };
 
