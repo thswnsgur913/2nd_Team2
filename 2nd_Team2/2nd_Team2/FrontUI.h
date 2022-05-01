@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Obj.h"
-#include "UI.h"
+#include "Label.h"
 
 // MainGame Front UI
 
@@ -26,5 +26,8 @@ private:
 	DWORD m_dwTime;
 
 	CPlayer* m_player;
+
+	CLabel* m_playTimeLabel;
+	CLabel* m_gameOverLabel;
 };
 

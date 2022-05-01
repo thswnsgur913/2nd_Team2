@@ -15,12 +15,16 @@ CFrontUI::~CFrontUI()
 
 void CFrontUI::Initialize() {
 	m_player = dynamic_cast<CPlayer*>(CObjManager::Instance()->GetPlayer());
+
+	/*m_playTimeLabel = new CLabel;
+	m_playTimeLabel->Set_pos(static_cast<int>(WINCX * 0.5) - 50, 80);
+	CUIManager::Instance()->AddUI(UI_FRONT, m_playTimeLabel);*/
 }
 
 int CFrontUI::Update() {
 	if (m_bDead)
 		return OBJ_DEAD;
-
+	
 	Update_Rect();
 
 	return OBJ_NOEVENT;
@@ -50,18 +54,6 @@ void CFrontUI::Render(HDC hdc) {
 	swprintf_s(szBuff, L"SCORE : %d", CMainGame::Score);
 	TextOut(hdc, static_cast<int>(WINCX * 0.5f) - 50, 50, szBuff, lstrlen(szBuff));
 
-	int currentPlayTime = CMainGame::PlayTime;
-	int microsecond = currentPlayTime % 10;
-	currentPlayTime /= 10;
-
-	int second = currentPlayTime % 60;
-	currentPlayTime /= 60;
-
-	int minute = currentPlayTime % 60;
-
-	swprintf_s(szBuff, L"PlayTime: %02d:%02d", minute, second);
-	TextOut(hdc, static_cast<int>(WINCX * 0.5) - 50, 80, szBuff, lstrlen(szBuff));
-
 	swprintf_s(szBuff, L"KILL : %d", CMainGame::TotalKillCount);
 	TextOut(hdc, 650, 950, szBuff, lstrlen(szBuff));
 
@@ -78,6 +70,21 @@ void CFrontUI::Render(HDC hdc) {
 		m_iFPS = 0;
 		m_dwTime = GetTickCount();
 	}
+
+	int currentPlayTime = CMainGame::PlayTime;
+	int microsecond = currentPlayTime % 10;
+	currentPlayTime /= 10;
+
+	int second = currentPlayTime % 60;
+	currentPlayTime /= 60;
+
+	int minute = currentPlayTime % 60;
+
+	swprintf_s(szBuff, L"PlayTime: %02d:%02d", minute, second);
+	TextOut(hdc, static_cast<int>(WINCX * 0.5) - 50, 80, szBuff, lstrlen(szBuff));
+	//m_playTimeLabel->SetText(szBuff);
+
+	//CUIManager::Instance()->FrontRender(hdc);
 }
 
 void CFrontUI::Release() {

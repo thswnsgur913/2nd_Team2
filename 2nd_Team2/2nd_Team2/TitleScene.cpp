@@ -23,9 +23,16 @@ void CTitleScene::Initialize(void) {
 	m_SelectHighlight.fCX = 200.f;
 	m_SelectHighlight.fCY = 50.f;
 
-	CLabel* title = new CLabel(L"∏«Ë¿« º∂");
-	title->Set_pos(static_cast<int>(WINCX * 0.5), 80);
+	CLabel* title = new CLabel(L"∏«Ë¿« º∂", L"∏º¿∫ ∞ÌµÒ");
+	title->Set_pos(static_cast<int>(WINCX * 0.5), 100);
+	title->SetFontSize(120);
 	CUIManager::Instance()->AddUI(UI_FRONT, title);
+
+	CLabel* subTitle = new CLabel(L"2¡∂¿« π´Ω√π´Ω√«—", L"∏º¿∫ ∞ÌµÒ");
+	subTitle->Set_pos(static_cast<int>(WINCX * 0.5) - 100, 90);
+	subTitle->SetFontSize(25);
+	CUIManager::Instance()->AddUI(UI_FRONT, subTitle);
+
 };
 
 void CTitleScene::Update(void) {
@@ -77,11 +84,6 @@ void CTitleScene::Render(HDC hdc) {
 
 	swprintf_s(szBuff, L"select : %d", m_currentMenuSelect);
 	TextOut(hdc, static_cast<int>(WINCX * 0.5) - 50, 20, szBuff, lstrlen(szBuff));
-
-
-	//swprintf_s(szBuff, L"∏«Ë¿« º∂");
-	//TextOut(hdc, static_cast<int>(WINCX * 0.5) - 30, 80, szBuff, lstrlen(szBuff));
-
 
 	swprintf_s(szBuff, L"∞‘¿”Ω√¿€");
 	TextOut(hdc, static_cast<int>(WINCX * 0.5) - 30, WINCY - 110, szBuff, lstrlen(szBuff));
