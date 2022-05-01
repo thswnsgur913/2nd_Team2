@@ -43,10 +43,9 @@ void CMainGame::Initialize(void)
 {
 	m_player = CAbstractFactory<CPlayer>::Create();
 	CObjManager::Instance()->AddObject(OBJ_PLAYER, m_player);
-	CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(ITEM_LIFE,	{ 100.f, 200.f }));
-	CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(ITEM_CLOCK,	{ 200.f, 200.f }));
-	CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(ITEM_SCORE,	{ 300.f, 200.f }));
-	//CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create());
+	CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEM_LIFE,	{ 100.f, 200.f }));
+	CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEM_CLOCK,	{ 200.f, 200.f }));
+	CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEM_SCORE,	{ 300.f, 200.f }));
 
 	m_backUI = dynamic_cast<CBackUI*>(CAbstractFactory<CBackUI>::Create());
 	CUIManager::Instance()->AddUI(UI_BACK, m_backUI);
@@ -55,9 +54,8 @@ void CMainGame::Initialize(void)
 	CObj* newTimeProgress = CAbstractFactory<CProgressBar>::Create();
 	m_timeProgress = dynamic_cast<CProgressBar*>(newTimeProgress);
 
-	m_test = 100.f;
-	DeadTime = m_test;
-	m_timeProgress->InitProgress({ WINCX * 0.5f, 140.f }, {500.f, 50.f}, m_test, m_test);
+	DeadTime = StageDeadTime;
+	m_timeProgress->InitProgress({ WINCX * 0.5f, 140.f }, {500.f, 50.f}, DeadTime, StageDeadTime);
 	CUIManager::Instance()->AddUI(UI_FRONT, newTimeProgress);
 
 	CUIManager::Instance()->AddUI(UI_FRONT, CAbstractFactory<CWeaponBag>::Create());
@@ -238,7 +236,12 @@ void CMainGame::Update(void)
 	PlayTime += g_dwDeltaTime;
 	CObjManager::Instance()->Update();
 
-	DeadTime -= DeadTime > 0 ? 0.01f : 0.f;
+	DeadTime -= 0.01f;
+	if (DeadTime <= 0) {
+		//pPlayer->Set_Damage();
+		DeadTime = StageDeadTime;
+	}
+
 	m_timeProgress->SetCurrent(DeadTime);
 
 	if (!CObjManager::Instance()->GetPlayer()) {

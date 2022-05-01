@@ -44,9 +44,6 @@ void CBackUI::Render(HDC hdc) {
 void CBackUI::Release() {
 }
 
-void CBackUI::CollisionEnter(CObj* _sour) {
-}
-
 void CBackUI::SetPlayerDepth(int _depth) {
 	m_playerDepth = _depth;
 }

@@ -3,6 +3,17 @@
 class CItem : public CObj
 {
 public:
+	enum ITEMTYPE {
+		ITEM_LIFE,
+		ITEM_GOD,
+		ITEM_SCORE,
+		ITEM_CLOCK,
+		ITEM_WEAPON_HAMMER,
+		ITEM_WEAPON_LANCE,
+		ITEM_END
+	};
+
+public:
 	CItem();
 	~CItem();
 

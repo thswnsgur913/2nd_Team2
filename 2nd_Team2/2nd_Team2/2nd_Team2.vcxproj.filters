@@ -201,6 +201,12 @@
     <ClInclude Include="BehaviorC.h">
       <Filter>Object\Monster\MonsterC</Filter>
     </ClInclude>
+    <ClInclude Include="Label.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -298,6 +304,12 @@
     </ClCompile>
     <ClCompile Include="BehaviorC.cpp">
       <Filter>Object\Monster\MonsterC</Filter>
+    </ClCompile>
+    <ClCompile Include="Label.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

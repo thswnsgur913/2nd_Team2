@@ -1,7 +1,7 @@
 #pragma once
-#include "Obj.h"
+#include "UI.h"
 
-class CProgressBar : public CObj
+class CProgressBar : public CUI
 {
 public:
 	CProgressBar();
@@ -12,7 +12,6 @@ public:
 	void Late_Update() override;
 	void Render(HDC hDC) override;
 	void Release() override;
-	void CollisionEnter(CObj* _sour) override;
 
 	void InitProgress(const Vector2D, const Vector2D, const float, const float);
 	void SetCurrent(float _value) { 
