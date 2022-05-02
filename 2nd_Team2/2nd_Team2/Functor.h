@@ -53,10 +53,10 @@ public:
 	}
 };
 
-class CTag_Finder
+/*class CTag_Finder
 {
 public:
-	CTag_Finder(char* pTag) : m_pTag(pTag) {}
+	CTag_Finder(const TCHAR* pTag) : m_pTag(pTag) {}
 
 public:
 	template<typename T>
@@ -66,5 +66,21 @@ public:
 	}
 
 private:
-	char*		m_pTag;
+	const TCHAR*		m_pTag;
+};*/
+
+class CTag_Finder
+{
+public:
+	CTag_Finder(const TCHAR* pTag) : m_pTag(pTag) {}
+
+public:
+	template<typename T>
+	bool operator()(T& Pair)
+	{
+		return !lstrcmp(Pair.first, m_pTag);
+	}
+
+private:
+	const TCHAR*		m_pTag;
 };

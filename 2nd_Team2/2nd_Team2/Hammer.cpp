@@ -64,32 +64,40 @@ void CHammer::Render(HDC hDC)
 	int	iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();
 
 	HBRUSH brush;
-	HPEN pen;
-
-	brush = CreateSolidBrush(RGB(150, 75, 0));
-	SelectObject(hDC, brush);
+	HGDIOBJ hOldBrush;
 
 	if (m_eDir == DIR_RIGHT)
 	{
+
+		brush = CreateSolidBrush(RGB(150, 75, 0));
+		hOldBrush = SelectObject(hDC, brush);
 		Rectangle(hDC, m_tRect.left - 40 + iScrollX, m_tRect.top + iScrollY, m_tRect.right - 40 + iScrollX, m_tRect.bottom - 50 + iScrollY);
-	}
-	else
-	{
-		Rectangle(hDC, m_tRect.left + 40 + iScrollX, m_tRect.top + iScrollY, m_tRect.right +40 + iScrollX, m_tRect.bottom - 50 + iScrollY);
-	}
+		SelectObject(hDC, hOldBrush);
+		DeleteObject(brush);
 
-	brush = CreateSolidBrush(RGB(0, 0, 0));
-	SelectObject(hDC, brush);
-
-	if (m_eDir == DIR_RIGHT)
-	{
+		brush = CreateSolidBrush(RGB(0, 0, 0));
+		hOldBrush = SelectObject(hDC, brush);
 		Rectangle(hDC, m_tRect.left - 70 + iScrollX, m_tRect.top - 40 + iScrollY, m_tRect.right - 10 + iScrollX, m_tRect.bottom - 100 + iScrollY);
+		SelectObject(hDC, hOldBrush);
+		DeleteObject(brush);
+
 	}
 	else
 	{
+		brush = CreateSolidBrush(RGB(150, 75, 0));
+		hOldBrush = SelectObject(hDC, brush);
+		Rectangle(hDC, m_tRect.left + 40 + iScrollX, m_tRect.top + iScrollY, m_tRect.right +40 + iScrollX, m_tRect.bottom - 50 + iScrollY);
+		SelectObject(hDC, hOldBrush);
+		DeleteObject(brush);
+
+		brush = CreateSolidBrush(RGB(0, 0, 0));
+		hOldBrush = SelectObject(hDC, brush);
 		Rectangle(hDC, m_tRect.left + 10 + iScrollX, m_tRect.top - 40 + iScrollY, m_tRect.right + 70 + iScrollX, m_tRect.bottom - 100 + iScrollY);
+		SelectObject(hDC, hOldBrush);
+		DeleteObject(brush);
 	}
-	DeleteObject(brush);
+
+
 
 	//Ellipse(hdc, m_tRect.left, m_tRect.top, m_tRect.right, m_tR
 }

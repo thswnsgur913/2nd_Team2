@@ -259,8 +259,6 @@ void CMainGame::Update(void)
 void CMainGame::Late_Update(void)
 {
 	CObjManager::Instance()->Late_Update();
-
-
 }
 
 void CMainGame::Render(HDC hdc)

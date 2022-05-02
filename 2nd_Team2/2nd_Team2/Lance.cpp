@@ -63,27 +63,34 @@ void CLance::Render(HDC hDC)
 	int	iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();
 
 	HBRUSH brush;
-	HPEN pen;
+	HGDIOBJ hOldBrush;
 
 	if (m_eDir == DIR_RIGHT)
 	{
-
 		brush = CreateSolidBrush(RGB(150, 75, 0));
-		SelectObject(hDC, brush);
+		hOldBrush = SelectObject(hDC, brush);
 		Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top + iScrollY, m_tRect.right+50 + iScrollX, m_tRect.bottom + iScrollY);
+		SelectObject(hDC, hOldBrush);
+		DeleteObject(brush);
+
 		brush = CreateSolidBrush(RGB(0, 0, 0));
-		SelectObject(hDC, brush);
+		hOldBrush = SelectObject(hDC, brush);
 		Rectangle(hDC, m_tRect.left+50 + iScrollX, m_tRect.top + iScrollY, m_tRect.right +50+ iScrollX, m_tRect.bottom + iScrollY);
+		SelectObject(hDC, hOldBrush);
 		DeleteObject(brush);
 	}
 	else
 	{
 		brush = CreateSolidBrush(RGB(150, 75, 0));
-		SelectObject(hDC, brush);
+		hOldBrush = SelectObject(hDC, brush);
 		Rectangle(hDC, m_tRect.left - 50 + iScrollX, m_tRect.top + iScrollY, m_tRect.right + iScrollX, m_tRect.bottom + iScrollY);
+		SelectObject(hDC, hOldBrush);
+		DeleteObject(brush);
+
 		brush = CreateSolidBrush(RGB(0, 0, 0));
-		SelectObject(hDC, brush);
+		hOldBrush = SelectObject(hDC, brush);
 		Rectangle(hDC, m_tRect.left-50 + iScrollX, m_tRect.top + iScrollY, m_tRect.right-50  + iScrollX, m_tRect.bottom + iScrollY);
+		SelectObject(hDC, hOldBrush);
 		DeleteObject(brush);
 	}
 }

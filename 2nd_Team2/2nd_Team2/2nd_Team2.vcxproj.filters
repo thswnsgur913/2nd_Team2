@@ -70,6 +70,12 @@
     <Filter Include="Object\Monster\MonsterC">
       <UniqueIdentifier>{21874edd-1905-4db1-8a24-3028b26058bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\BmpMgr">
+      <UniqueIdentifier>{aad70115-77ec-49d0-b08c-a9ce1fbc8f1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\BmpMgr\MyBmp">
+      <UniqueIdentifier>{58f7243e-03cf-4968-8a55-7573c86b8e63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -206,6 +212,13 @@
     </ClInclude>
     <ClInclude Include="LinePlat.h">
       <Filter>LinePlat</Filter>
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="BmpMgr.h">
+      <Filter>Object\BmpMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="MyBmp.h">
+      <Filter>Object\BmpMgr\MyBmp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -310,6 +323,12 @@
     </ClCompile>
     <ClCompile Include="UI.cpp">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="BmpMgr.cpp">
+      <Filter>Object\BmpMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="MyBmp.cpp">
+      <Filter>Object\BmpMgr\MyBmp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
