@@ -223,6 +223,9 @@
     <ClInclude Include="Cloud.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="MovePlatform.h">
+      <Filter>Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -335,6 +338,9 @@
     </ClCompile>
     <ClCompile Include="Cloud.cpp">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MovePlatform.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

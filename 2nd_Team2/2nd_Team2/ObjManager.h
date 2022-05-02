@@ -19,7 +19,7 @@ public:
 
 	list<CObj*> GetLine()
 	{
-		return m_ObjList[OBJ_OBSTACLE];
+		return m_ObjList[OBJ_WALL];
 	}
 
 public:

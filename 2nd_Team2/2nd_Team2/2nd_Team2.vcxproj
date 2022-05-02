@@ -173,6 +173,7 @@
     <ClInclude Include="BehaviorA.h" />
     <ClInclude Include="BehaviorB.h" />
     <ClInclude Include="BehaviorC.h" />
+    <ClInclude Include="MovePlatform.h" />
     <ClInclude Include="MyBmp.h" />
     <ClInclude Include="Obj.h" />
     <ClInclude Include="ObjLine.h" />
@@ -215,6 +216,7 @@
     <ClCompile Include="BehaviorA.cpp" />
     <ClCompile Include="BehaviorB.cpp" />
     <ClCompile Include="BehaviorC.cpp" />
+    <ClCompile Include="MovePlatform.cpp" />
     <ClCompile Include="MyBmp.cpp" />
     <ClCompile Include="Obj.cpp" />
     <ClCompile Include="ObjLine.cpp" />

@@ -29,28 +29,19 @@ int CObjManager::Update(void) {
 	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BULLET]);
 	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_ITEM]);
 
+	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_OBSTACLE]);
+	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_OBSTACLE]);
+
 	for (auto& Plr : m_ObjList[OBJ_PLAYER])
 	{
-		for (auto& Lin : m_ObjList[OBJ_OBSTACLE])
+		for (auto& Lin : m_ObjList[OBJ_WALL])
 			CCollisionMgr::Collision_OBJLINE(Plr, Lin);
 	}
 	for (auto& Mon : m_ObjList[OBJ_MONSTER])
 	{
-		for (auto& Lin : m_ObjList[OBJ_OBSTACLE])
+		for (auto& Lin : m_ObjList[OBJ_WALL])
 			CCollisionMgr::Collision_OBJLINE(Mon, Lin);
 	}
-
-	/*for (auto& Plr : m_ObjList[OBJ_PLAYER])
-	{
-		for (auto& Mon : m_ObjList[OBJ_MONSTER])
-		{
-			for (auto& Lin : m_ObjList[OBJ_OBSTACLE])
-			{
-				CCollisionMgr::Collision_OBJLINE(Plr, Lin);
-				CCollisionMgr::Collision_OBJLINE(Mon, Lin);
-			}
-		}
-	}*/
 
 	for (int i = 0; i < OBJ_END; ++i) {
 		for (auto& iter = m_ObjList[i].begin(); iter != m_ObjList[i].end();) {
