@@ -15,7 +15,7 @@ class GameClient;
 #define		OBJ_NOEVENT	0	
 #define		OBJ_DEAD	1
 #define		PlayerSize  60
-#define		PlayerSpeed  8
+#define		PlayerSpeed  6
 #define		FallSpeed    8
 
 

@@ -59,7 +59,14 @@ void CLinePlat::Render(HDC hDC)
 		m_ScrollDrawLineList[index] = { static_cast<long>(m_DrawLineList[index].x + fScorllX), static_cast<long>(m_DrawLineList[index].y + fScorllY) };
 	}
 
+	HBRUSH brush = CreateSolidBrush(RGB(171, 113, 80));
+	HGDIOBJ oldBrush = SelectObject(hDC, brush);
+
 	Polygon(hDC, m_ScrollDrawLineList, m_LineList.size()); // ÁÂÇ¥ÀÇ ¼ö.
+
+	SelectObject(hDC, oldBrush);
+	DeleteObject(brush);
+
 }
 
 void CLinePlat::Release(void)
