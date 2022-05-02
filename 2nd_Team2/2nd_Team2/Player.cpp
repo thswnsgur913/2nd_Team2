@@ -197,7 +197,12 @@ void CPlayer::Set_Damage()
 
 void CPlayer::Die() {
 	CMainGame::Life -= 1;
-	CMainGame::DeadTime -= 5.f;
+	CMainGame::DeadTime = CMainGame::StageDeadTime;
+
+	if (CMainGame::Life <= 0) {
+		m_bDead = true;
+		return;
+	}
 
 	m_tInfo.fX = m_startPoint.x;
 	m_tInfo.fY = m_startPoint.y;

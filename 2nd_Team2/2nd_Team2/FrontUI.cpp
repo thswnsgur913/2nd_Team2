@@ -17,7 +17,10 @@ void CFrontUI::Initialize() {
 	m_player = dynamic_cast<CPlayer*>(CObjManager::Instance()->GetPlayer());
 
 	m_playTimeLabel = new CLabel;
-	m_playTimeLabel->Set_pos(static_cast<int>(WINCX * 0.5), WINCY - 50);
+	m_playTimeLabel->Set_pos(WINCX - 20, 40);
+		m_playTimeLabel->SetAlign(CLabel::alignType::ALIGN_RIGHT)
+		.SetFontSize(30)
+		.SetColor(RGB(255, 255, 255));
 
 	m_lifeLabel = new CLabel;
 	m_lifeLabel->Set_pos(20, 40);
@@ -99,8 +102,8 @@ void CFrontUI::Render(HDC hdc) {
 	}
 
 	int currentPlayTime = CMainGame::PlayTime;
-	int microsecond = currentPlayTime % 10;
-	currentPlayTime /= 10;
+	int microsecond = currentPlayTime % 1000;
+	currentPlayTime /= 1000;
 
 	int second = currentPlayTime % 60;
 	currentPlayTime /= 60;

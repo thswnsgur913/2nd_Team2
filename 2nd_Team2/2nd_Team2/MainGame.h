@@ -44,6 +44,8 @@ public:
 	static int PlayTime;
 	static float DeadTime;
 
+	static const float StageDeadTime;
+
 private:
 	enum monsterType {
 		Monster1,
@@ -51,8 +53,6 @@ private:
 		Monster3,
 		MonsterEnd
 	};
-
-	const float StageDeadTime = 100.f;
 
 	// map
 	CTimer* m_timer;

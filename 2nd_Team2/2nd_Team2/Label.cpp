@@ -50,7 +50,7 @@ void CLabel::Render(HDC hDC) {
 	case ALIGN_LEFT:
 		break;
 	case ALIGN_RIGHT:
-		labelPosX += textHalfWidth;
+		labelPosX -= size.cx;
 		break;
 	case ALIGN_MIDDLE:
 	default:

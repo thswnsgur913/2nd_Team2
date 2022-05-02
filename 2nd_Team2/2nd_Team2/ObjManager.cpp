@@ -4,7 +4,7 @@
 
 CObjManager* CObjManager::m_pInstance = nullptr;
 
-CObjManager::CObjManager(): m_debug(true) {
+CObjManager::CObjManager(): m_debug(false) {
 }
 
 

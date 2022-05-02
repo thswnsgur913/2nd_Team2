@@ -35,6 +35,8 @@ int CMainGame::Level = 1;
 int CMainGame::PlayTime = 0;
 float CMainGame::DeadTime = 0.f;
 
+const float CMainGame::StageDeadTime = 100.f;
+
 CMainGame::CMainGame()
 	: m_dwTime(GetTickCount()),
 	  m_bMonsterOnOff(false)
