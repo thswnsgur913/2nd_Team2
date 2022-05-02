@@ -45,13 +45,11 @@ void CPlayer::Initialize(void)
 
 	m_Dir = true;
 
-	m_GodMode=false;
+	m_GodMode = false;
 
 	//m_iCount = GetTickCount();
 
 	m_godModeTimer = new CTimer;
-
-	GodMode();
 
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyNormalR.bmp", L"Player");
 }
@@ -60,17 +58,7 @@ int CPlayer::Update(void)
 {
 	if (m_bDead)
 		return OBJ_DEAD;
-	if (m_tPstat.m_Hammer == false && m_tPstat.m_Lance == true && m_Dir == true)
-	{
-		CBmpMgr::Destroy_Instance();
-		CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyWingR.bmp", L"Player");
-	}
-	else if (m_tPstat.m_Hammer == false && m_tPstat.m_Lance == true && m_Dir == false)
-	{
-		CBmpMgr::Destroy_Instance();
-		CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyWingL.bmp", L"Player");
-	}
-	else if (m_GodMode==true &&m_Dir == true)
+	if (m_GodMode == true && m_Dir == true)
 	{
 		CBmpMgr::Destroy_Instance();
 		CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbySuperR.bmp", L"Player");
@@ -80,28 +68,42 @@ int CPlayer::Update(void)
 		CBmpMgr::Destroy_Instance();
 		CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbySuperL.bmp", L"Player");
 	}
-	else if (m_tPstat.m_Hammer == true && m_tPstat.m_Lance == false && m_Dir == true)
+	else
 	{
-		CBmpMgr::Destroy_Instance();
-		CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyR.bmp", L"Player");
+		if (m_tPstat.m_Hammer == false && m_tPstat.m_Lance == true && m_Dir == true)
+		{
+			CBmpMgr::Destroy_Instance();
+			CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyWingR.bmp", L"Player");
+		}
+		else if (m_tPstat.m_Hammer == false && m_tPstat.m_Lance == true && m_Dir == false)
+		{
+			CBmpMgr::Destroy_Instance();
+			CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyWingL.bmp", L"Player");
+		}
+		else if (m_tPstat.m_Hammer == true && m_tPstat.m_Lance == false && m_Dir == true)
+		{
+			CBmpMgr::Destroy_Instance();
+			CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyR.bmp", L"Player");
+		}
+
+		else if (m_tPstat.m_Hammer == false && m_tPstat.m_Lance == false && m_Dir == true)
+		{
+			CBmpMgr::Destroy_Instance();
+			CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyNormalR.bmp", L"Player");
+		}
+
+		else if (m_tPstat.m_Hammer == true && m_tPstat.m_Lance == false && m_Dir == false)
+		{
+			CBmpMgr::Destroy_Instance();
+			CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyL.bmp", L"Player");
+		}
+		else if (m_tPstat.m_Hammer == false && m_tPstat.m_Lance == false && m_Dir == false)
+		{
+			CBmpMgr::Destroy_Instance();
+			CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyNormalL.bmp", L"Player");
+		}
 	}
 
-	else if (m_tPstat.m_Hammer == false&&m_tPstat.m_Lance == false&&  m_Dir == true)
-	{
-		CBmpMgr::Destroy_Instance();
-		CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyNormalR.bmp", L"Player");
-	}
-
-	else if (m_tPstat.m_Hammer == true&&m_tPstat.m_Lance == false && m_Dir == false)
-	{
-		CBmpMgr::Destroy_Instance();
-		CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyL.bmp", L"Player");
-	}
-	else if (m_tPstat.m_Hammer == false && m_tPstat.m_Lance == false && m_Dir == false)
-	{
-		CBmpMgr::Destroy_Instance();
-		CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyNormalL.bmp", L"Player");
-	}
 
 	KeyInput();
 
@@ -110,7 +112,7 @@ int CPlayer::Update(void)
 	Drop();
 	Jumping();
 
-	//m_godModeTimer->Update();
+	m_godModeTimer->Update();
 
 	Update_Rect();
 
@@ -228,8 +230,15 @@ void CPlayer::CollisionEnter(CObj* _sour)
 		CBullet* bulletObj = dynamic_cast<CBullet*>(_sour);
 		if (bulletObj && bulletObj->GetType() == MONSTER_BULLET) 
 		{
-			bulletObj->Set_Dead();
-			Set_Damage();
+			if (m_GodMode == true)
+			{
+				bulletObj->Set_Dead();
+			}
+			else if (m_GodMode == false)
+			{
+				bulletObj->Set_Dead();
+				Set_Damage();
+			}
 		}
 	}
 	
@@ -240,9 +249,18 @@ void CPlayer::CollisionEnter(CObj* _sour)
 		{
 			MonsterObj->Set_Dead();
 		}
-		if (m_GodMode == false)
+		else if (m_GodMode == false)
 		{
+			
 			Set_Damage();
+			if (m_Dir==true)
+			{
+				m_tInfo.fX -= 30;
+			}
+			else
+			{
+				m_tInfo.fX += 30;
+			}
 		}
 	}
 
@@ -257,11 +275,11 @@ void CPlayer::CollisionEnter(CObj* _sour)
 
 void CPlayer::Set_Damage()
 {
-	CObjManager::Instance()->AddObject(OBJ_EFFECT, CAbstractFactory<CEffect>::Create((float)m_tInfo.fX, (float)m_tInfo.fY));
-	CMainGame::Life -= 1;
+	//CObjManager::Instance()->AddObject(OBJ_EFFECT, CAbstractFactory<CEffect>::Create((float)m_tInfo.fX, (float)m_tInfo.fY));
+	CMainGame::DeadTime -= 5.f;
 
-	m_tInfo.fX = 100.f;
-	m_tInfo.fY = WINCY - 250.f;
+	//m_tInfo.fX = 100.f;
+	//m_tInfo.fY = WINCY - 250.f;
 
 }
 
@@ -386,9 +404,8 @@ void CPlayer::KeyInput(void)
 
 void CPlayer::GodMode(void)
 {
-	//m_GodMode = true;
 
-	m_godModeTimer->StartTimer(GodModeSecond, [&]() {m_GodMode = false;m_godModeTimer->StopTimer();});
+	m_godModeTimer->StartTimer(GodModeSecond, [&]() {m_GodMode = false; m_godModeTimer->StopTimer();});
 }
 
 void CPlayer::OffSet(void)

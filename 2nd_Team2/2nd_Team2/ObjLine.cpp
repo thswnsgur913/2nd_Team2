@@ -54,7 +54,7 @@ void CObjLine::Collision_OBJLINE(CObj * pObj)
 {
 	if ((pObj->Get_Info().fX > POINT1.fX) && (pObj->Get_Info().fX - pObj->Get_Info().fWidth * 0.5) < POINT1.fX)
 	{
-		m_bOnRight = true;
+		//m_bOnRight = true;
 	}
 	else 
 	{

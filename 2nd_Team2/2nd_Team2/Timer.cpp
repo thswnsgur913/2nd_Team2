@@ -4,7 +4,8 @@
 CTimer::CTimer():
 	m_iCurrentTime(0),
 	m_iRepeatRate(0),
-	m_iCurrentCount(0) {
+	m_iCurrentCount(0),
+	m_bRunTimer(false) {
 
 }
 
@@ -22,7 +23,7 @@ void CTimer::StartTimer(const float _repeatRateSecond, std::function<void()> _pC
 }
 
 void CTimer::Update() {
-	if (!pExcuteCallBack)
+	if (!pExcuteCallBack || !m_bRunTimer)
 		return;
 
 	if (1 <= g_dwCurrentTime - m_iCurrentTime) {
