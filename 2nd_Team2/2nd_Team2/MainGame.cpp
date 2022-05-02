@@ -276,10 +276,10 @@ void CMainGame::Release(void)
 
 void CMainGame::RandomMonster(void)
 {
-	/*if (m_dwTime + 10000 < GetTickCount())
-	{*/
+	if (m_dwTime + 10000 < GetTickCount())
+	{
 		srand((unsigned int)time((nullptr)));
-		int iRanMon = rand() % 3 + 1;
+		int iRanMon = rand() % 4 + 1;
 		switch (iRanMon)
 		{
 		case 1:
@@ -294,13 +294,13 @@ void CMainGame::RandomMonster(void)
 			CreateMonster(MONSTER_C); // C
 			break;
 
-		//case 4:
-		//	CreateMonster(MONSTER_BOSS); // BOSS
-		//	break;
+		case 4:
+			CreateMonster(MONSTER_BOSS); // BOSS
+			break;
 		}
 
-	/*	m_dwTime = GetTickCount();
-	}*/
+		m_dwTime = GetTickCount();
+	}
 }
 
 void CMainGame::CreateMonster(MONSTERTYPE _type)

@@ -47,9 +47,7 @@ void CBehaviorBoss::Release(void)
 
 void CBehaviorBoss::Render(HDC hDC)
 {
-	int iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
-	int iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();
-	Rectangle(hDC, (m_tRect.left + iScrollX), (m_tRect.top + iScrollY), (m_tRect.right + iScrollX), (m_tRect.bottom + iScrollY));
+	Rectangle(hDC, m_tScrollRect.left, m_tScrollRect.top, m_tScrollRect.right, m_tScrollRect.bottom);
 }
 
 void CBehaviorBoss::BehaviorEnter()

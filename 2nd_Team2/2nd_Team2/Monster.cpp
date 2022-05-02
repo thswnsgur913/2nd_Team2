@@ -22,6 +22,8 @@ int CMonster::Update() {
 	if (m_bDead)
 		return OBJ_DEAD;
 
+	Drop();
+
 	BehaviorUpdate();
 
 	Update_Rect();
