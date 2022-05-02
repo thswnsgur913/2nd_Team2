@@ -303,7 +303,7 @@ void CMainGame::Update(void)
 		m_player = nullptr;
 	}
 
-	RandomMonster();
+	//RandomMonster();
 
 	const int mapHalfHeight = 250;
 
@@ -375,32 +375,26 @@ void CMainGame::RandomMonster(void)
 	}
 }
 
-void CMainGame::CreateMonster(MONSTERTYPE _type)
+void CMainGame::CreateMonster(MONSTERTYPE _type, float _fXpoint)
 {
 	switch (_type)
 	{
 	case MONSTER_A:
-		m_monster = CAbstractFactory<CBehaviorA>::Create((m_player->Get_Info().fX + 650.f));
+		m_monster = CAbstractFactory<CBehaviorA>::Create(_fXpoint);
 		dynamic_cast<CBehaviorA*>(m_monster)->BehaviorStart(m_player);
 		CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
 		break;
 
 	case MONSTER_B:
-		m_monster = CAbstractFactory<CBehaviorB>::Create((m_player->Get_Info().fX + 650.f));
+		m_monster = CAbstractFactory<CBehaviorB>::Create(_fXpoint);
 		dynamic_cast<CBehaviorB*>(m_monster)->BehaviorStart(m_player);
 		CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
 		break;
 
 	case MONSTER_C:
-		m_monster = CAbstractFactory<CBehaviorC>::Create((m_player->Get_Info().fX + 650.f));
+		m_monster = CAbstractFactory<CBehaviorC>::Create(_fXpoint);
 		dynamic_cast<CBehaviorC*>(m_monster)->BehaviorStart(m_player);
 		CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
 		break;
-
-	/*case MONSTER_BOSS:
-		m_monster = CAbstractFactory<CBehaviorBoss>::Create((m_player->Get_Info().fX + 650.f));
-		dynamic_cast<CBehaviorBoss*>(m_monster)->BehaviorStart(m_player);
-		CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
-		break;*/
 	}
 }

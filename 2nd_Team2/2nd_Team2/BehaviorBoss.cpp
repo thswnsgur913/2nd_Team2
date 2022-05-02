@@ -67,46 +67,49 @@ void CBehaviorBoss::BehaviorEnter()
 	if (!m_targetObj)
 		return;
 
-	switch (currentState) 
+	if (360.f >= (m_tInfo.fX - m_targetObj->Get_Info().fX))
 	{
-	case Create:
-		targetPosition.x = appearPosition.x;
-		//targetPosition.y = appearPosition.y;
+		switch (currentState)
+		{
+		case Create:
+			targetPosition.x = appearPosition.x;
+			//targetPosition.y = appearPosition.y;
 
-		originPosition.x = targetPosition.x;
-		//originPosition.y = targetPosition.y;
-		break;
+			originPosition.x = targetPosition.x;
+			//originPosition.y = targetPosition.y;
+			break;
 
-	case Pattern1:
-		targetPosition.x = m_targetObj->Get_Info().fX;
-		//targetPosition.y = m_targetObj->Get_Info().fY;
+		case Pattern1:
+			targetPosition.x = m_targetObj->Get_Info().fX;
+			//targetPosition.y = m_targetObj->Get_Info().fY;
 
-		originPosition.x = m_tInfo.fX;
-		//originPosition.y = m_tInfo.fY;
-		break;
+			originPosition.x = m_tInfo.fX;
+			//originPosition.y = m_tInfo.fY;
+			break;
 
-	case Return:
-		targetPosition.x = originPosition.x;
-		//targetPosition.y = originPosition.y;
-		break;
+		case Return:
+			targetPosition.x = originPosition.x;
+			//targetPosition.y = originPosition.y;
+			break;
 
-	case Pattern2:
-		JumpStart();
-		break;
+		case Pattern2:
+			JumpStart();
+			break;
 
-	case Pattern3:
-		bossShotTimer->StartTimer(0.5f, [&]() { ShootPattern3(); });
-		break;
+		case Pattern3:
+			bossShotTimer->StartTimer(0.5f, [&]() { ShootPattern3(); });
+			break;
 
-	case Pattern4:
-		bossShotTimer->StartTimer(0.5f, [&]() { ShootPattern4(); });
-		break;
+		case Pattern4:
+			bossShotTimer->StartTimer(0.5f, [&]() { ShootPattern4(); });
+			break;
 
-	case Idle:		
-		break;
+		case Idle:
+			break;
+		}
+
+		behaviorState = Execute;
 	}
-
-	behaviorState = Execute;
 }
 
 void CBehaviorBoss::BehaviorExecute()

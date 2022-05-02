@@ -63,22 +63,25 @@ void CBehaviorC::BehaviorEnter()
 	if (!m_targetObj)
 		return;
 
-	switch (currentState)
+	if (360.f >= (m_tInfo.fX - m_targetObj->Get_Info().fX))
 	{
-	case Create:
-		targetPosition.x = appearPosition.x;
-		//targetPosition.y = appearPosition.y;
+		switch (currentState)
+		{
+		case Create:
+			targetPosition.x = appearPosition.x;
+			//targetPosition.y = appearPosition.y;
 
-		originPosition.x = targetPosition.x;
-		//originPosition.y = targetPosition.y;
-		break;
+			originPosition.x = targetPosition.x;
+			//originPosition.y = targetPosition.y;
+			break;
 
-	case Pattern3:
-		bossShotTimer->StartTimer(0.5f, [&]() { Shoot(); });
-		break;
+		case Pattern3:
+			bossShotTimer->StartTimer(0.5f, [&]() { Shoot(); });
+			break;
+		}
+
+		behaviorState = Execute;
 	}
-
-	behaviorState = Execute;
 }
 
 void CBehaviorC::BehaviorExecute()

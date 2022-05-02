@@ -70,22 +70,25 @@ void CBehaviorB::BehaviorEnter()
 	if (!m_targetObj)
 		return;
 
-	switch (currentState)
+	if (360.f >= (m_tInfo.fX - m_targetObj->Get_Info().fX))
 	{
-	case Create:
-		targetPosition.x = appearPosition.x;
-		//targetPosition.y = appearPosition.y;
+		switch (currentState)
+		{
+		case Create:
+			targetPosition.x = appearPosition.x;
+			//targetPosition.y = appearPosition.y;
 
-		originPosition.x = targetPosition.x;
-		//originPosition.y = targetPosition.y;
-		break;
+			originPosition.x = targetPosition.x;
+			//originPosition.y = targetPosition.y;
+			break;
 
-	case Pattern2:
-		JumpStart();
-		break;
+		case Pattern2:
+			JumpStart();
+			break;
+		}
+
+		behaviorState = Execute;
 	}
-
-	behaviorState = Execute;
 }
 
 void CBehaviorB::BehaviorExecute()
