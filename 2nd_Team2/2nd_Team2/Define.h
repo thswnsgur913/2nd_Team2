@@ -18,7 +18,6 @@ class GameClient;
 #define		PlayerSpeed  6
 #define		FallSpeed    8
 
-
 #define		TIMESCALE	0.1f
 #define		TICKSCALE	TIMESCALE * 0.1f
 

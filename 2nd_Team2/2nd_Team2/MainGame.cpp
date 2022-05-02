@@ -11,6 +11,7 @@
 #include "BehaviorC.h"
 #include "BehaviorBoss.h"
 #include "ObjLine.h"
+#include "MovePlatform.h"
 
 // UI
 #include "FrontUI.h"
@@ -42,11 +43,28 @@ CMainGame::~CMainGame()
 	Release();
 }
 
+void CMainGame::ResourceLoad() {
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/DragonL.bmp", L"BossMonster");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BatL.bmp", L"MonsterA");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/ScolpionL.bmp", L"MonsterB");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BearL.bmp", L"MonsterC");
+
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbySuperR.bmp", L"PlayerSuperR");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbySuperL.bmp", L"PlayerSuperL");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyWingR.bmp", L"PlayerWingR");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyWingL.bmp", L"PlayerWingL");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyR.bmp", L"PlayerR");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyNormalR.bmp", L"PlayerNormalR");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyL.bmp", L"PlayerL");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyNormalL.bmp", L"PlayerNormalL");
+
+}
+
 void CMainGame::Initialize(void)
 {
-	
-	m_player = dynamic_cast<CPlayer*>(CAbstractFactory<CPlayer>::Create());
+	ResourceLoad();
 
+	m_player = dynamic_cast<CPlayer*>(CAbstractFactory<CPlayer>::Create());
 
 	CObjManager::Instance()->AddObject(OBJ_PLAYER, m_player);
 	CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEM_LIFE,	{ 100.f, 200.f }));
@@ -56,14 +74,25 @@ void CMainGame::Initialize(void)
 	CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEMTYPE::ITEM_GOD , { 700.f, 200.f }));
 	CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEMTYPE::ITEM_WEAPON_HAMMER, { 900.f, 200.f }));
 	CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEMTYPE::ITEM_WEAPON_LANCE, { 1100.f, 200.f }));
-
+	
 	CObj* newBackUI = CAbstractFactory<CBackUI>::Create();
 	m_backUI = dynamic_cast<CBackUI*>(newBackUI);
 
-	CreateMonster(MONSTER_A,500.f);
-	CreateMonster(MONSTER_B,1000.f);
-	CreateMonster(MONSTER_C,1500.f);
-	CreateMonster(MONSTER_BOSS, 2000.f);
+	CreateMonster(MONSTER_C, 6800.f, 300.f);
+
+	CreateMonster(MONSTER_B, 5500.f, 0.f);
+	CreateMonster(MONSTER_B, 6000.f, 0.f);
+
+	CreateMonster(MONSTER_B, 5200.f, 100.f);
+	CreateMonster(MONSTER_B, 4700.f, 200.f);
+	CreateMonster(MONSTER_B, 3700.f, 300.f);
+
+	CreateMonster(MONSTER_A, 8000.f, 300.f);
+	CreateMonster(MONSTER_A, 8200.f, 300.f);
+	CreateMonster(MONSTER_A, 8400.f, 300.f);
+	CreateMonster(MONSTER_A, 10400.f, 300.f);
+
+	CreateMonster(MONSTER_BOSS, 15700.f, 500.f);
 
 	CUIManager::Instance()->AddUI(UI_BACK, m_backUI);
 	CUIManager::Instance()->AddUI(UI_FRONT, CAbstractFactory<CFrontUI>::Create());
@@ -98,15 +127,15 @@ void CMainGame::Initialize(void)
 		})
 	);
 
-	CObjManager::Instance()->AddObject(OBJ_OBSTACLE,
+	CObjManager::Instance()->AddObject(OBJ_WALL,
 		CObjLine::Create({ -100, 350 }, { -100, 1000 }
 	));
 
-	CObjManager::Instance()->AddObject(OBJ_OBSTACLE,
+	CObjManager::Instance()->AddObject(OBJ_WALL,
 		CObjLine::Create({ 3500, 350 }, { 3500, 1000 }
 	));
 
-	CObjManager::Instance()->AddObject(OBJ_OBSTACLE,
+	CObjManager::Instance()->AddObject(OBJ_WALL,
 		CObjLine::Create({ 300, 350 }, { 300, 550 }
 	));
 
@@ -129,23 +158,23 @@ void CMainGame::Initialize(void)
 		})
 	);
 
-	CObjManager::Instance()->AddObject(OBJ_OBSTACLE,
+	CObjManager::Instance()->AddObject(OBJ_WALL,
 		CObjLine::Create({ 3700, 350 }, { 3700, 1000 }
 	));
 
-	CObjManager::Instance()->AddObject(OBJ_OBSTACLE,
+	CObjManager::Instance()->AddObject(OBJ_WALL,
 		CObjLine::Create({ 7200, 350 }, { 7200, 1000 }
 	));
 
-	CObjManager::Instance()->AddObject(OBJ_OBSTACLE,
+	CObjManager::Instance()->AddObject(OBJ_WALL,
 		CObjLine::Create({ 4200, 350 }, { 4200, 250 }
 	));
 
-	CObjManager::Instance()->AddObject(OBJ_OBSTACLE,
+	CObjManager::Instance()->AddObject(OBJ_WALL,
 		CObjLine::Create({ 4700, 250 }, { 4700, 150 }
 	));
 
-	CObjManager::Instance()->AddObject(OBJ_OBSTACLE,
+	CObjManager::Instance()->AddObject(OBJ_WALL,
 		CObjLine::Create({ 5200, 150 }, { 5200, 50 }
 	));
 
@@ -160,11 +189,11 @@ void CMainGame::Initialize(void)
 		})
 	);
 
-	CObjManager::Instance()->AddObject(OBJ_OBSTACLE,
+	CObjManager::Instance()->AddObject(OBJ_WALL,
 		CObjLine::Create({ 7400, 350 }, { 7400, 1000 }
 	));
 
-	CObjManager::Instance()->AddObject(OBJ_OBSTACLE,
+	CObjManager::Instance()->AddObject(OBJ_WALL,
 		CObjLine::Create({ 10400, 350 }, { 10400, 1000 }
 	));
 
@@ -179,17 +208,35 @@ void CMainGame::Initialize(void)
 		})
 	);
 
-	CObjManager::Instance()->AddObject(OBJ_OBSTACLE,
+	CObjManager::Instance()->AddObject(OBJ_WALL,
 		CObjLine::Create({ 10600, 350 }, { 10600, 1000 }
 	));
 
-	CObjManager::Instance()->AddObject(OBJ_OBSTACLE,
+	CObjManager::Instance()->AddObject(OBJ_WALL,
 		CObjLine::Create({ 10900, 350 }, { 10900, 1000 }
 	));
 
+	CMovePlatform* movePlatform;
+	movePlatform = new CMovePlatform;
+	movePlatform->Initialize();
+	movePlatform->Set_pos(10900 + 120 + 10, 350);
+	movePlatform->SetDirection({ 1, 0 });
+	movePlatform->SetArea({ 10950, 0, 11700, 1000});
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, movePlatform);
+
+	movePlatform = new CMovePlatform;
+	movePlatform->Initialize();
+	movePlatform->Set_pos(12600 - 120 - 10, 350);
+	movePlatform->SetDirection({ -1, 0 });
+	movePlatform->SetArea({ 11700, 0, 12550, 1000 });
+	movePlatform->Set_Speed(5.f);
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, movePlatform);
+
+
+
 	//////////////////////// 임시
 
-	CObjManager::Instance()->AddMap(
+	/*CObjManager::Instance()->AddMap(
 		new CLinePlat(
 			vector<LINEPOINT>{
 				{ 11000, 350 },
@@ -198,7 +245,7 @@ void CMainGame::Initialize(void)
 				{ 11000, 1000 },
 				{ 11000, 350 }
 		})
-	);
+	);*/
 
 	///////////////////////////
 
@@ -213,28 +260,31 @@ void CMainGame::Initialize(void)
 		})
 	);
 
-	CObjManager::Instance()->AddObject(OBJ_OBSTACLE,
+
+	CObjManager::Instance()->AddObject(OBJ_WALL,
 		CObjLine::Create({ 12600, 350 }, { 12600, 1000 }
 	));
 
-	CObjManager::Instance()->AddObject(OBJ_OBSTACLE,
+	CObjManager::Instance()->AddObject(OBJ_WALL,
 		CObjLine::Create({ 12900, 350 }, { 12900, 1000 }
 	));
 
-	//////////////////////// 임시
+	movePlatform = new CMovePlatform;
+	movePlatform->Initialize();
+	movePlatform->Set_pos(12900 + 120 + 100, 500);
+	movePlatform->SetDirection({ 0, 1 });
+	movePlatform->SetSize(180.f, 50.f);
+	movePlatform->SetArea({ 12000, 350, 13900, 1000 });
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, movePlatform);
 
-	CObjManager::Instance()->AddMap(
-		new CLinePlat(
-			vector<LINEPOINT>{
-				{ 13100, 350 },
-				{ 13700, 350 },
-				{ 13700, 1000 },
-				{ 13100, 1000 },
-				{ 13100, 350 }
-		})
-	);
 
-	///////////////////////////
+	movePlatform = new CMovePlatform;
+	movePlatform->Initialize();
+	movePlatform->Set_pos(13900 - 120 - 100, 500);
+	movePlatform->SetDirection({ 0, 1 });
+	movePlatform->SetSize(180.f, 50.f);
+	movePlatform->SetArea({ 12000, 350, 13900, 1000 });
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, movePlatform);
 
 	CObjManager::Instance()->AddMap(
 		new CLinePlat(
@@ -252,19 +302,19 @@ void CMainGame::Initialize(void)
 		})
 	);
 
-	CObjManager::Instance()->AddObject(OBJ_OBSTACLE,
+	CObjManager::Instance()->AddObject(OBJ_WALL,
 		CObjLine::Create({ 13900, 350 }, { 13900, 1500 }
 	));
 
-	CObjManager::Instance()->AddObject(OBJ_OBSTACLE,
+	CObjManager::Instance()->AddObject(OBJ_WALL,
 		CObjLine::Create({ 14600, 350 }, { 14600, 1500 }
 	));
 
-	CObjManager::Instance()->AddObject(OBJ_OBSTACLE,
+	CObjManager::Instance()->AddObject(OBJ_WALL,
 		CObjLine::Create({ 14400, 350 }, { 14400, 450 }
 	));
 
-	CObjManager::Instance()->AddObject(OBJ_OBSTACLE,
+	CObjManager::Instance()->AddObject(OBJ_WALL,
 		CObjLine::Create({ 14500, 450 }, { 14500, 550 }
 	));
 
@@ -282,11 +332,11 @@ void CMainGame::Initialize(void)
 		})
 	);
 
-	CObjManager::Instance()->AddObject(OBJ_OBSTACLE,
+	CObjManager::Instance()->AddObject(OBJ_WALL,
 		CObjLine::Create({ 16400, 550 }, { 16400, 0 }
 	));
 
-	CObjManager::Instance()->AddObject(OBJ_OBSTACLE,
+	CObjManager::Instance()->AddObject(OBJ_WALL,
 		CObjLine::Create({ 14700, 550 }, { 14700, 1500 }
 	));
 }
@@ -347,24 +397,24 @@ void CMainGame::RandomMonster(void)
 
 }
 
-void CMainGame::CreateMonster(MONSTERTYPE _type, float _fXpoint)
+void CMainGame::CreateMonster(MONSTERTYPE _type, float _fXpoint, float _fYpoint)
 {
 	switch (_type)
 	{
 	case MONSTER_A:
-		m_monster = CAbstractFactory<CBehaviorA>::Create(_fXpoint);
+		m_monster = CAbstractFactory<CBehaviorA>::Create(_fXpoint, _fYpoint);
 		dynamic_cast<CBehaviorA*>(m_monster)->BehaviorStart(m_player);
 		CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
 		break;
 
 	case MONSTER_B:
-		m_monster = CAbstractFactory<CBehaviorB>::Create(_fXpoint);
+		m_monster = CAbstractFactory<CBehaviorB>::Create(_fXpoint, _fYpoint);
 		dynamic_cast<CBehaviorB*>(m_monster)->BehaviorStart(m_player);
 		CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
 		break;
 
 	case MONSTER_C:
-		m_monster = CAbstractFactory<CBehaviorC>::Create(_fXpoint);
+		m_monster = CAbstractFactory<CBehaviorC>::Create(_fXpoint, _fYpoint);
 		dynamic_cast<CBehaviorC*>(m_monster)->BehaviorStart(m_player);
 		CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
 		break;

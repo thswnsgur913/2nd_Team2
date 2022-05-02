@@ -53,7 +53,6 @@ void CItem::Render(HDC hdc) {
 	case ITEM_LIFE: 
 	{
 
-		CBmpMgr::Destroy_Instance();
 		CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/LifeItem.bmp", L"ITEM_LIFE");
 
 		HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"ITEM_LIFE");
@@ -73,7 +72,6 @@ void CItem::Render(HDC hdc) {
 
 	case ITEM_GOD:
 	{
-		CBmpMgr::Destroy_Instance();
 		CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/GodModeItem.bmp", L"ITEM_GOD");
 
 		HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"ITEM_GOD");
@@ -93,7 +91,6 @@ void CItem::Render(HDC hdc) {
 
 	case ITEM_SCORE:
 	{
-		CBmpMgr::Destroy_Instance();
 		CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/CoinItem.bmp", L"ITEM_SCORE");
 
 		HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"ITEM_SCORE");
@@ -114,7 +111,6 @@ void CItem::Render(HDC hdc) {
 
 	case ITEM_CLOCK:
 	{
-		CBmpMgr::Destroy_Instance();
 		CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/TimeItem.bmp", L"ITEM_CLOCK");
 
 		HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"ITEM_CLOCK");
@@ -135,7 +131,6 @@ void CItem::Render(HDC hdc) {
 
 	case ITEM_WEAPON_HAMMER:
 	{
-		CBmpMgr::Destroy_Instance();
 		CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/HammerItem.bmp", L"ITEM_WEAPON_HAMMER");
 
 		HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"ITEM_WEAPON_HAMMER");
@@ -156,7 +151,6 @@ void CItem::Render(HDC hdc) {
 
 	case ITEM_WEAPON_LANCE:
 	{
-		CBmpMgr::Destroy_Instance();
 		CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/LanceItem.bmp", L"ITEM_WEAPON_LANCE");
 
 		HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"ITEM_WEAPON_LANCE");

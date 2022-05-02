@@ -45,9 +45,7 @@ void CBehaviorBoss::Release(void)
 
 void CBehaviorBoss::Render(HDC hDC)
 {
-	CBmpMgr::Destroy_Instance();
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/DragonL.bmp", L"BossMonster");
-	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"BossMonster");
+	HDC	hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"BossMonster");
 	GdiTransparentBlt(hDC, 					// 복사 받을, 최종적으로 그림을 그릴 DC
 		int(m_tScrollRect.left),	// 2,3 인자 :  복사받을 위치 X, Y
 		int(m_tScrollRect.top),

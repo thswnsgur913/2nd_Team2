@@ -47,8 +47,6 @@ void CBehaviorB::Release(void)
 
 void CBehaviorB::Render(HDC hDC)
 {
-	CBmpMgr::Destroy_Instance();
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/ScolpionL.bmp", L"MonsterB");
 	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"MonsterB");
 
 

@@ -52,52 +52,6 @@ int CPlayer::Update(void)
 {
 	if (m_bDead)
 		return OBJ_DEAD;
-	if (m_GodMode == true && m_Dir == true)
-	{
-		CBmpMgr::Destroy_Instance();
-		CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbySuperR.bmp", L"Player");
-	}
-	else if (m_GodMode == true && m_Dir == false)
-	{
-		CBmpMgr::Destroy_Instance();
-		CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbySuperL.bmp", L"Player");
-	}
-	else
-	{
-		if (m_tPstat.m_Hammer == false && m_tPstat.m_Lance == true && m_Dir == true)
-		{
-			CBmpMgr::Destroy_Instance();
-			CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyWingR.bmp", L"Player");
-		}
-		else if (m_tPstat.m_Hammer == false && m_tPstat.m_Lance == true && m_Dir == false)
-		{
-			CBmpMgr::Destroy_Instance();
-			CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyWingL.bmp", L"Player");
-		}
-		else if (m_tPstat.m_Hammer == true && m_tPstat.m_Lance == false && m_Dir == true)
-		{
-			CBmpMgr::Destroy_Instance();
-			CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyR.bmp", L"Player");
-		}
-
-		else if (m_tPstat.m_Hammer == false && m_tPstat.m_Lance == false && m_Dir == true)
-		{
-			CBmpMgr::Destroy_Instance();
-			CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyNormalR.bmp", L"Player");
-		}
-
-		else if (m_tPstat.m_Hammer == true && m_tPstat.m_Lance == false && m_Dir == false)
-		{
-			CBmpMgr::Destroy_Instance();
-			CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyL.bmp", L"Player");
-		}
-		else if (m_tPstat.m_Hammer == false && m_tPstat.m_Lance == false && m_Dir == false)
-		{
-			CBmpMgr::Destroy_Instance();
-			CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyNormalL.bmp", L"Player");
-		}
-	}
-
 
 	KeyInput();
 
@@ -119,87 +73,61 @@ void CPlayer::Late_Update(void)
 
 void CPlayer::Render(HDC hDC)
 {
-
-	/*
-	HBRUSH brush;
-	HGDIOBJ hOldBrush;*/
-
 	int	iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
 	int	iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();
 
-	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Player");
+	HDC	hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"PlayerNormalL");;
 
-	/*BitBlt(hDC,							// 복사 받을, 최종적으로 그림을 그릴 DC
-	int(m_tRect.left + iScrollX),	// 2,3 인자 :  복사받을 위치 X, Y
-	int(m_tRect.top + iScrollY),
-	int(m_tInfo.fWidth),				// 4,5 인자 : 복사받을 가로, 세로 길이
-	int(m_tInfo.fHeight),
-	hMemDC,							// 비트맵을 가지고 있는 DC
-	0,								// 7, 8인자 : 비트맵을 출력할 시작 좌표, X,Y
-	0,
-	SRCCOPY);	*/	// 출력효과, 그대로 복사 출력
-
-
-	GdiTransparentBlt(hDC, 					// 복사 받을, 최종적으로 그림을 그릴 DC
-		int(m_tRect.left + iScrollX),	// 2,3 인자 :  복사받을 위치 X, Y
-		int(m_tRect.top +iScrollY),
-		int(m_tInfo.fWidth),				// 4,5 인자 : 복사받을 가로, 세로 길이
-		int(m_tInfo.fHeight),
-		hMemDC,							// 비트맵을 가지고 있는 DC
-		0,								// 비트맵 출력 시작 좌표, X,Y
-		0,
-		(int)m_tInfo.fWidth,				// 복사할 비트맵의 가로, 세로 길이
-		(int)m_tInfo.fHeight,
-		RGB(255, 255, 255));			// 제거하고자 하는 색상
-
-	/*if (m_Dir == true)
+	if (m_GodMode == true && m_Dir == true)
 	{
-		brush = CreateSolidBrush(RGB(0, 255, 0));
-		hOldBrush = SelectObject(hDC, brush);
-
-		Ellipse(hDC, m_tRect.left - 20 + iScrollX, m_tRect.top + 40 + iScrollY, m_tRect.right - 30 + iScrollX, m_tRect.bottom + 35 + iScrollY);//왼발
-		Ellipse(hDC, m_tRect.left + 30 + iScrollX, m_tRect.top + 40 + iScrollY, m_tRect.right + 30 + iScrollX, m_tRect.bottom + 20 + iScrollY);//오른발
-		Ellipse(hDC, m_tRect.left + 40 + iScrollX, m_tRect.top + 10 + iScrollY, m_tRect.right + 20 + iScrollX, m_tRect.bottom - 10 + iScrollY);//오른팔
-		//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);//몸통
-		Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top + iScrollY, m_tRect.right + iScrollX, m_tRect.bottom + iScrollY);
-		Ellipse(hDC, m_tRect.left - 15 + iScrollX, m_tRect.top - 60 + iScrollY, m_tRect.right + 15 + iScrollX, m_tRect.bottom - 30 + iScrollY);//머리
-		Ellipse(hDC, m_tRect.left - 20 + iScrollX, m_tRect.top + 10 + iScrollY, m_tRect.right - 40 + iScrollX, m_tRect.bottom - 10 + iScrollY);//왼팔
-		SelectObject(hDC, hOldBrush);
-		DeleteObject(brush);
-	    //오른쪽이동 랜더
-		if (m_GodMode == true)
+		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"PlayerSuperR");
+	}
+	else if (m_GodMode == true && m_Dir == false)
+	{
+		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"PlayerSuperL");
+	}
+	else
+	{
+		if (m_tPstat.m_Hammer == false && m_tPstat.m_Lance == true && m_Dir == true)
 		{
-			brush = CreateSolidBrush(RGB(255, 255, 0));
-			hOldBrush = SelectObject(hDC, brush);
-			Ellipse(hDC, m_tRect.left - 65 + iScrollX, m_tRect.top - 65 + iScrollY, m_tRect.right - 64 + iScrollX, m_tRect.bottom - 63 + iScrollY);
+			hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"PlayerWingR");
+		}
+		else if (m_tPstat.m_Hammer == false && m_tPstat.m_Lance == true && m_Dir == false)
+		{
+			hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"PlayerWingL");
+		}
+		else if (m_tPstat.m_Hammer == true && m_tPstat.m_Lance == false && m_Dir == true)
+		{
+			hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"PlayerR");
+		}
 
-			SelectObject(hDC, hOldBrush);
-			DeleteObject(brush);
+		else if (m_tPstat.m_Hammer == false && m_tPstat.m_Lance == false && m_Dir == true)
+		{
+			hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"PlayerNormalR");
+		}
+
+		else if (m_tPstat.m_Hammer == true && m_tPstat.m_Lance == false && m_Dir == false)
+		{
+			hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"PlayerL");
+		}
+		else if (m_tPstat.m_Hammer == false && m_tPstat.m_Lance == false && m_Dir == false)
+		{
+			hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"PlayerNormalL");
 		}
 	}
-	if (m_Dir == false)
-	{
-		brush = CreateSolidBrush(RGB(0, 255,0 ));
-		hOldBrush = SelectObject(hDC, brush);
-		Ellipse(hDC, m_tRect.left - 30 + iScrollX, m_tRect.top + 40 + iScrollY, m_tRect.right - 30 + iScrollX, m_tRect.bottom + 20 + iScrollY);//왼발
-		Ellipse(hDC, m_tRect.left + 30 + iScrollX, m_tRect.top + 40 + iScrollY, m_tRect.right + 20 + iScrollX, m_tRect.bottom + 35 + iScrollY);//오른발
-		Ellipse(hDC, m_tRect.left - 20 + iScrollX, m_tRect.top + 10 + iScrollY, m_tRect.right - 40 + iScrollX, m_tRect.bottom - 10 + iScrollY);//왼팔
-		//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);//몸통
-		Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top + iScrollY, m_tRect.right + iScrollX, m_tRect.bottom + iScrollY);
-		Ellipse(hDC, m_tRect.left - 15 + iScrollX, m_tRect.top - 60 + iScrollY, m_tRect.right + 15 + iScrollX, m_tRect.bottom - 30 + iScrollY);//머리
-		Ellipse(hDC, m_tRect.left + 40 + iScrollX, m_tRect.top + 10 + iScrollY, m_tRect.right + 20 + iScrollX, m_tRect.bottom - 10 + iScrollY);//오른팔
-		//왼쪽이동렌더
-		SelectObject(hDC, hOldBrush);
-		DeleteObject(brush);
-		if (m_GodMode == true)
-		{
-			brush = CreateSolidBrush(RGB(255, 255, 0));
-			hOldBrush = SelectObject(hDC, brush);
-			Ellipse(hDC, m_tRect.left + 64 + iScrollX, m_tRect.top - 65 + iScrollY, m_tRect.right + 65 + iScrollX, m_tRect.bottom - 63 + iScrollY);
-			SelectObject(hDC, hOldBrush);
-			DeleteObject(brush);
-		}
-	}*/
+
+	GdiTransparentBlt(hDC,
+		int(m_tRect.left + iScrollX),
+		int(m_tRect.top +iScrollY),
+		int(m_tInfo.fWidth),
+		int(m_tInfo.fHeight),
+		hMemDC,
+		0,
+		0,
+		(int)m_tInfo.fWidth,
+		(int)m_tInfo.fHeight,
+		RGB(255, 255, 255));
+
 }
 
 void CPlayer::Release(void)

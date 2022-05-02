@@ -28,7 +28,10 @@ public:
 	void Release(void) override;
 
 	void RandomMonster(void);
-	void CreateMonster(MONSTERTYPE _type, float _fXpoint);
+	void CreateMonster(MONSTERTYPE, float, float);
+
+private:
+	void ResourceLoad();
 
 public:
 	static int Life;

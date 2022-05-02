@@ -18,7 +18,6 @@ CBehaviorA::~CBehaviorA()
 
 void CBehaviorA::Initialize(void)
 {
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BatL.bmp", L"MonsterA");
 	m_tInfo.fX = m_fXPoint;
 	m_tInfo.fY = 0.f;
 	m_tInfo.fWidth = 50.f;
@@ -39,22 +38,19 @@ void CBehaviorA::Release(void)
 
 void CBehaviorA::Render(HDC hDC)
 {
-	CBmpMgr::Destroy_Instance();
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BatL.bmp", L"MonsterA");
-	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"MonsterA");
+	HDC hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"MonsterA");
 
-
-	GdiTransparentBlt(hDC, 					// 복사 받을, 최종적으로 그림을 그릴 DC
-		int(m_tScrollRect.left),	// 2,3 인자 :  복사받을 위치 X, Y
+	GdiTransparentBlt(hDC,
+		int(m_tScrollRect.left),
 		int(m_tScrollRect.top),
-		int(m_tInfo.fWidth),				// 4,5 인자 : 복사받을 가로, 세로 길이
+		int(m_tInfo.fWidth),
 		int(m_tInfo.fHeight),
-		hMemDC,								// 비트맵을 가지고 있는 DC
-		0,									// 비트맵 출력 시작 좌표, X,Y
+		hMemDC,
 		0,
-		(int)m_tInfo.fWidth,				// 복사할 비트맵의 가로, 세로 길이
+		0,
+		(int)m_tInfo.fWidth,
 		(int)m_tInfo.fHeight,
-		RGB(255, 255, 253));			// 제거하고자 하는 색상
+		RGB(255, 255, 253));
 }
 
 void CBehaviorA::BehaviorEnter()

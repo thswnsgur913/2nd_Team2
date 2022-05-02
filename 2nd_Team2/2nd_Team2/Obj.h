@@ -29,7 +29,8 @@ public :
 	void ClearTarget() { m_targetObj = nullptr; }
 
 	void PlatEnter(float); // ÇÃ·§Æû Ãæµ¹
-	void SetGround(bool _ground) { m_isGround = _ground; };
+	void SetIsGround(bool _ground) { m_isGround = _ground; };
+	bool GetIsGround() { return m_isGround; };
 
 public:
 	virtual		void	Initialize(void)			PURE;

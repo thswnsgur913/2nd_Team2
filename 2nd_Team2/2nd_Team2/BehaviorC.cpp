@@ -39,9 +39,7 @@ void CBehaviorC::Release(void)
 
 void CBehaviorC::Render(HDC hDC)
 {
-	//CBmpMgr::Destroy_Instance();
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BearL.bmp", L"MonsterC");
-	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"MonsterC");
+	HDC	hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"MonsterC");
 
 
 	GdiTransparentBlt(hDC, 					// 복사 받을, 최종적으로 그림을 그릴 DC
