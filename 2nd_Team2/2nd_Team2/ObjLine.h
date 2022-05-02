@@ -31,6 +31,12 @@ public:
 		return Obstacle_Line;
 	}
 
+public:
+	const LINEPOINT& Get_Point1(void) { return POINT1; }
+	const LINEPOINT& Get_Point2(void) { return POINT2; }
+	const bool& Get_bLeft(void) { return m_bOnLeft; }
+	const bool& Get_bRight(void) { return m_bOnRight; }
+
 private:
 	LINEPOINT POINT1;
 	LINEPOINT POINT2;

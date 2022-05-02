@@ -42,8 +42,52 @@ CMainGame::~CMainGame()
 void CMainGame::Initialize(void)
 {
 	m_player = dynamic_cast<CPlayer*>(CAbstractFactory<CPlayer>::Create());
+	//Stage1 : LAND의 수직 라인들.
 	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 300.f, (float)WINCY - 250.f },{ 300.f, (float)WINCY - 150.f }));
-	//CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 1400.f, (float)WINCY - 400.f },{ 1400.f, (float)WINCY + 500.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 1400.f, (float)WINCY - 400.f },{ 1400.f, (float)WINCY + 500.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 1600.f,(float)WINCY + 500.f },{ 1600.f,(float)WINCY - 400.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 1800.f,(float)WINCY - 400.f },{ 1800.f, (float)WINCY - 250.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 2100.f,(float)WINCY - 150.f },{ 2100.f,(float)WINCY + 500.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 2300.f, (float)WINCY + 500.f },{ 2300.f, (float)WINCY - 250.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 2700.f, (float)WINCY - 350.f }, { 2700.f,(float)WINCY - 450.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 2800.f,(float)WINCY - 450.f },{ 2800.f,(float)WINCY - 550.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 2900.f,(float)WINCY - 550.f },{ 2900.f,(float)WINCY - 650.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 3000.f,(float)WINCY - 650.f },{ 3000.f,(float)WINCY - 750.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 3100.f,(float)WINCY - 750.f },{ 3100.f,(float)WINCY - 850.f }));
+	//Stage2 : SKY의 수직 라인들.
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 3500.f,(float)WINCY - 850.f },{ 3500.f,(float)WINCY + 500.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 3700.f,(float)WINCY + 500.f },{ 3700.f,(float)WINCY - 850.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 3900.f,(float)WINCY - 850.f },{ 3900.f,(float)WINCY + 500.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 4900.f,(float)WINCY + 500.f },{ 4900.f,(float)WINCY - 850.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 5100.f,(float)WINCY - 850.f },{ 5100.f,(float)WINCY + 500.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 5700.f,(float)WINCY + 500.f },{ 5700.f,(float)WINCY - 850.f }));
+
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 6000.f, (float)WINCY - 850.f }, { 6000.f,(float)WINCY - 750.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 6100.f,(float)WINCY - 750.f },{ 6100.f,(float)WINCY - 650.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 6200.f, (float)WINCY - 650.f },{ 6200.f,(float)WINCY - 550.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 6300.f,(float)WINCY - 550.f },{ 6300.f,(float)WINCY - 450.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 6400.f,(float)WINCY - 450.f },{ 6400.f,(float)WINCY - 350.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 6500.f,(float)WINCY - 350.f },{ 6500.f,(float)WINCY - 250.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 6600.f,(float)WINCY - 250.f },{ 6600.f,(float)WINCY - 150.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 6700.f,(float)WINCY - 150.f },{ 6700.f,(float)WINCY - 50.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 6800.f,(float)WINCY - 50.f },{ 6800.f,(float)WINCY + 50.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 6900.f,(float)WINCY + 50.f },{ 6900.f,(float)WINCY + 150.f }));
+	//Stage3 : UNDERGROUND의 수직 라인들.
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 7500.f, (float)WINCY + 150.f },{ 7500.f,(float)WINCY + 200.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 7800.f,(float)WINCY + 200.f }, { 7800.f,(float)WINCY + 300.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 8300.f,(float)WINCY + 300.f },{ 8300.f,(float)WINCY + 200.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 8800.f,(float)WINCY + 500.f },{ 8800.f,(float)WINCY + 1000.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 9000.f,(float)WINCY + 1000.f },{ 9000.f,(float)WINCY + 500.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 9100.f,(float)WINCY + 500.f },{ 9100.f,(float)WINCY + 400.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 9300.f,(float)WINCY + 400.f },{ 9300.f,(float)WINCY + 1000.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 9500.f, (float)WINCY + 1000.f },{ 9500.f,(float)WINCY + 700.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 9600.f,(float)WINCY + 700.f },{ 9600.f,(float)WINCY + 1000.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 9800.f,(float)WINCY + 1000.f },{ 9800.f,(float)WINCY + 700.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 9900.f,(float)WINCY + 700.f },{ 9900.f,(float)WINCY + 1000.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 10100.f,(float)WINCY + 1000.f },{ 10100.f,(float)WINCY + 700.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 10200.f,(float)WINCY + 700.f },{ 10200.f,(float)WINCY + 1000.f }));
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 10400.f,(float)WINCY + 1000.f },{ 10400.f,(float)WINCY + 700.f }));
+
 
 	CObjManager::Instance()->AddObject(OBJ_PLAYER, m_player);
 	CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEM_LIFE,	{ 100.f, 200.f }));
@@ -110,7 +154,7 @@ void CMainGame::Initialize(void)
 				{ 2300.f,(float)WINCY + 500.f },
 		})
 	);
-
+	
 	CObjManager::Instance()->AddMap(
 		new CLinePlat(
 			vector<LINEPOINT>{
@@ -236,11 +280,6 @@ void CMainGame::Update(void)
 {
 	PlayTime += g_dwDeltaTime;
 	CObjManager::Instance()->Update();
-
-	for (auto& iter : CObjManager::Instance()->GetLine())
-	{
-		dynamic_cast<CObjLine*>(iter)->Collision_OBJLINE(m_player);
-	}
 
 	DeadTime -= 0.01f;
 	if (DeadTime <= 0 && m_player) {
