@@ -106,14 +106,14 @@ void CBehaviorBoss::BehaviorExecute()
 		break;
 
 	case Pattern1:
-		if (TargetMove()) {
+		if (TargetMoveX()) {
 			behaviorState = Exit;
 			return;
 		}
 		break;
 
 	case Return:
-		if (TargetMove()) {
+		if (TargetMoveX()) {
 			behaviorState = Exit;
 			return;
 		}
@@ -169,7 +169,7 @@ bool CBehaviorBoss::Jumping()
 
 		return false;
 	}
-	
+	m_tInfo.fY = m_fY;
 	return true;
 }
 

@@ -115,7 +115,7 @@ bool CBehaviorB::Jumping()
 
 		return false;
 	}
-	
+	m_tInfo.fY = m_fY;
 	return true;
 }
 

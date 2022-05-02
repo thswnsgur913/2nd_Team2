@@ -91,14 +91,14 @@ void CBehaviorA::BehaviorExecute()
 		break;
 
 	case Pattern1:
-		if (TargetMove()) {
+		if (TargetMoveX()) {
 			behaviorState = Exit;
 			return;
 		}
 		break;
 
 	case Return:
-		if (TargetMove())
+		if (TargetMoveX())
 		{
 			behaviorState = Exit;
 			return;
