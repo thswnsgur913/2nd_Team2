@@ -14,7 +14,10 @@ class GameClient;
 
 #define		OBJ_NOEVENT	0	
 #define		OBJ_DEAD	1
-#define		PlayerSize  50
+#define		PlayerSize  60
+#define		PlayerSpeed  8
+#define		FallSpeed    10
+
 
 #define		TIMESCALE	0.1f
 #define		TICKSCALE	TIMESCALE * 0.1f
