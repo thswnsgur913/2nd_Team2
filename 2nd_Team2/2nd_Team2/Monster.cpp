@@ -170,7 +170,7 @@ void CMonster::Die() {
 	int iRanDrop = rand() % 100 + 1;
 	int iRanItem = rand() % 100 + 1;
 
-	switch (iRanDrop % 2)
+	switch (iRanDrop % 3)
 	{
 	case 1:
 	{
@@ -180,7 +180,7 @@ void CMonster::Die() {
 		}
 		else if (16 < iRanItem && 32 >= iRanItem)
 		{
-			CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEM_CLOCK, { m_tInfo.fX, m_tInfo.fY }));
+			CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEM_SCORE, { m_tInfo.fX, m_tInfo.fY }));
 		}
 		else if (32 < iRanItem && 48 >= iRanItem)
 		{
@@ -196,15 +196,9 @@ void CMonster::Die() {
 		}
 		else
 		{
-			CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEM_SCORE, { m_tInfo.fX, m_tInfo.fY }));
+			CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEM_CLOCK, { 300.f, 200.f }));
 		}
 	}
 	break;
 	}
 }
-
-void CMonster::LeaveCheck() {
-	if (m_tRect.left < -100 || /*m_tRect.right > WINCX + 100 ||*/ /*m_tRect.top < -100 ||*/ m_tRect.bottom > WINCY + 100) {
-		m_bDead = true;
-	}
-} // 떠나기 패턴일때 화면밖을 벗어나는지 체크함

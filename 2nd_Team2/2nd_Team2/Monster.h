@@ -44,9 +44,7 @@ protected:
 	virtual bool Dir() PURE;
 
 	void CommonDie();
-	virtual void Die();
-
-	void LeaveCheck();
+	void Die();
 
 protected:
 	enum Behavior {
