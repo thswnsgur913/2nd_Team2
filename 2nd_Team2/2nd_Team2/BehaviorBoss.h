@@ -5,6 +5,7 @@ class CBehaviorBoss :
 {
 public:
 	CBehaviorBoss();
+	CBehaviorBoss(float _Temp);
 	~CBehaviorBoss();
 
 	// CMonster을(를) 통해 상속됨

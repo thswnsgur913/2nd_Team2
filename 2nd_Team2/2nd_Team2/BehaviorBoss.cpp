@@ -5,6 +5,11 @@ CBehaviorBoss::CBehaviorBoss()
 {
 }
 
+CBehaviorBoss::CBehaviorBoss(float _Temp)
+{
+	m_fXPoint = _Temp;
+}
+
 CBehaviorBoss::~CBehaviorBoss()
 {
 	Release();
@@ -12,7 +17,7 @@ CBehaviorBoss::~CBehaviorBoss()
 
 void CBehaviorBoss::Initialize(void)
 {
-	m_tInfo.fX = /*m_targetObj->Get_Info().fX +*/ 500.f;
+	m_tInfo.fX = m_fXPoint;//500.f;
 	m_tInfo.fY = 250.f;
 
 	m_tInfo.fWidth = 50.f;
@@ -64,7 +69,7 @@ void CBehaviorBoss::BehaviorEnter()
 
 	case Pattern1:
 		targetPosition.x = m_targetObj->Get_Info().fX;
-		targetPosition.y = (m_targetObj->Get_Info().fY);
+		targetPosition.y = m_targetObj->Get_Info().fY;
 
 		originPosition.x = m_tInfo.fX;
 		originPosition.y = m_tInfo.fY;

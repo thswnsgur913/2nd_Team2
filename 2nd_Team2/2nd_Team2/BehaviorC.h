@@ -5,6 +5,7 @@ class CBehaviorC : // 플레이어 방향으로 투척 공격
 {
 public:
 	CBehaviorC();
+	CBehaviorC(float _Temp);
 	~CBehaviorC();
 
 	// CMonster을(를) 통해 상속됨

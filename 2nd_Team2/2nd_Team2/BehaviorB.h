@@ -5,6 +5,7 @@ class CBehaviorB : // 제자리에서 점프
 {
 public:
 	CBehaviorB();
+	CBehaviorB(float _Temp);
 	~CBehaviorB();
 
 	// CMonster을(를) 통해 상속됨

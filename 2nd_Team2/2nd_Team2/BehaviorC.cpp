@@ -6,6 +6,10 @@ CBehaviorC::CBehaviorC()
 {
 }
 
+CBehaviorC::CBehaviorC(float _Temp)
+{
+	m_fXPoint = _Temp;
+}
 
 CBehaviorC::~CBehaviorC()
 {
@@ -14,7 +18,7 @@ CBehaviorC::~CBehaviorC()
 
 void CBehaviorC::Initialize(void)
 {
-	m_tInfo.fX = /*m_targetObj->Get_Info().fX +*/ 500.f;
+	m_tInfo.fX = m_fXPoint;// 500.f;
 	m_tInfo.fY = 250.f;
 
 	m_tInfo.fWidth = 50;

@@ -21,6 +21,15 @@ public :
 		return pObj;
 	}
 
+	static CObj* Create(float _Temp)
+	{
+		CObj* pObj = new T(_Temp);
+
+		pObj->Initialize();
+
+		return pObj;
+	}
+
 	static CObj* Create(float _fX, float _fY, DIRECTION _eDir = DIR_END)
 	{
 		CObj* pObj = new T;

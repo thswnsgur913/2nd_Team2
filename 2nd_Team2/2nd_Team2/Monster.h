@@ -94,6 +94,8 @@ protected:
 	
 	int m_iScore;
 
+	float m_fXPoint;
+
 private:
 	bool m_bRunEffect;
 
