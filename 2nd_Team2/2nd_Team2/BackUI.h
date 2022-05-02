@@ -1,6 +1,7 @@
 #pragma once
 
 #include "UI.h"
+#include "Cloud.h"
 
 // MainGame Back UI
 
@@ -19,6 +20,9 @@ public:
 	void SetPlayerDepth(int); // 백그라운드 색상 변경을 위한 설정
 
 private:
+	const int CloudMAX;
 	int m_playerDepth;
+
+	list<CCloud*> m_Clouds;
 };
 

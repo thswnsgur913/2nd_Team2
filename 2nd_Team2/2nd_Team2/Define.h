@@ -16,7 +16,7 @@ class GameClient;
 #define		OBJ_DEAD	1
 #define		PlayerSize  60
 #define		PlayerSpeed  8
-#define		FallSpeed    10
+#define		FallSpeed    8
 
 
 #define		TIMESCALE	0.1f

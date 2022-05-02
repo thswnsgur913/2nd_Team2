@@ -230,7 +230,7 @@ void CItem::DrawHammer(HDC hdc) {
 	brush = CreateSolidBrush(RGB(0, 0, 0));
 	oldBrush = SelectObject(hdc, brush);
 
-	Rectangle(hdc, m_tScrollRect.left + GAP + 5, m_tScrollRect.top + GAP + 10, m_tScrollRect.right - GAP - 5, m_tScrollRect.top + GAP + 50);
+	Rectangle(hdc, m_tScrollRect.left + GAP + 5, m_tScrollRect.top + GAP + 10, m_tScrollRect.right - GAP - 5, m_tScrollRect.top + GAP + 30);
 	SelectObject(hdc, oldBrush);
 	DeleteObject(brush);
 }
