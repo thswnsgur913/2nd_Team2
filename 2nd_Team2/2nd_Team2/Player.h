@@ -56,7 +56,7 @@ public:
 	void Set_Damage();
 	void Set_line(CLinePlat* Line) { m_Line = Line; }
 	STAT&	Get_Stat(void) { return m_tPstat; }
-	
+	void Set_PosX(float _fA);
 
 private:
 	void KeyInput();

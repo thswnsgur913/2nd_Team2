@@ -76,6 +76,9 @@ bool CLinePlat::Collision_Line(CObj* _sour)//플레이어, 몬스터입력가능.
 	if (!pLine)
 		return false;
 
+	float fXXL = _sour->Get_Rect().left;
+	float fXXR = _sour->Get_Rect().right;
+
 	float fX1 = pLine->Get_LINE().tLPoint.fX;
 	float fY1 = pLine->Get_LINE().tLPoint.fY;
 

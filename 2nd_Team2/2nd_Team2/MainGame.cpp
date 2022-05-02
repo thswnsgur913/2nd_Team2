@@ -42,6 +42,9 @@ CMainGame::~CMainGame()
 void CMainGame::Initialize(void)
 {
 	m_player = dynamic_cast<CPlayer*>(CAbstractFactory<CPlayer>::Create());
+	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 300.f, (float)WINCY - 250.f },{ 300.f, (float)WINCY - 150.f }));
+	//CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 1400.f, (float)WINCY - 400.f },{ 1400.f, (float)WINCY + 500.f }));
+
 	CObjManager::Instance()->AddObject(OBJ_PLAYER, m_player);
 	CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEM_LIFE,	{ 100.f, 200.f }));
 	CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEM_CLOCK,	{ 200.f, 200.f }));
@@ -69,23 +72,28 @@ void CMainGame::Initialize(void)
 			vector<LINEPOINT>{
 				{ -100.f, (float) WINCY - 250.f },
 				{ 300.f, (float) WINCY - 250.f },
-				{ 300.f, (float)WINCY - 150.f },
-				{ 600.f,(float)WINCY - 150.f },
 		})
 	);
 
 	CObjManager::Instance()->AddMap(
 		new CLinePlat(
 			vector<LINEPOINT>{
-				//{ 300.f, (float) WINCY - 150.f },
+				{ 300.f, (float) WINCY - 150.f },
 				{ 600.f,(float) WINCY - 150.f },
 				{ 1100.f,(float) WINCY - 400.f },
 				{ 1400.f,(float) WINCY - 400.f },//6¹ø¤Š Á¡
+			/*	{ 1400.f, (float)WINCY + 500.f },
+				{ 1600.f,(float)WINCY + 500.f },
+				{ 1600.f,(float)WINCY - 400.f },*/
+		})
+	);
+
+	CObjManager::Instance()->AddMap(
+		new CLinePlat(
+			vector<LINEPOINT>{
 				{ 1400.f, (float)WINCY + 500.f },
 				{ 1600.f,(float)WINCY + 500.f },
-				{ 1600.f,(float)WINCY - 400.f },
-				{ 1600.f,(float)WINCY - 400.f },
-		})
+	})
 	);
 
 	CObjManager::Instance()->AddMap(
@@ -228,6 +236,11 @@ void CMainGame::Update(void)
 {
 	PlayTime += g_dwDeltaTime;
 	CObjManager::Instance()->Update();
+
+	for (auto& iter : CObjManager::Instance()->GetLine())
+	{
+		dynamic_cast<CObjLine*>(iter)->Collision_OBJLINE(m_player);
+	}
 
 	DeadTime -= 0.01f;
 	if (DeadTime <= 0 && m_player) {
