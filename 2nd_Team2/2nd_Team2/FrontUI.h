@@ -28,6 +28,9 @@ private:
 	CPlayer* m_player;
 
 	CLabel* m_playTimeLabel;
+	CLabel* m_scoreTitle;
+	CLabel* m_scoreLabel;
+	CLabel* m_lifeLabel;
 	CLabel* m_gameOverLabel;
 };
 

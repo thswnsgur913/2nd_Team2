@@ -22,7 +22,7 @@ void CPlayer::Initialize(void)
 
 	m_tInfo.fX = 100.f;
 	//m_tInfo.fY = WINCY - PlayerSize-500 ;
-	m_tInfo.fY = WINCY - 250.f;
+	m_tInfo.fY = WINCY - 550.f;
 	m_iHP = 100;
 	m_iMaxHP = 100;
 
@@ -34,9 +34,11 @@ void CPlayer::Initialize(void)
 
 	m_fSpeed = 10.f;
 
-	m_bJump = false;
+	m_bJump = true;
 	m_fJumpPower = 20.f;
 	m_fJumpTime = 0.f;
+
+	m_isGround = false;
 
 	m_Dir = true;
 
@@ -53,10 +55,13 @@ int CPlayer::Update(void)
 {
 	if (m_bDead)
 		return OBJ_DEAD;
+
 	KeyInput();
-	Jumping();
 
 	OffSet();
+	
+	Drop();
+	Jumping();
 
 	m_godModeTimer->Update();
 
@@ -127,35 +132,6 @@ void CPlayer::Release(void)
 {
 }
 
-void CPlayer::PlatEnter(float _fY) {
-	//float fY = m_tInfo.fY;
-
-	if ((_fY < m_tInfo.fY) && m_bJump) {
-		m_bJump = false;
-		m_fJumpTime = 0.f;
-		m_tInfo.fY = _fY - PlayerSize * 0.5;
-	}
-	else {
-		if (m_tInfo.fY < _fY - PlayerSize * 0.5)
-			Drop();
-		else
-			m_tInfo.fY = _fY - PlayerSize * 0.5;
-		//Drop();
-		//m_bJump = true;
-	}
-}
-
-void CPlayer::PlatEnterX(float _fX)
-{
-	// 플레이어가 수직선 좌우에서 부동한 효과 주기.
-	m_tInfo.fX -= 10.f;	
-}
-
-void CPlayer::PlatEnterX2(float _fX)
-{
-	// 플레이어가 수직선 좌우에서 부동한 효과 주기.
-	m_tInfo.fX += 10.f;
-}
 
 void CPlayer::CollisionEnter(CObj* _sour)
 {
@@ -193,6 +169,8 @@ void CPlayer::CollisionEnter(CObj* _sour)
 
 }
 
+
+
 void CPlayer::Set_Damage()
 {
 	CObjManager::Instance()->AddObject(OBJ_EFFECT, CAbstractFactory<CEffect>::Create((float)m_tInfo.fX, (float)m_tInfo.fY));
@@ -228,7 +206,7 @@ void CPlayer::KeyInput(void)
 		}
 		if (CKeyMgr::Get_Instance()->Key_Down(VK_SPACE))
 		{
-			m_bJump = true;
+			JumpStart();
 			return;
 		}
 
@@ -272,7 +250,7 @@ void CPlayer::KeyInput(void)
 		}
 		if (CKeyMgr::Get_Instance()->Key_Down(VK_SPACE))
 		{
-			m_bJump = true;
+			JumpStart();
 			return;
 		}
 
@@ -314,31 +292,18 @@ void CPlayer::KeyInput(void)
 
 	else if (CKeyMgr::Get_Instance()->Key_Pressing(VK_SPACE))
 	{
-		m_bJump = true;
+		JumpStart();
 		return;
 	}
 }
 
-void CPlayer::Jumping(void)
-{
-	if (m_bJump)
-	{
-		m_tInfo.fY -= m_fJumpPower * m_fJumpTime - 9.8f * m_fJumpTime * m_fJumpTime * 0.5f;
-		m_fJumpTime += 0.2f;
-	}
-}
 void CPlayer::GodMode(void)
 {
 	m_GodMode = true;
 
 	m_godModeTimer->StartTimer(GodModeSecond, [&]() {m_GodMode = false;m_godModeTimer->StopTimer();});
-/*
-	if (m_GodMode==true&& m_iCount+5000<GetTickCount())
-	{
-		m_GodMode = false;
-		m_iCount = GetTickCount();
-	}*/
 }
+
 void CPlayer::OffSet(void)
 {
 	int		iOffSetX = WINCX >> 1;
@@ -363,7 +328,3 @@ void CPlayer::OffSet(void)
 		CScrollMgr::Get_Scroll()->Set_ScrollY(-m_fSpeed);
 }
 
-void CPlayer::Drop(void)
-{
-	m_tInfo.fY += m_fSpeed;
-}

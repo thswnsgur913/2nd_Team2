@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Obj.h"
+#include "LinePlat.h"
 
 class CObjManager
 {
@@ -18,6 +19,8 @@ public:
 
 public:
 	void AddObject(OBJID eID, CObj* pObj);
+	void AddMap(CLinePlat* pObj);
+
 	int	 Update(void);
 	void Late_Update(void);
 	void Render(HDC hDC);
@@ -29,6 +32,7 @@ private:
 
 private:
 	list<CObj*>	m_ObjList[OBJ_END];
+	list<CLinePlat*> m_map;
 
 public:
 	static CObjManager* Instance(void) {

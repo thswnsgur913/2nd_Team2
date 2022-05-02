@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "CollisionMgr.h"
+#include "LinePlat.h"
 
 
 CCollisionMgr::CCollisionMgr()
@@ -10,7 +11,6 @@ CCollisionMgr::CCollisionMgr()
 CCollisionMgr::~CCollisionMgr()
 {
 }
-
 
 void CCollisionMgr::Collision_Rect(list<CObj*> _Dest, list<CObj*> _Sour)
 {
@@ -76,6 +76,15 @@ void CCollisionMgr::Collision_Sphere(list<CObj*> _Dest, list<CObj*> _Sour)
 				Dest->CollisionEnter(Sour);
 				Sour->CollisionEnter(Dest);
 			}
+		}
+	}
+}
+
+void CCollisionMgr::Collision_Plat(list<CLinePlat*> _Dest, list<CObj*> _Sour)
+{
+	for (auto& Dest : _Dest) {
+		for (auto& Sour : _Sour) {
+			Dest->Collision_Line(Sour);
 		}
 	}
 }

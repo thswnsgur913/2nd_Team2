@@ -28,6 +28,9 @@ public :
 	CObj* GetTarget() { return m_targetObj; }
 	void ClearTarget() { m_targetObj = nullptr; }
 
+	void PlatEnter(float); // 플랫폼 충돌
+	void SetGround(bool _ground) { m_isGround = _ground; };
+
 public:
 	virtual		void	Initialize(void)			PURE;
 	virtual		int		Update(void)				PURE;
@@ -39,9 +42,14 @@ public:
 protected:
 	void		Update_Rect(void);
 
+	void Drop(void);
+	void Jumping();
+	void JumpStart();
+
 protected:
 	INFO		m_tInfo;
 	RECT		m_tRect;
+	RECT		m_tScrollRect;
 	RECT		m_tColRect;
 	DIRECTION	m_eDir;
 	float		m_fSpeed;
@@ -55,5 +63,7 @@ protected:
 	float m_fJumpPower;	// 점프 힘
 	float m_fJumpTime;	// 점프 중 진행 시간
 	bool m_Dir; //이동 방향 확인
+
+	bool m_isGround;
 };
 
