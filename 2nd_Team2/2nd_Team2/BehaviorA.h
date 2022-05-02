@@ -19,5 +19,6 @@ public:
 
 	virtual bool Jumping() override;
 	virtual bool Dir() override;
+
 };
 

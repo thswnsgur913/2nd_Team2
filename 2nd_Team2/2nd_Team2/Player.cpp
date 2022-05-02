@@ -45,6 +45,7 @@ void CPlayer::Initialize(void)
 	m_godModeTimer = new CTimer;
 
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyNormalR.bmp", L"Player");
+
 }
 
 int CPlayer::Update(void)

@@ -8,6 +8,7 @@
 class CBackUI : public CUI
 {
 public:
+
 	CBackUI();
 	~CBackUI();
 

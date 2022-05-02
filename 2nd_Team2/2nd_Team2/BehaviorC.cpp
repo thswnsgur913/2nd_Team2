@@ -31,7 +31,6 @@ void CBehaviorC::Initialize(void)
 	m_fSpeed = 10.f;
 	bossShotTimer = new CTimer;
 
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BearL.bmp", L"MonsterC");
 }
 
 void CBehaviorC::Release(void)
@@ -40,12 +39,14 @@ void CBehaviorC::Release(void)
 
 void CBehaviorC::Render(HDC hDC)
 {
+	//CBmpMgr::Destroy_Instance();
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BearL.bmp", L"MonsterC");
 	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"MonsterC");
 
 
 	GdiTransparentBlt(hDC, 					// 복사 받을, 최종적으로 그림을 그릴 DC
-		int(m_tRect.left),	// 2,3 인자 :  복사받을 위치 X, Y
-		int(m_tRect.top),
+		int(m_tScrollRect.left),	// 2,3 인자 :  복사받을 위치 X, Y
+		int(m_tScrollRect.top),
 		int(m_tInfo.fWidth),				// 4,5 인자 : 복사받을 가로, 세로 길이
 		int(m_tInfo.fHeight),
 		hMemDC,							// 비트맵을 가지고 있는 DC
@@ -55,7 +56,7 @@ void CBehaviorC::Render(HDC hDC)
 		(int)m_tInfo.fHeight,
 		RGB(255, 255, 255));			// 제거하고자 하는 색상
 										//Rectangle(hDC, m_tScrollRect.left, m_tScrollRect.top, m_tScrollRect.right, m_tScrollRect.bottom);
-	Rectangle(hDC, m_tScrollRect.left, m_tScrollRect.top, m_tScrollRect.right, m_tScrollRect.bottom);
+	//Rectangle(hDC, m_tScrollRect.left, m_tScrollRect.top, m_tScrollRect.right, m_tScrollRect.bottom);
 }
 
 void CBehaviorC::BehaviorEnter()

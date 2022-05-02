@@ -43,7 +43,7 @@ CMainGame::~CMainGame()
 
 void CMainGame::Initialize(void)
 {
-
+	
 	m_player = dynamic_cast<CPlayer*>(CAbstractFactory<CPlayer>::Create());
 	//Stage1 : LAND의 수직 라인들.
 	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 300.f, (float)WINCY - 250.f },{ 300.f, (float)WINCY - 150.f }));
@@ -101,13 +101,16 @@ void CMainGame::Initialize(void)
 	CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEMTYPE::ITEM_WEAPON_HAMMER, { 900.f, 200.f }));
 	CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEMTYPE::ITEM_WEAPON_LANCE, { 1100.f, 200.f }));
 
-	m_backUI = dynamic_cast<CBackUI*>(CAbstractFactory<CBackUI>::Create());
+	CObj* newBackUI = CAbstractFactory<CBackUI>::Create();
+	m_backUI = dynamic_cast<CBackUI*>(newBackUI);
+
+
+
 	CUIManager::Instance()->AddUI(UI_BACK, m_backUI);
 	CUIManager::Instance()->AddUI(UI_FRONT, CAbstractFactory<CFrontUI>::Create());
 
 	CObj* newTimeProgress = CAbstractFactory<CProgressBar>::Create();
 	m_timeProgress = dynamic_cast<CProgressBar*>(newTimeProgress);
-
 	DeadTime = StageDeadTime;
 	m_timeProgress->InitProgress({ WINCX * 0.5f, 140.f }, {500.f, 50.f}, DeadTime, StageDeadTime);
 	CUIManager::Instance()->AddUI(UI_FRONT, newTimeProgress);
@@ -118,7 +121,7 @@ void CMainGame::Initialize(void)
 	m_timer = new CTimer;
 	m_timer->StartTimer(ENERMY_PER_SECOND, [&]() {
 	});
-
+	
 	CObjManager::Instance()->AddMap(
 		new CLinePlat(
 			vector<LINEPOINT>{
