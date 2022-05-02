@@ -20,24 +20,15 @@ void CBehaviorA::Initialize(void)
 {
 	m_tInfo.fX = m_fXPoint;
 	m_tInfo.fY = 150.f;
-
-	m_tInfo.fWidth = 50;
-	m_tInfo.fHeight = 50;
-
+	m_tInfo.fWidth = 50.f;
+	m_tInfo.fHeight = 50.f;
 	m_tInfo.fColWidth = 50.f;
 	m_tInfo.fColHeight = 50.f;
-
-	m_iHP = 10;
-	m_iMaxHP = 10;
-
-	m_fJumpPower = 18.f;
-	m_fJumpTime = 0.f;
-
-	m_fSpeed = 10.f;
-
-	m_bJump = false;
-
 	currentState = Create;
+	m_dwTime = GetTickCount();
+	m_iHP = 100;
+	m_iMaxHP = 100;
+	m_fSpeed = 10.f;
 }
 
 void CBehaviorA::Release(void)
@@ -58,22 +49,23 @@ void CBehaviorA::BehaviorEnter()
 	{
 	case Create:
 		targetPosition.x = appearPosition.x;
-		targetPosition.y = appearPosition.y;
+		//targetPosition.y = appearPosition.y;
 
 		originPosition.x = targetPosition.x;
-		originPosition.y = targetPosition.y;
+		//originPosition.y = targetPosition.y;
 		break;
 
 	case Pattern1:
 		targetPosition.x = m_targetObj->Get_Info().fX;
-		targetPosition.y = m_targetObj->Get_Info().fY;
+		//targetPosition.y = m_targetObj->Get_Info().fY;
 
 		originPosition.x = m_tInfo.fX;
-		originPosition.y = m_tInfo.fY;
+		//originPosition.y = m_tInfo.fY;
+		break;
 
 	case Return:
 		targetPosition.x = originPosition.x;
-		targetPosition.y = originPosition.y;
+		//targetPosition.y = originPosition.y;
 		break;
 	}
 
@@ -91,7 +83,8 @@ void CBehaviorA::BehaviorExecute()
 		break;
 
 	case Pattern1:
-		if (TargetMoveX()) {
+		if (TargetMove())
+		{
 			behaviorState = Exit;
 			return;
 		}
@@ -109,7 +102,7 @@ void CBehaviorA::BehaviorExecute()
 
 void CBehaviorA::BehaviorExit()
 {
-	if (m_dwTime + 5000 < GetTickCount())
+	if (m_dwTime + 2000 < GetTickCount())
 	{
 		switch (currentState) {
 		case Pattern1:

@@ -75,5 +75,5 @@ void CObj::Drop(void) {
 	if (m_isGround || m_bJump)
 		return;
 
-	m_tInfo.fY += m_fSpeed;
+	m_tInfo.fY += FallSpeed;
 }

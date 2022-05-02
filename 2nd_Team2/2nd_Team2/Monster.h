@@ -23,17 +23,11 @@ public:
 
 	void Hit(); // 공격당함
 
-	void PlatEnter(float _fY);
-	void Drop(void);
-
-	//void Set_line(CLinePlat* Line) { m_Line = Line; }
-
 protected:
 	const int baseShotAngle;
 
 	bool TargetMove();
 	bool TargetMoveX();
-	bool TargetTracking();
 	void Fire(const int,DIRECTION);
 	void DisplayInfo(HDC, const int);
 	void RunEffect();

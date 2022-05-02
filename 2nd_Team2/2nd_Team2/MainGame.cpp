@@ -65,10 +65,6 @@ void CMainGame::Initialize(void)
 	CUIManager::Instance()->AddUI(UI_FRONT, newTimeProgress);
 
 	CUIManager::Instance()->AddUI(UI_FRONT, CAbstractFactory<CWeaponBag>::Create());
-	//
-	m_monster = CAbstractFactory<CBehaviorBoss>::Create((m_player->Get_Info().fX + 650.f));
-	dynamic_cast<CBehaviorBoss*>(m_monster)->BehaviorStart(m_player);
-	CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
 
 	m_timer = new CTimer;
 	m_timer->StartTimer(ENERMY_PER_SECOND, [&]() {
@@ -244,11 +240,6 @@ void CMainGame::Update(void)
 	PlayTime += g_dwDeltaTime;
 	CObjManager::Instance()->Update();
 
-	for (auto& iter : CObjManager::Instance()->GetLine())
-	{
-		dynamic_cast<CObjLine*>(iter)->Collision_OBJLINE(m_player);
-	}
-
 	DeadTime -= 0.01f;
 	if (DeadTime <= 0 && m_player) {
 		m_player->Set_Damage();
@@ -261,17 +252,15 @@ void CMainGame::Update(void)
 		m_player = nullptr;
 	}
 
-	//RandomMonster();
-
 	const int mapHalfHeight = 250;
 
 	if (m_player) {
+		for (auto& iter : CObjManager::Instance()->GetLine())
+		{
+			dynamic_cast<CObjLine*>(iter)->Collision_OBJLINE(m_player);
+		}
+		RandomMonster();
 		m_backUI->SetPlayerDepth(static_cast<int>((m_player->Get_Info().fY - mapHalfHeight) / 10));
-		m_timer->Update();
-	}
-
-	if (m_monster) {
-		m_backUI->SetPlayerDepth(static_cast<int>((m_monster->Get_Info().fY - mapHalfHeight) / 10));
 		m_timer->Update();
 	}
 }
@@ -296,10 +285,10 @@ void CMainGame::Release(void)
 
 void CMainGame::RandomMonster(void)
 {
-	if (m_dwTime + 10000 < GetTickCount())
+	if (m_dwTime + 5000 < GetTickCount())
 	{
 		srand((unsigned int)time((nullptr)));
-		int iRanMon = rand() % 3 + 1;
+		int iRanMon = rand() % 4 + 1;
 		switch (iRanMon)
 		{
 		case 1:
@@ -314,9 +303,9 @@ void CMainGame::RandomMonster(void)
 			CreateMonster(MONSTER_C); // C
 			break;
 
-		//case 4:
-		//	CreateMonster(MONSTER_BOSS); // BOSS
-		//	break;
+		case 4:
+			CreateMonster(MONSTER_BOSS); // BOSS
+			break;
 		}
 
 		m_dwTime = GetTickCount();

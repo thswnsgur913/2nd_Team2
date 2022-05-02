@@ -22,9 +22,9 @@ int CMonster::Update() {
 	if (m_bDead)
 		return OBJ_DEAD;
 
-	Drop();
-
 	BehaviorUpdate();
+
+	Drop();
 
 	Update_Rect();
 
@@ -75,82 +75,24 @@ void CMonster::BehaviorUpdate() {
 }
 
 bool CMonster::TargetMove() {
-	float distX = targetPosition.x - m_tInfo.fX;
-	float distY = targetPosition.y - m_tInfo.fY;
-
-	float distance = sqrtf(distX * distX + distY * distY);
-
-	if (distance < 5.f) {
-		return true;
+	if (targetPosition.x < m_tInfo.fX)
+	{
+		m_tInfo.fX -= m_fSpeed;
+		return false;
 	}
-
-	m_tInfo.fX += (distX / distance) * m_fSpeed;
-	m_tInfo.fY += (distY / distance) * m_fSpeed;
-
-	return false;
+	else { return true; }
 }
 
 bool CMonster::TargetMoveX() {
-	//float distX = targetPosition.x - m_tInfo.fX;
-	//float distY = targetPosition.y - m_tInfo.fY;
-
-	//float distance = sqrtf(distX * distX + distY * distY);
-
-	//if (distance < 5.f) {
-	//	return true;
-	//}
-
-	//m_tInfo.fX += (distX / distance) * m_fSpeed;
-	////m_tInfo.fY += (distY / distance) * m_fSpeed;
-
-	//return false;
-
-	if (targetPosition.x == m_tInfo.fX)
+	if (targetPosition.x > m_tInfo.fX)
 	{
-		if (5.f > (targetPosition.x - m_tInfo.fX))
-		return true;
-	}
-	else
-	{
-		if (targetPosition.x > m_tInfo.fX)
-		{
-			m_tInfo.fX += m_fSpeed;
-			return false;
-		}
-		else if (targetPosition.x < m_tInfo.fX)
-		{
-			m_tInfo.fX -= m_fSpeed;
-			return false;
-		}
-	}
-	
-}
-
-bool CMonster::TargetTracking()
-{
-	if (!m_targetObj)
-	{
-		return true;
-	}
-
-	float distX = m_targetObj->Get_Info().fX - m_tInfo.fX;
-	float distY = m_targetObj->Get_Info().fY - m_tInfo.fY;
-
-	float distance = sqrtf(distX * distX + distY * distY);
-
-	if (distance < 5.f) {
-		return true;
-	}
-
-	m_tInfo.fX += (distX / distance) * m_fSpeed;
-	//m_tInfo.fY += (distY / distance) * m_fSpeed;
-
+	m_tInfo.fX += m_fSpeed;
 	return false;
+	}
+	else { return true; }
 }
 
 void CMonster::Fire(const int _degree, DIRECTION _Dir) {
-	/*int iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
-	int iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();*/
 	CObj* newBullet = CAbstractFactory<CHammer>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, _Dir, 6.5f);
 
 	CBullet* BulletObj = dynamic_cast<CHammer*>(newBullet);
@@ -230,22 +172,3 @@ void CMonster::LeaveCheck() {
 		m_bDead = true;
 	}
 } // 떠나기 패턴일때 화면밖을 벗어나는지 체크함
-
-void CMonster::PlatEnter(float _fY) {
-	if ((_fY <= m_tInfo.fY) && m_bJump) {
-		m_bJump = false;
-		m_fJumpTime = 0.f;
-		m_tInfo.fY = _fY - PlayerSize * 0.5;
-	}
-	else {
-		if (m_tInfo.fY < _fY - PlayerSize * 0.5)
-			Drop();
-		else
-			m_tInfo.fY = _fY - PlayerSize * 0.5;
-	}
-}
-
-void CMonster::Drop(void)
-{
-	m_tInfo.fY += m_fSpeed;
-}
