@@ -36,8 +36,6 @@ void CObjLine::Late_Update(void)
 
 void CObjLine::Render(HDC hDC)
 {
-	// 좌표를 받아오자..
-	// 우측 충돌용, 좌측용 따로 판단하는 것도 필요함.
 	MoveToEx(hDC, (int)(POINT1.fX + CScrollMgr::Get_Scroll()->Get_ScrollX()), (int)(POINT1.fY + CScrollMgr::Get_Scroll()->Get_ScrollY()), nullptr);
 	LineTo(hDC, (int)(POINT2.fX + CScrollMgr::Get_Scroll()->Get_ScrollX()), (int)(POINT2.fY + CScrollMgr::Get_Scroll()->Get_ScrollY()));
 }
@@ -56,13 +54,7 @@ void CObjLine::Collision_OBJLINE(CObj * pObj)
 	{
 		//m_bOnRight = true;
 	}
-	else 
-	{
-		m_bOnLeft = false;
-		m_bOnRight = false;
-	}
-
-	/*f ((pObj->Get_Info().fX < POINT1.fX) && (pObj->Get_Info().fX + pObj->Get_Info().fWidth * 0.5) > POINT1.fX)
+	else if ((pObj->Get_Info().fX < POINT1.fX) && (pObj->Get_Info().fX + pObj->Get_Info().fWidth * 0.5) > POINT1.fX)
 	{
 		m_bOnLeft = true;
 	}
@@ -70,7 +62,7 @@ void CObjLine::Collision_OBJLINE(CObj * pObj)
 	{
 		m_bOnLeft = false;
 		m_bOnRight = false;
-	}*/
+	}
 
 	// OBJ를 오른쪽으로 튕겨냄.(POINT1이 위에)
 	
