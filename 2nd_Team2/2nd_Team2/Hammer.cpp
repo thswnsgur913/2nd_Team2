@@ -101,14 +101,6 @@ void CHammer::Release()
 
 void CHammer::CollisionEnter(CObj * _sour)
 {
-	//CObj* collision = dynamic_cast<CObj*>(_sour);
-
-	//if (dynamic_cast<CMonster*>(_sour) && m_eBulletType == PLAYER_BULLET /*&& !_sour->GetDead()*/) {
-	//	m_bDead = true;
-	//}
-	//if (dynamic_cast<CPlayer*>(_sour) && m_eBulletType == MONSTER_BULLET /*&& !_sour->GetDead()*/) {
-	//	m_bDead = true;
-	//}
 }
 
 void CHammer::Throw()

@@ -99,3 +99,40 @@ bool CLinePlat::Collision_Line(CObj* _sour)//플레이어, 몬스터입력가능.
 	
 	return true;
 }
+
+bool CLinePlat::Collision_Line_M(CObj* _sour) // 몬스터
+{
+	float fXX = _sour->Get_Info().fX;
+
+	if (m_LineList.empty())
+		return false;
+
+	CLine* pLine = nullptr;
+	float fY = 0.f;
+	float pY = 0.f;
+
+	for (auto& iter : m_LineList)
+	{
+		if ((fXX >= iter->Get_LINE().tLPoint.fX) && (fXX <= iter->Get_LINE().tRPoint.fX))
+		{
+			pLine = iter;
+		}
+	}
+
+	if (!pLine)
+		return false;
+
+	float fX1 = pLine->Get_LINE().tLPoint.fX;
+	float fY1 = pLine->Get_LINE().tLPoint.fY;
+
+	float fX2 = pLine->Get_LINE().tRPoint.fX;
+	float fY2 = pLine->Get_LINE().tRPoint.fY;
+
+	pY = ((fY2 - fY1) / (fX2 - fX1)) * (fXX - fX2) + fY2;
+
+	if (dynamic_cast<CMonster*>(_sour)) {
+		dynamic_cast<CMonster*>(_sour)->PlatEnter(pY);
+	}
+
+	return true;
+}

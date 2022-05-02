@@ -1,10 +1,11 @@
 #pragma once
 #include "Monster.h"
-class CBehaviorB :
+class CBehaviorB : // 제자리에서 점프
 	public CMonster
 {
 public:
 	CBehaviorB();
+	CBehaviorB(float _Temp);
 	~CBehaviorB();
 
 	// CMonster을(를) 통해 상속됨

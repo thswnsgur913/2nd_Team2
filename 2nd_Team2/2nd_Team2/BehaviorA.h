@@ -1,10 +1,11 @@
 #pragma once
 #include "Monster.h"
-class CBehaviorA :
+class CBehaviorA : // 플레이어 좌표로 돌진 공격
 	public CMonster
 {
 public:
 	CBehaviorA();
+	CBehaviorA(float _Temp);
 	~CBehaviorA();
 
 	// CMonster을(를) 통해 상속됨

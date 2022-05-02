@@ -1,10 +1,11 @@
 #pragma once
 #include "Monster.h"
-class CBehaviorC :
+class CBehaviorC : // 플레이어 방향으로 투척 공격
 	public CMonster
 {
 public:
 	CBehaviorC();
+	CBehaviorC(float _Temp);
 	~CBehaviorC();
 
 	// CMonster을(를) 통해 상속됨
@@ -18,5 +19,7 @@ public:
 
 	virtual bool Jumping() override;
 	virtual bool Dir() override;
+
+	void Shoot();
 };
 

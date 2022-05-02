@@ -6,6 +6,10 @@ CBehaviorB::CBehaviorB()
 {
 }
 
+CBehaviorB::CBehaviorB(float _Temp)
+{
+	m_fXPoint = _Temp;
+}
 
 CBehaviorB::~CBehaviorB()
 {
@@ -14,8 +18,8 @@ CBehaviorB::~CBehaviorB()
 
 void CBehaviorB::Initialize(void)
 {
-	m_tInfo.fX = 700.f;
-	m_tInfo.fY = 500.f;
+	m_tInfo.fX = m_fXPoint;// 500.f;
+	m_tInfo.fY = 250.f;
 
 	m_tInfo.fWidth = 50;
 	m_tInfo.fHeight = 50;
@@ -31,7 +35,9 @@ void CBehaviorB::Initialize(void)
 
 	m_fSpeed = 10.f;
 
-	m_fY = m_tInfo.fY;
+	m_bJump = false;
+
+	currentState = Create;
 }
 
 void CBehaviorB::Release(void)
@@ -40,49 +46,84 @@ void CBehaviorB::Release(void)
 
 void CBehaviorB::Render(HDC hDC)
 {
+	int iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
+	int iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();
+	Rectangle(hDC, (m_tRect.left + iScrollX), (m_tRect.top + iScrollY), (m_tRect.right + iScrollX), (m_tRect.bottom + iScrollY));
 }
 
 void CBehaviorB::BehaviorEnter()
 {
+	if (!m_targetObj)
+		return;
+
+	switch (currentState)
+	{
+	case Create:
+		targetPosition.x = appearPosition.x;
+		targetPosition.y = appearPosition.y;
+
+		originPosition.x = targetPosition.x;
+		originPosition.y = targetPosition.y;
+		break;
+
+	case Pattern2:
+		m_fY = m_tInfo.fY;
+		m_bJump = true;
+		break;
+	}
+
+	behaviorState = Execute;
 }
 
 void CBehaviorB::BehaviorExecute()
 {
+	if (!m_targetObj)
+		return;
+
+	switch (currentState) {
+	case Create:
+		behaviorState = Exit;
+		break;
+
+	case Pattern2:
+		if (Jumping()) {
+			behaviorState = Exit;
+			return;
+		}
+		break;
+	}
 }
 
 void CBehaviorB::BehaviorExit()
 {
+	if (m_dwTime + 3000 < GetTickCount())
+	{
+		switch (currentState) {
+		case Create:
+		case Pattern2:
+			currentState = Pattern2;
+			break;
+		}
+
+		behaviorState = Enter;
+		m_dwTime = GetTickCount();
+	}
 }
 
 bool CBehaviorB::Jumping()
 {
-	//fY = m_tInfo.fY;
-	//bool bLineCol = m_Line->Collision_Line(m_tInfo.fX, &fY);
-
-	m_tInfo.fY -= m_fJumpPower * m_fJumpTime - 9.8f * m_fJumpTime * m_fJumpTime * 0.5f;
-	m_fJumpTime += 0.1f;
-
-	if (/*bLineCol &&*/ (m_fY < m_tInfo.fY))
+	if (m_bJump)
 	{
-		m_fJumpTime = 0.f;
-		m_tInfo.fY = m_fY;
-		return true;
+		m_tInfo.fY -= m_fJumpPower * m_fJumpTime - 9.8f * m_fJumpTime * m_fJumpTime * 0.5f;
+		m_fJumpTime += 0.1f;
+
+		return false;
 	}
-	/*else if (bLineCol)
-	{
-	m_tInfo.fY = fY;
-	}*/
-	return false;
+	m_tInfo.fY = m_fY;
+	return true;
 }
 
 bool CBehaviorB::Dir()
 {
-	if (m_tInfo.fX > m_targetObj->Get_Info().fX)
-	{
-		return true; // 좌측을 향해 공격
-	}
-	else
-	{
-		return false; // 우측을 향해 공격
-	}
+	return false;
 }

@@ -150,9 +150,6 @@
     <ClInclude Include="ScrollMgr.h">
       <Filter>ScrollMgr</Filter>
     </ClInclude>
-    <ClInclude Include="LinePlat.h">
-      <Filter>LineMgr</Filter>
-    </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Object\Bullet</Filter>
     </ClInclude>
@@ -206,6 +203,9 @@
     </ClInclude>
     <ClInclude Include="UI.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="LinePlat.h">
+      <Filter>LinePlat</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
