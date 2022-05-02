@@ -32,7 +32,7 @@ void CPlayer::Initialize(void)
 	m_fSpeed = PlayerSpeed;
 
 	m_bJump = true;
-	m_fJumpPower = 16.f;
+	m_fJumpPower = 14.f;
 	m_fJumpTime = 0.f;
 	m_fDropTime = 0.f;
 

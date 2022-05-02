@@ -56,7 +56,7 @@ void CObj::Jumping(void) {
 	const float gravity = 9.8f;
 
 	m_tInfo.fY -= m_fJumpPower * m_fJumpTime - gravity * m_fJumpTime * m_fJumpTime * 0.5f;
-	m_fJumpTime += 0.12f;
+	m_fJumpTime += 0.1f;
 }
 
 void CObj::PlatEnter(float _fY) {
