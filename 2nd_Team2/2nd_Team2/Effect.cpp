@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Effect.h"
+#include "LinePlat.h"
 
 
 CEffect::CEffect() {
@@ -44,7 +45,10 @@ void CEffect::Render(HDC hDC) {
 	HBRUSH	brush = CreateSolidBrush(RGB(255, 0, 0));
 	HGDIOBJ h_old_brush = SelectObject(hDC, brush);
 
-	Ellipse(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	int	iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
+	int	iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();
+
+	Ellipse(hDC, m_tRect.left + iScrollX, m_tRect.top + iScrollY, m_tRect.right + iScrollX, m_tRect.bottom + iScrollY);
 
 	SelectObject(hDC, h_old_brush);
 

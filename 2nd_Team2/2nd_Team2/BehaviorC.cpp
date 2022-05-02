@@ -19,26 +19,16 @@ CBehaviorC::~CBehaviorC()
 void CBehaviorC::Initialize(void)
 {
 	m_tInfo.fX = m_fXPoint;
-	m_tInfo.fY = 150.f;
-
-	m_tInfo.fWidth = 50;
-	m_tInfo.fHeight = 50;
-
+	m_tInfo.fY = 0.f;
+	m_tInfo.fWidth = 50.f;
+	m_tInfo.fHeight = 50.f;
 	m_tInfo.fColWidth = 50.f;
 	m_tInfo.fColHeight = 50.f;
-
-	m_iHP = 10;
-	m_iMaxHP = 10;
-
-	m_fJumpPower = 18.f;
-	m_fJumpTime = 0.f;
-
-	m_fSpeed = 10.f;
-
-	m_bJump = false;
-
 	currentState = Create;
-
+	m_dwTime = GetTickCount();
+	m_iHP = 10;
+	m_iMaxHP = 100;
+	m_fSpeed = 10.f;
 	bossShotTimer = new CTimer;
 }
 
@@ -60,10 +50,10 @@ void CBehaviorC::BehaviorEnter()
 	{
 	case Create:
 		targetPosition.x = appearPosition.x;
-		targetPosition.y = appearPosition.y;
+		//targetPosition.y = appearPosition.y;
 
 		originPosition.x = targetPosition.x;
-		originPosition.y = targetPosition.y;
+		//originPosition.y = targetPosition.y;
 		break;
 
 	case Pattern3:
@@ -92,7 +82,7 @@ void CBehaviorC::BehaviorExecute()
 
 void CBehaviorC::BehaviorExit()
 {
-	if (m_dwTime + 5000 < GetTickCount())
+	if (m_dwTime + 3000 < GetTickCount())
 	{
 		switch (currentState) {
 		case Create:

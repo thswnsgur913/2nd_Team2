@@ -16,6 +16,9 @@ void CLance::Initialize()
 	m_tInfo.fWidth = 10.f;
 	m_tInfo.fHeight = 10.f;
 
+	m_tInfo.fColWidth = 10.f;
+	m_tInfo.fColHeight = 10.f;
+
 	m_fSpeed = 30.f;
 
 	m_Distance = 0;

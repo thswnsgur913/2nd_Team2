@@ -4,6 +4,7 @@
 #include "Hammer.h"
 #include "Effect.h"
 #include "MainGame.h"
+#include "Item.h"
 
 CMonster::CMonster():
 	baseShotAngle(0),
@@ -22,9 +23,9 @@ int CMonster::Update() {
 	if (m_bDead)
 		return OBJ_DEAD;
 
-	Drop();
-
 	BehaviorUpdate();
+
+	Drop();
 
 	Update_Rect();
 
@@ -42,7 +43,6 @@ void CMonster::CollisionEnter(CObj* _sour) {
 	{
 		Hit();
 		bulletObj->Set_Dead();
-		m_bDead = true;
 	}
 }
 
@@ -75,82 +75,24 @@ void CMonster::BehaviorUpdate() {
 }
 
 bool CMonster::TargetMove() {
-	float distX = targetPosition.x - m_tInfo.fX;
-	float distY = targetPosition.y - m_tInfo.fY;
-
-	float distance = sqrtf(distX * distX + distY * distY);
-
-	if (distance < 5.f) {
-		return true;
+	if (targetPosition.x < m_tInfo.fX)
+	{
+		m_tInfo.fX -= m_fSpeed;
+		return false;
 	}
-
-	m_tInfo.fX += (distX / distance) * m_fSpeed;
-	m_tInfo.fY += (distY / distance) * m_fSpeed;
-
-	return false;
+	else { return true; }
 }
 
 bool CMonster::TargetMoveX() {
-	//float distX = targetPosition.x - m_tInfo.fX;
-	//float distY = targetPosition.y - m_tInfo.fY;
-
-	//float distance = sqrtf(distX * distX + distY * distY);
-
-	//if (distance < 5.f) {
-	//	return true;
-	//}
-
-	//m_tInfo.fX += (distX / distance) * m_fSpeed;
-	////m_tInfo.fY += (distY / distance) * m_fSpeed;
-
-	//return false;
-
-	if (targetPosition.x == m_tInfo.fX)
+	if (targetPosition.x > m_tInfo.fX)
 	{
-		if (5.f > (targetPosition.x - m_tInfo.fX))
-		return true;
-	}
-	else
-	{
-		if (targetPosition.x > m_tInfo.fX)
-		{
-			m_tInfo.fX += m_fSpeed;
-			return false;
-		}
-		else if (targetPosition.x < m_tInfo.fX)
-		{
-			m_tInfo.fX -= m_fSpeed;
-			return false;
-		}
-	}
-	
-}
-
-bool CMonster::TargetTracking()
-{
-	if (!m_targetObj)
-	{
-		return true;
-	}
-
-	float distX = m_targetObj->Get_Info().fX - m_tInfo.fX;
-	float distY = m_targetObj->Get_Info().fY - m_tInfo.fY;
-
-	float distance = sqrtf(distX * distX + distY * distY);
-
-	if (distance < 5.f) {
-		return true;
-	}
-
-	m_tInfo.fX += (distX / distance) * m_fSpeed;
-	//m_tInfo.fY += (distY / distance) * m_fSpeed;
-
+	m_tInfo.fX += m_fSpeed;
 	return false;
+	}
+	else { return true; }
 }
 
 void CMonster::Fire(const int _degree, DIRECTION _Dir) {
-	/*int iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
-	int iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();*/
 	CObj* newBullet = CAbstractFactory<CHammer>::Create((float)m_tInfo.fX, (float)m_tInfo.fY, _Dir, 6.5f);
 
 	CBullet* BulletObj = dynamic_cast<CHammer*>(newBullet);
@@ -200,7 +142,7 @@ void CMonster::EffectRender() {
 }
 
 void CMonster::Hit() {
-	m_iHP -= 1;
+	m_iHP -= 10;
 	RunEffect();
 
 	if (!m_bDead && m_iHP <= 0) {
@@ -223,29 +165,40 @@ void CMonster::CommonDie() {
 }
 
 void CMonster::Die() {
-}
+	srand((unsigned int)time((nullptr)));
 
-void CMonster::LeaveCheck() {
-	if (m_tRect.left < -100 || /*m_tRect.right > WINCX + 100 ||*/ m_tRect.top < -100 || m_tRect.bottom > WINCY + 100) {
-		m_bDead = true;
-	}
-} // 떠나기 패턴일때 화면밖을 벗어나는지 체크함
+	int iRanDrop = rand() % 100 + 1;
+	int iRanItem = rand() % 100 + 1;
 
-void CMonster::PlatEnter(float _fY) {
-	if ((_fY <= m_tInfo.fY) && m_bJump) {
-		m_bJump = false;
-		m_fJumpTime = 0.f;
-		m_tInfo.fY = _fY - PlayerSize * 0.5;
-	}
-	else {
-		if (m_tInfo.fY < _fY - PlayerSize * 0.5)
-			Drop();
+	switch (iRanDrop % 3)
+	{
+	case 1:
+	{
+		if (0 < iRanItem && 16 >= iRanItem)
+		{
+			CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEM_LIFE, { m_tInfo.fX, m_tInfo.fY }));
+		}
+		else if (16 < iRanItem && 32 >= iRanItem)
+		{
+			CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEM_SCORE, { m_tInfo.fX, m_tInfo.fY }));
+		}
+		else if (32 < iRanItem && 48 >= iRanItem)
+		{
+			CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEMTYPE::ITEM_WEAPON_LANCE, { m_tInfo.fX, m_tInfo.fY }));
+		}
+		else if (48 < iRanItem && 64 >= iRanItem)
+		{
+			CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEMTYPE::ITEM_GOD, { m_tInfo.fX, m_tInfo.fY }));
+		}
+		else if (64 < iRanItem && 80 >= iRanItem)
+		{
+			CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEMTYPE::ITEM_WEAPON_HAMMER, { m_tInfo.fX, m_tInfo.fY }));
+		}
 		else
-			m_tInfo.fY = _fY - PlayerSize * 0.5;
+		{
+			CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEM_CLOCK, { 300.f, 200.f }));
+		}
 	}
-}
-
-void CMonster::Drop(void)
-{
-	m_tInfo.fY += m_fSpeed;
+	break;
+	}
 }
