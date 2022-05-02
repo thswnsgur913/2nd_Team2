@@ -66,6 +66,10 @@ void CMainGame::Initialize(void)
 
 	CUIManager::Instance()->AddUI(UI_FRONT, CAbstractFactory<CWeaponBag>::Create());
 
+	m_monster = CAbstractFactory<CBehaviorBoss>::Create((m_player->Get_Info().fX + 650.f));
+	dynamic_cast<CBehaviorBoss*>(m_monster)->BehaviorStart(m_player);
+	CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
+
 	m_timer = new CTimer;
 	m_timer->StartTimer(ENERMY_PER_SECOND, [&]() {
 	});

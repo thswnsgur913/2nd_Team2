@@ -19,14 +19,14 @@ CBehaviorA::~CBehaviorA()
 void CBehaviorA::Initialize(void)
 {
 	m_tInfo.fX = m_fXPoint;
-	m_tInfo.fY = 150.f;
+	m_tInfo.fY = 0.f;
 	m_tInfo.fWidth = 50.f;
 	m_tInfo.fHeight = 50.f;
 	m_tInfo.fColWidth = 50.f;
 	m_tInfo.fColHeight = 50.f;
 	currentState = Create;
 	m_dwTime = GetTickCount();
-	m_iHP = 100;
+	m_iHP = 10;
 	m_iMaxHP = 100;
 	m_fSpeed = 10.f;
 }

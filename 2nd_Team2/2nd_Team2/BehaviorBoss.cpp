@@ -18,7 +18,7 @@ CBehaviorBoss::~CBehaviorBoss()
 void CBehaviorBoss::Initialize(void)
 {
 	m_tInfo.fX = m_fXPoint;
-	m_tInfo.fY = 150.f;
+	m_tInfo.fY = 0.f;
 	m_tInfo.fWidth = 50.f;
 	m_tInfo.fHeight = 50.f;
 	m_tInfo.fColWidth = 50.f;

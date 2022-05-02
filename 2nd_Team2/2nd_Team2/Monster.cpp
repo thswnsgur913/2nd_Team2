@@ -4,6 +4,7 @@
 #include "Hammer.h"
 #include "Effect.h"
 #include "MainGame.h"
+#include "Item.h"
 
 CMonster::CMonster():
 	baseShotAngle(0),
@@ -42,7 +43,6 @@ void CMonster::CollisionEnter(CObj* _sour) {
 	{
 		Hit();
 		bulletObj->Set_Dead();
-		m_bDead = true;
 	}
 }
 
@@ -142,7 +142,7 @@ void CMonster::EffectRender() {
 }
 
 void CMonster::Hit() {
-	m_iHP -= 1;
+	m_iHP -= 10;
 	RunEffect();
 
 	if (!m_bDead && m_iHP <= 0) {
@@ -165,10 +165,46 @@ void CMonster::CommonDie() {
 }
 
 void CMonster::Die() {
+	srand((unsigned int)time((nullptr)));
+
+	int iRanDrop = rand() % 100 + 1;
+	int iRanItem = rand() % 100 + 1;
+
+	switch (iRanDrop % 2)
+	{
+	case 1:
+	{
+		if (0 < iRanItem && 16 >= iRanItem)
+		{
+			CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEM_LIFE, { m_tInfo.fX, m_tInfo.fY }));
+		}
+		else if (16 < iRanItem && 32 >= iRanItem)
+		{
+			CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEM_CLOCK, { m_tInfo.fX, m_tInfo.fY }));
+		}
+		else if (32 < iRanItem && 48 >= iRanItem)
+		{
+			CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEMTYPE::ITEM_WEAPON_LANCE, { m_tInfo.fX, m_tInfo.fY }));
+		}
+		else if (48 < iRanItem && 64 >= iRanItem)
+		{
+			CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEMTYPE::ITEM_GOD, { m_tInfo.fX, m_tInfo.fY }));
+		}
+		else if (64 < iRanItem && 80 >= iRanItem)
+		{
+			CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEMTYPE::ITEM_WEAPON_HAMMER, { m_tInfo.fX, m_tInfo.fY }));
+		}
+		else
+		{
+			CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEM_SCORE, { m_tInfo.fX, m_tInfo.fY }));
+		}
+	}
+	break;
+	}
 }
 
 void CMonster::LeaveCheck() {
-	if (m_tRect.left < -100 || /*m_tRect.right > WINCX + 100 ||*/ m_tRect.top < -100 || m_tRect.bottom > WINCY + 100) {
+	if (m_tRect.left < -100 || /*m_tRect.right > WINCX + 100 ||*/ /*m_tRect.top < -100 ||*/ m_tRect.bottom > WINCY + 100) {
 		m_bDead = true;
 	}
 } // 떠나기 패턴일때 화면밖을 벗어나는지 체크함
