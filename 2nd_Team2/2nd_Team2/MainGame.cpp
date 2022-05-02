@@ -306,7 +306,13 @@ void CMainGame::Update(void)
 		m_player = nullptr;
 	}
 
-	RandomMonster();
+	if (14000.f <= m_player->Get_Info().fX) // 플레이어 X 좌표값이 14000에 도달하면 보스몬스터 생성. 일반 몬스터는 생성이 안될 예정.
+	{
+		m_monster = CAbstractFactory<CBehaviorBoss>::Create(16000.f);
+		dynamic_cast<CBehaviorBoss*>(m_monster)->BehaviorStart(m_player);
+		CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
+	}
+	else { RandomMonster(); }
 
 	const int mapHalfHeight = 250;
 
@@ -367,10 +373,6 @@ void CMainGame::RandomMonster(void)
 			case 3:
 				CreateMonster(MONSTER_C); // C
 				break;
-
-			//case 4:
-			//	CreateMonster(MONSTER_BOSS); // BOSS
-			//	break;
 			}
 
 			m_dwTime = GetTickCount();
@@ -399,11 +401,5 @@ void CMainGame::CreateMonster(MONSTERTYPE _type)
 		dynamic_cast<CBehaviorC*>(m_monster)->BehaviorStart(m_player);
 		CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
 		break;
-
-	/*case MONSTER_BOSS:
-		m_monster = CAbstractFactory<CBehaviorBoss>::Create((m_player->Get_Info().fX + 650.f));
-		dynamic_cast<CBehaviorBoss*>(m_monster)->BehaviorStart(m_player);
-		CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
-		break;*/
 	}
 }
