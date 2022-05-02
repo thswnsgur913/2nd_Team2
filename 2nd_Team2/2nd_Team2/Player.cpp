@@ -32,11 +32,12 @@ void CPlayer::Initialize(void)
 	m_tInfo.fColWidth = 80.f;
 	m_tInfo.fColHeight = 130.f;
 
-	m_fSpeed = 10.f;
+	m_fSpeed = 8.f;
 
 	m_bJump = false;
-	m_fJumpPower = 20.f;
+	m_fJumpPower = 25.f;
 	m_fJumpTime = 0.f;
+	m_fDropTime = 0.f;
 
 	m_Dir = true;
 
@@ -58,7 +59,7 @@ int CPlayer::Update(void)
 
 	OffSet();
 
-	m_godModeTimer->Update();
+	//m_godModeTimer->Update();
 
 	Update_Rect();
 
@@ -67,7 +68,6 @@ int CPlayer::Update(void)
 
 void CPlayer::Late_Update(void)
 {
-	
 }
 
 void CPlayer::Render(HDC hDC)
@@ -145,16 +145,9 @@ void CPlayer::PlatEnter(float _fY) {
 	}
 }
 
-void CPlayer::PlatEnterX(float _fX)
+void CPlayer::Set_PosX(float _fA)
 {
-	// 플레이어가 수직선 좌우에서 부동한 효과 주기.
-	m_tInfo.fX -= 10.f;	
-}
-
-void CPlayer::PlatEnterX2(float _fX)
-{
-	// 플레이어가 수직선 좌우에서 부동한 효과 주기.
-	m_tInfo.fX += 10.f;
+	m_tInfo.fX = _fA;
 }
 
 void CPlayer::CollisionEnter(CObj* _sour)
@@ -366,4 +359,10 @@ void CPlayer::OffSet(void)
 void CPlayer::Drop(void)
 {
 	m_tInfo.fY += m_fSpeed;
+	//m_fDropTime += 1.f;
+	//if (3 <= m_fDropTime) // 3초 이상 자유낙하하면 사망.
+	//{
+	//	m_bDead = true;
+	//	m_fDropTime = 0.f;
+	//}
 }

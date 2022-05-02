@@ -55,5 +55,6 @@ protected:
 	float m_fJumpPower;	// 점프 힘
 	float m_fJumpTime;	// 점프 중 진행 시간
 	bool m_Dir; //이동 방향 확인
+	float m_fDropTime;
 };
 

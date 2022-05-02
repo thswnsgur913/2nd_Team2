@@ -16,6 +16,11 @@ public:
 		return m_ObjList[OBJ_PLAYER].front(); 
 	}
 
+	list<CObj*> GetLine()
+	{
+		return m_ObjList[OBJ_OBSTACLE];
+	}
+
 public:
 	void AddObject(OBJID eID, CObj* pObj);
 	int	 Update(void);

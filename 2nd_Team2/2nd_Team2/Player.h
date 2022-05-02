@@ -57,8 +57,7 @@ public:
 	void Set_line(CLinePlat* Line) { m_Line = Line; }
 	STAT&	Get_Stat(void) { return m_tPstat; }
 	void PlatEnter(float); // ÇÃ·§Æû Ãæµ¹
-	void PlatEnterX(float); // ¼öÁ÷ ¶óÀÎ ÇÃ·§Æû Ãæµ¹
-	void PlatEnterX2(float);
+	void Set_PosX(float _fA);
 
 private:
 	void KeyInput();

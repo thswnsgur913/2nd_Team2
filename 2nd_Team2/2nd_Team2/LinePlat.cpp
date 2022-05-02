@@ -54,6 +54,7 @@ void CLinePlat::Release(void)
 bool CLinePlat::Collision_Line(CObj* _sour)//플레이어, 몬스터입력가능.
 {
 	float fXX = _sour->Get_Info().fX;
+	float fYY = _sour->Get_Info().fY;
 
 	if (m_LineList.empty())
 		return false;
@@ -74,22 +75,14 @@ bool CLinePlat::Collision_Line(CObj* _sour)//플레이어, 몬스터입력가능.
 	if (!pLine)
 		return false;
 
+	float fXXL = _sour->Get_Rect().left;
+	float fXXR = _sour->Get_Rect().right;
+
 	float fX1 = pLine->Get_LINE().tLPoint.fX;
 	float fY1 = pLine->Get_LINE().tLPoint.fY;
 
 	float fX2 = pLine->Get_LINE().tRPoint.fX;
 	float fY2 = pLine->Get_LINE().tRPoint.fY;
-
-	if ((fX1 == fX2)&&(_sour->Get_Info().fY > fY1))//&&(fY1 < fY2)
-	{
-		dynamic_cast<CPlayer*>(_sour)->PlatEnterX(fX1);
-		return false;
-	}
-	/*else if ((fX1 == fX2) && (_sour->Get_Info().fY > fY2) && (fY1 < fY2))
-	{
-		dynamic_cast<CPlayer*>(_sour)->PlatEnterX2(fX1);
-		return false;
-	}*/
 	
 	pY = ((fY2 - fY1) / (fX2 - fX1)) * (fXX - fX2) + fY2;
 

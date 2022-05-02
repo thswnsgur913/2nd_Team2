@@ -8,6 +8,7 @@
 #include "Timer.h"
 #include "LinePlat.h"
 #include "ScrollMgr.h"
+#include "ObjLine.h"
 
 #include "ProgressBar.h"
 
