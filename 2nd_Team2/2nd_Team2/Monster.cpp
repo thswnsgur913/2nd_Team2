@@ -75,11 +75,6 @@ void CMonster::BehaviorUpdate() {
 }
 
 bool CMonster::TargetMove() {
-	if (!m_targetObj)
-	{
-		return true;
-	}
-
 	float distX = targetPosition.x - m_tInfo.fX;
 	float distY = targetPosition.y - m_tInfo.fY;
 
@@ -96,19 +91,39 @@ bool CMonster::TargetMove() {
 }
 
 bool CMonster::TargetMoveX() {
-	float distX = targetPosition.x - m_tInfo.fX;
-	float distY = targetPosition.y - m_tInfo.fY;
+	//float distX = targetPosition.x - m_tInfo.fX;
+	//float distY = targetPosition.y - m_tInfo.fY;
 
-	float distance = sqrtf(distX * distX + distY * distY);
+	//float distance = sqrtf(distX * distX + distY * distY);
 
-	if (distance < 5.f) {
+	//if (distance < 5.f) {
+	//	return true;
+	//}
+
+	//m_tInfo.fX += (distX / distance) * m_fSpeed;
+	////m_tInfo.fY += (distY / distance) * m_fSpeed;
+
+	//return false;
+
+	if (targetPosition.x == m_tInfo.fX)
+	{
+		if (5.f > (targetPosition.x - m_tInfo.fX))
 		return true;
 	}
-
-	m_tInfo.fX += (distX / distance) * m_fSpeed;
-	//m_tInfo.fY += (distY / distance) * m_fSpeed;
-
-	return false;
+	else
+	{
+		if (targetPosition.x > m_tInfo.fX)
+		{
+			m_tInfo.fX += m_fSpeed;
+			return false;
+		}
+		else if (targetPosition.x < m_tInfo.fX)
+		{
+			m_tInfo.fX -= m_fSpeed;
+			return false;
+		}
+	}
+	
 }
 
 bool CMonster::TargetTracking()

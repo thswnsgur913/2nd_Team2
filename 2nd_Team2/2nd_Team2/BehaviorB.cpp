@@ -18,8 +18,8 @@ CBehaviorB::~CBehaviorB()
 
 void CBehaviorB::Initialize(void)
 {
-	m_tInfo.fX = m_fXPoint;// 500.f;
-	m_tInfo.fY = 250.f;
+	m_tInfo.fX = m_fXPoint;
+	m_tInfo.fY = 150.f;
 
 	m_tInfo.fWidth = 50;
 	m_tInfo.fHeight = 50;
@@ -65,7 +65,7 @@ void CBehaviorB::BehaviorEnter()
 		break;
 
 	case Pattern2:
-		m_fY = m_tInfo.fY;
+		//m_fY = m_tInfo.fY;
 		m_bJump = true;
 		break;
 	}
@@ -117,7 +117,7 @@ bool CBehaviorB::Jumping()
 
 		return false;
 	}
-	m_tInfo.fY = m_fY;
+	//m_tInfo.fY = m_fY;
 	return true;
 }
 

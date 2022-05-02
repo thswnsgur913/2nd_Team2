@@ -59,6 +59,10 @@ void CMainGame::Initialize(void)
 	CUIManager::Instance()->AddUI(UI_FRONT, newTimeProgress);
 
 	CUIManager::Instance()->AddUI(UI_FRONT, CAbstractFactory<CWeaponBag>::Create());
+	//
+	m_monster = CAbstractFactory<CBehaviorBoss>::Create((m_player->Get_Info().fX + 650.f));
+	dynamic_cast<CBehaviorBoss*>(m_monster)->BehaviorStart(m_player);
+	CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
 
 	m_timer = new CTimer;
 	m_timer->StartTimer(ENERMY_PER_SECOND, [&]() {
@@ -241,7 +245,7 @@ void CMainGame::Update(void)
 		m_player = nullptr;
 	}
 
-	RandomMonster();
+	//RandomMonster();
 
 	const int mapHalfHeight = 250;
 
@@ -279,7 +283,7 @@ void CMainGame::RandomMonster(void)
 	if (m_dwTime + 10000 < GetTickCount())
 	{
 		srand((unsigned int)time((nullptr)));
-		int iRanMon = rand() % 4 + 1;
+		int iRanMon = rand() % 3 + 1;
 		switch (iRanMon)
 		{
 		case 1:
@@ -294,9 +298,9 @@ void CMainGame::RandomMonster(void)
 			CreateMonster(MONSTER_C); // C
 			break;
 
-		case 4:
-			CreateMonster(MONSTER_BOSS); // BOSS
-			break;
+		//case 4:
+		//	CreateMonster(MONSTER_BOSS); // BOSS
+		//	break;
 		}
 
 		m_dwTime = GetTickCount();
