@@ -68,8 +68,7 @@ void CMainGame::Initialize(void)
 	plat->Initialize();
 	m_map.push_back(plat);
 	
-	dynamic_cast<CPlayer*>(m_player)->Set_line(plat);
-	//dynamic_cast<CBehaviorBoss*>(m_monster)->Set_line(plat);
+	//dynamic_cast<CPlayer*>(m_player)->Set_line(plat);
 	
 	m_map.push_back(
 		new CLinePlat(
@@ -248,6 +247,8 @@ void CMainGame::Update(void)
 		m_player = nullptr;
 	}
 
+	RandomMonster();
+
 	const int mapHalfHeight = 250;
 
 	if (m_player) {
@@ -261,7 +262,16 @@ void CMainGame::Update(void)
 		}
 	}
 
-	RandomMonster();
+	if (m_monster) {
+		m_backUI->SetPlayerDepth(static_cast<int>((m_monster->Get_Info().fY - mapHalfHeight) / 10));
+		m_timer->Update();
+
+		for (auto& plat : m_map) {
+			if (plat->Collision_Line_M(m_monster)) {
+				m_monster->CollisionEnter(plat);
+			};
+		}
+	}
 }
 
 void CMainGame::Late_Update(void)

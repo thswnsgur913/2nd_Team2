@@ -14,8 +14,8 @@ CBehaviorC::~CBehaviorC()
 
 void CBehaviorC::Initialize(void)
 {
-	m_tInfo.fX = 700.f;
-	m_tInfo.fY = 500.f;
+	m_tInfo.fX = /*m_targetObj->Get_Info().fX +*/ 500.f;
+	m_tInfo.fY = 250.f;
 
 	m_tInfo.fWidth = 50;
 	m_tInfo.fHeight = 50;
@@ -31,7 +31,11 @@ void CBehaviorC::Initialize(void)
 
 	m_fSpeed = 10.f;
 
-	m_fY = m_tInfo.fY;
+	//m_fY = m_tInfo.fY;
+
+	m_bJump = false;
+
+	currentState = Create;
 
 	bossShotTimer = new CTimer;
 }

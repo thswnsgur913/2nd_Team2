@@ -18,6 +18,7 @@ public:
 	void Release(void);
 
 	bool Collision_Line(CObj*);
+	bool Collision_Line_M(CObj*);
 	CLinePlat* Get_LinePlat(void) { return this; }
 
 private:

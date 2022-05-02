@@ -14,8 +14,8 @@ CBehaviorA::~CBehaviorA()
 
 void CBehaviorA::Initialize(void)
 {
-	m_tInfo.fX = 700.f;
-	m_tInfo.fY = 500.f;
+	m_tInfo.fX = /*m_targetObj->Get_Info().fX +*/ 500.f;
+	m_tInfo.fY = 250.f;
 
 	m_tInfo.fWidth = 50;
 	m_tInfo.fHeight = 50;
@@ -31,7 +31,11 @@ void CBehaviorA::Initialize(void)
 
 	m_fSpeed = 10.f;
 
-	m_fY = m_tInfo.fY;
+	//m_fY = m_tInfo.fY;
+
+	m_bJump = false;
+
+	currentState = Create;
 }
 
 void CBehaviorA::Release(void)
@@ -62,15 +66,10 @@ void CBehaviorA::BehaviorEnter()
 
 	case Pattern1:
 		targetPosition.x = m_targetObj->Get_Info().fX;
-		targetPosition.y = (m_targetObj->Get_Info().fY);
+		targetPosition.y = m_targetObj->Get_Info().fY;
 
 		originPosition.x = m_tInfo.fX;
 		originPosition.y = m_tInfo.fY;
-		if (300 >= m_targetObj->Get_Info().fX) // 플레이어 X 좌표가 300보다 작을 경우, 돌진공격의 좌표점을 제한해 플레이어가 회피 할 수 있는 공간을 남김.
-		{
-			targetPosition.x = 300;
-		}
-		break;
 
 	case Return:
 		targetPosition.x = originPosition.x;
@@ -92,8 +91,15 @@ void CBehaviorA::BehaviorExecute()
 		break;
 
 	case Pattern1:
-	case Return:
 		if (TargetMove()) {
+			behaviorState = Exit;
+			return;
+		}
+		break;
+
+	case Return:
+		if (TargetMove())
+		{
 			behaviorState = Exit;
 			return;
 		}

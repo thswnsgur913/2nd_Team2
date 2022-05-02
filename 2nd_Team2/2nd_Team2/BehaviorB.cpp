@@ -14,8 +14,8 @@ CBehaviorB::~CBehaviorB()
 
 void CBehaviorB::Initialize(void)
 {
-	m_tInfo.fX = 700.f;
-	m_tInfo.fY = 500.f;
+	m_tInfo.fX = /*m_targetObj->Get_Info().fX + */500.f;
+	m_tInfo.fY = 250.f;
 
 	m_tInfo.fWidth = 50;
 	m_tInfo.fHeight = 50;
@@ -31,7 +31,9 @@ void CBehaviorB::Initialize(void)
 
 	m_fSpeed = 10.f;
 
-	m_fY = m_tInfo.fY;
+	m_bJump = false;
+
+	currentState = Create;
 }
 
 void CBehaviorB::Release(void)
@@ -62,6 +64,7 @@ void CBehaviorB::BehaviorEnter()
 
 	case Pattern2:
 		m_fY = m_tInfo.fY;
+		m_bJump = true;
 		break;
 	}
 
@@ -105,23 +108,15 @@ void CBehaviorB::BehaviorExit()
 
 bool CBehaviorB::Jumping()
 {
-	//fY = m_tInfo.fY;
-	//bool bLineCol = m_Line->Collision_Line(m_tInfo.fX, &fY);
-
-	m_tInfo.fY -= m_fJumpPower * m_fJumpTime - 9.8f * m_fJumpTime * m_fJumpTime * 0.5f;
-	m_fJumpTime += 0.1f;
-
-	if (/*bLineCol &&*/ (m_fY < m_tInfo.fY))
+	if (m_bJump)
 	{
-		m_fJumpTime = 0.f;
-		m_tInfo.fY = m_fY;
-		return true;
+		m_tInfo.fY -= m_fJumpPower * m_fJumpTime - 9.8f * m_fJumpTime * m_fJumpTime * 0.5f;
+		m_fJumpTime += 0.1f;
+
+		return false;
 	}
-	/*else if (bLineCol)
-	{
-	m_tInfo.fY = fY;
-	}*/
-	return false;
+	
+	return true;
 }
 
 bool CBehaviorB::Dir()

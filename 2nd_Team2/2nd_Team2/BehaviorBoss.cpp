@@ -12,8 +12,8 @@ CBehaviorBoss::~CBehaviorBoss()
 
 void CBehaviorBoss::Initialize(void)
 {
-	m_tInfo.fX = 700.f;
-	m_tInfo.fY = 500.f;
+	m_tInfo.fX = /*m_targetObj->Get_Info().fX +*/ 500.f;
+	m_tInfo.fY = 250.f;
 
 	m_tInfo.fWidth = 50.f;
 	m_tInfo.fHeight = 50.f;
@@ -28,6 +28,8 @@ void CBehaviorBoss::Initialize(void)
 	m_fJumpTime = 0.f;
 
 	m_fSpeed = 10.f;
+
+	m_bJump = false;
 
 	bossShotTimer = new CTimer;
 
@@ -66,10 +68,6 @@ void CBehaviorBoss::BehaviorEnter()
 
 		originPosition.x = m_tInfo.fX;
 		originPosition.y = m_tInfo.fY;
-		if (300 >= m_targetObj->Get_Info().fX) // 플레이어 X 좌표가 300보다 작을 경우, 돌진공격의 좌표점을 제한해 플레이어가 회피 할 수 있는 공간을 남김.
-		{
-			targetPosition.x = 300;
-		}
 		break;
 
 	case Return:
@@ -79,6 +77,7 @@ void CBehaviorBoss::BehaviorEnter()
 
 	case Pattern2:
 		m_fY = m_tInfo.fY;
+		m_bJump = true;
 		break;
 
 	case Pattern3:
@@ -107,6 +106,12 @@ void CBehaviorBoss::BehaviorExecute()
 		break;
 
 	case Pattern1:
+		if (TargetMove()) {
+			behaviorState = Exit;
+			return;
+		}
+		break;
+
 	case Return:
 		if (TargetMove()) {
 			behaviorState = Exit;
@@ -157,23 +162,15 @@ void CBehaviorBoss::BehaviorExit()
 
 bool CBehaviorBoss::Jumping()
 {
-	//fY = m_tInfo.fY;
-	//bool bLineCol = m_Line->Collision_Line(m_tInfo.fX, &fY);
-
-	m_tInfo.fY -= m_fJumpPower * m_fJumpTime - 9.8f * m_fJumpTime * m_fJumpTime * 0.5f;
-	m_fJumpTime += 0.1f;
-
-	if (/*bLineCol &&*/ (m_fY < m_tInfo.fY))
+	if (m_bJump)
 	{
-		m_fJumpTime = 0.f;
-		m_tInfo.fY = m_fY;
-		return true;
+		m_tInfo.fY -= m_fJumpPower *m_fJumpTime - 9.8f * m_fJumpTime * m_fJumpTime * 0.5f;
+		m_fJumpTime += 0.1f;
+
+		return false;
 	}
-	/*else if (bLineCol)
-	{
-		m_tInfo.fY = fY;
-	}*/
-	return false;
+	
+	return true;
 }
 
 void CBehaviorBoss::RandomPattern()
