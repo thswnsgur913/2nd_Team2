@@ -342,7 +342,7 @@ void CMainGame::RandomMonster(void)
 	if (CKeyMgr::Get_Instance()->Key_Up('M')) // M 키를 늘러야 일반 몬스터 랜덤생성이 시작됨.
 	{
 		if (true == m_bMonsterOnOff) { m_bMonsterOnOff = false; }
-		if (false == m_bMonsterOnOff) { m_bMonsterOnOff = true; }
+		else if (false == m_bMonsterOnOff) { m_bMonsterOnOff = true; }
 	}
 
 	if (m_bMonsterOnOff)
