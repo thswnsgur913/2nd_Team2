@@ -6,15 +6,13 @@
 #include "BmpMgr.h"
 
 
-CPlayer::CPlayer() {
+CPlayer::CPlayer():
+	GodModeSecond(5.f) {
 }
 
 CPlayer::~CPlayer()
 {
 	Release();
-	m_bulletList = nullptr;
-	m_MonsterList = nullptr;
-
 }
 
 void CPlayer::Initialize(void)
@@ -25,9 +23,6 @@ void CPlayer::Initialize(void)
 	//m_tInfo.fY = WINCY - PlayerSize-500 ;
 	m_tInfo.fY = WINCY - 250.f;
 
-	//m_iHP = 100;
-	//m_iMaxHP = 100;
-
 	m_tInfo.fWidth = PlayerSize;
 	m_tInfo.fHeight = PlayerSize;
 
@@ -37,7 +32,7 @@ void CPlayer::Initialize(void)
 	m_fSpeed = PlayerSpeed;
 
 	m_bJump = true;
-	m_fJumpPower = 25.f;
+	m_fJumpPower = 16.f;
 	m_fJumpTime = 0.f;
 	m_fDropTime = 0.f;
 
@@ -46,8 +41,6 @@ void CPlayer::Initialize(void)
 	m_Dir = true;
 
 	m_GodMode=false;
-
-	//m_iCount = GetTickCount();
 
 	m_godModeTimer = new CTimer;
 
@@ -109,8 +102,6 @@ int CPlayer::Update(void)
 	
 	Drop();
 	Jumping();
-
-	//m_godModeTimer->Update();
 
 	Update_Rect();
 
@@ -252,8 +243,6 @@ void CPlayer::CollisionEnter(CObj* _sour)
 	}
 
 }
-
-
 
 void CPlayer::Set_Damage()
 {

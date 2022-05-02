@@ -1,9 +1,10 @@
 #include "stdafx.h"
 #include "BackUI.h"
+#include "UIManager.h"
 
 
-CBackUI::CBackUI()
-{
+CBackUI::CBackUI() :
+	CloudMAX(17) {
 }
 
 
@@ -12,11 +13,31 @@ CBackUI::~CBackUI()
 }
 
 void CBackUI::Initialize() {
+	//srand(unsigned(time(nullptr)));
+
+	for (int i = 0; i < CloudMAX; ++i) {
+		int randomX = rand() % ((int)WINCX + 100) - 100;
+		int randomY = rand() % (int)WINCY * 0.4f;
+		int ramdomSize = 150;//rand() % (int)150 + 80;
+		int randomSpeed = rand() % 3 + 1;
+
+		CCloud* newCloud = new CCloud;
+		newCloud->Initialize();
+		newCloud->Set_pos(randomX, randomY);
+		newCloud->SetSize(ramdomSize);
+		newCloud->Set_Speed(randomSpeed * 0.1f);
+
+		m_Clouds.push_back(newCloud);
+	}
 }
 
 int CBackUI::Update() {
 	if (m_bDead)
 		return OBJ_DEAD;
+
+	for (auto& cloud : m_Clouds) {
+		cloud->Update();
+	}
 
 	Update_Rect();
 
@@ -39,6 +60,10 @@ void CBackUI::Render(HDC hdc) {
 	Rectangle(hdc, 0, 0, WINCX, WINCY);
 	SelectObject(hdc, h_old_brush);
 	DeleteObject(brush);
+
+	for (auto& cloud : m_Clouds) {
+		cloud->Render(hdc);
+	}
 }
 
 void CBackUI::Release() {

@@ -23,6 +23,9 @@ public:
 
 private:
 	list<CLine*> m_LineList;
+	int pointSize;
+	POINT* m_DrawLineList;
+	POINT* m_ScrollDrawLineList;
 };
 
 

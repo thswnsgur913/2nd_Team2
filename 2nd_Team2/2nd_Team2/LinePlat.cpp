@@ -10,6 +10,14 @@ CLinePlat::CLinePlat(vector<LINEPOINT> _linePoints) {
 	for (int index = 0; index < _linePoints.size() - 1; ++index) {
 		m_LineList.push_back(new CLine(_linePoints[index], _linePoints[index + 1]));
 	}
+
+	pointSize = _linePoints.size() - 1;
+	m_DrawLineList = new POINT[_linePoints.size()];
+	m_ScrollDrawLineList = new POINT[_linePoints.size()];
+
+	for (int index = 0; index < pointSize; ++index) {
+		m_DrawLineList[index] = { static_cast<long>(_linePoints[index].fX), static_cast<long>(_linePoints[index].fY) };
+	}
 }
 
 
@@ -39,10 +47,19 @@ void CLinePlat::CollisionEnter(CObj* _sour) {
 
 void CLinePlat::Render(HDC hDC)
 {
-	for (auto& iter : m_LineList)
-	{
+	// drawLineList
+	for (auto& iter : m_LineList) {
 		iter->Render(hDC);
 	}
+
+	float fScorllX = CScrollMgr::Get_Scroll()->Get_ScrollX();
+	float fScorllY = CScrollMgr::Get_Scroll()->Get_ScrollY();
+
+	for (int index = 0; index < pointSize; ++index) {
+		m_ScrollDrawLineList[index] = { static_cast<long>(m_DrawLineList[index].x + fScorllX), static_cast<long>(m_DrawLineList[index].y + fScorllY) };
+	}
+
+	Polygon(hDC, m_ScrollDrawLineList, m_LineList.size()); // 좌표의 수.
 }
 
 void CLinePlat::Release(void)
@@ -96,15 +113,4 @@ bool CLinePlat::Collision_Line(CObj* _sour)//플레이어, 몬스터입력가능.
 	_sour->PlatEnter(pY);
 
 	return true;
-
-	/*if (sqrtf(distY * distY) < 30.f) {
-		if (dynamic_cast<CPlayer*>(_sour)) {
-			dynamic_cast<CPlayer*>(_sour)->PlatEnter(pY);
-		}
-
-		return true;
-	};*/
-
-	
-	return false;
 }

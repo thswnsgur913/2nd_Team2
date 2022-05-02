@@ -89,9 +89,9 @@ void CMainGame::Initialize(void)
 				{ 600.f,(float) WINCY - 150.f },
 				{ 1100.f,(float) WINCY - 400.f },
 				{ 1400.f,(float) WINCY - 400.f },//6¹ø¤Š Á¡
-			/*	{ 1400.f, (float)WINCY + 500.f },
+				{ 1400.f, (float)WINCY + 500.f },
 				{ 1600.f,(float)WINCY + 500.f },
-				{ 1600.f,(float)WINCY - 400.f },*/
+				{ 1600.f,(float)WINCY - 400.f },
 		})
 	);
 
@@ -243,6 +243,8 @@ void CMainGame::Update(void)
 {
 	PlayTime += g_dwDeltaTime;
 	CObjManager::Instance()->Update();
+	CUIManager::Instance()->Update();
+
 
 	for (auto& iter : CObjManager::Instance()->GetLine())
 	{
@@ -270,10 +272,6 @@ void CMainGame::Update(void)
 		m_timer->Update();
 	}
 
-	if (m_monster) {
-		m_backUI->SetPlayerDepth(static_cast<int>((m_monster->Get_Info().fY - mapHalfHeight) / 10));
-		m_timer->Update();
-	}
 }
 
 void CMainGame::Late_Update(void)

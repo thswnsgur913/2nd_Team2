@@ -20,7 +20,7 @@ void CUIManager::AddUI(UIID eID, CObj* pObj) {
 }
 
 int CUIManager::Update(void) {
-	for (int i = 0; i < OBJ_END; ++i) {
+	for (int i = 0; i < UI_END; ++i) {
 		for (auto& iter = m_UIList[i].begin();
 			iter != m_UIList[i].end(); ) {
 			int iResult = (*iter)->Update();
@@ -39,7 +39,7 @@ int CUIManager::Update(void) {
 }
 
 void CUIManager::Late_Update(void) {
-	for (int i = 0; i < OBJ_END; ++i) {
+	for (int i = 0; i < UI_END; ++i) {
 		for (auto& iter : m_UIList[i])
 			iter->Late_Update();
 	}

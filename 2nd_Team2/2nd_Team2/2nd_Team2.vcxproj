@@ -151,6 +151,7 @@
     <ClInclude Include="BehaviorBoss.h" />
     <ClInclude Include="BmpMgr.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Cloud.h" />
     <ClInclude Include="CollisionMgr.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Effect.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="BehaviorBoss.cpp" />
     <ClCompile Include="BmpMgr.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Cloud.cpp" />
     <ClCompile Include="CollisionMgr.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="FrontUI.cpp" />

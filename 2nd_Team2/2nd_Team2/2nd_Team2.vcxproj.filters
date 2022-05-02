@@ -220,6 +220,9 @@
     <ClInclude Include="MyBmp.h">
       <Filter>Object\BmpMgr\MyBmp</Filter>
     </ClInclude>
+    <ClInclude Include="Cloud.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -329,6 +332,9 @@
     </ClCompile>
     <ClCompile Include="MyBmp.cpp">
       <Filter>Object\BmpMgr\MyBmp</Filter>
+    </ClCompile>
+    <ClCompile Include="Cloud.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

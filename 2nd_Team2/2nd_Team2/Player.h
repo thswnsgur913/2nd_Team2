@@ -27,7 +27,6 @@ public:
 	virtual void Release(void) override;
 	virtual	void CollisionEnter(CObj* _sour);
 
-
 public:
 
 	int	Swap_Weapon(int Weapon) 
@@ -54,7 +53,6 @@ public:
 
 	void Set_GodMode(bool GodMode) { m_GodMode = GodMode;}
 	void Set_Damage();
-	void Set_line(CLinePlat* Line) { m_Line = Line; }
 	STAT&	Get_Stat(void) { return m_tPstat; }
 	void Set_PosX(float _fA);
 
@@ -73,13 +71,9 @@ public:
 
 
 private:
-	const float GodModeSecond = 5.f;
-	list<CObj*>* m_bulletList; // 총알 리스트
-	list<CObj*>* m_MonsterList; // 몬스터 리스트
+	const float GodModeSecond;
 	CTimer* m_godModeTimer;
 
-	STAT		            m_tPstat; //플레이어 스테이터스
-	CLinePlat*              m_Line;
-
+	STAT m_tPstat; //플레이어 스테이터스
 };
 
