@@ -60,7 +60,10 @@ void CMainGame::Initialize(void)
 	CObj* newBackUI = CAbstractFactory<CBackUI>::Create();
 	m_backUI = dynamic_cast<CBackUI*>(newBackUI);
 
-
+	CreateMonster(MONSTER_A,500.f);
+	CreateMonster(MONSTER_B,1000.f);
+	CreateMonster(MONSTER_C,1500.f);
+	CreateMonster(MONSTER_BOSS, 2000.f);
 
 	CUIManager::Instance()->AddUI(UI_BACK, m_backUI);
 	CUIManager::Instance()->AddUI(UI_FRONT, CAbstractFactory<CFrontUI>::Create());
@@ -307,14 +310,6 @@ void CMainGame::Update(void)
 		m_player = nullptr;
 	}
 
-	if (14000.f <= m_player->Get_Info().fX) // 플레이어 X 좌표값이 14000에 도달하면 보스몬스터 생성. 일반 몬스터는 생성이 안될 예정.
-	{
-		m_monster = CAbstractFactory<CBehaviorBoss>::Create(16000.f);
-		dynamic_cast<CBehaviorBoss*>(m_monster)->BehaviorStart(m_player);
-		CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
-	}
-	else { RandomMonster(); }
-
 	const int mapHalfHeight = 250;
 
 	if (m_player) {
@@ -349,36 +344,7 @@ void CMainGame::Release(void)
 
 void CMainGame::RandomMonster(void)
 {
-	if (CKeyMgr::Get_Instance()->Key_Up('M')) // M 키를 늘러야 일반 몬스터 랜덤생성이 시작됨.
-	{
-		if (true == m_bMonsterOnOff) { m_bMonsterOnOff = false; }
-		else if (false == m_bMonsterOnOff) { m_bMonsterOnOff = true; }
-	}
 
-	if (m_bMonsterOnOff)
-	{
-		if (m_dwTime + 10000 < GetTickCount())
-		{
-			srand((unsigned int)time((nullptr)));
-			int iRanMon = rand() % 3 + 1;
-			switch (iRanMon)
-			{
-			case 1:
-				CreateMonster(MONSTER_A); // A
-				break;
-
-			case 2:
-				CreateMonster(MONSTER_B); // B
-				break;
-
-			case 3:
-				CreateMonster(MONSTER_C); // C
-				break;
-			}
-
-			m_dwTime = GetTickCount();
-		}
-	}
 }
 
 void CMainGame::CreateMonster(MONSTERTYPE _type, float _fXpoint)
