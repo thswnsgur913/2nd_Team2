@@ -55,9 +55,11 @@ void CItem::Render(HDC hdc) {
 		break;
 
 	case ITEM_SCORE:
+		DrawApple(hdc);
 		break;
 
 	case ITEM_CLOCK:
+		//DrawClock(hdc);
 		break;
 
 	case ITEM_WEAPON_HAMMER:
@@ -116,14 +118,14 @@ void CItem::DrawHammer(HDC hdc) {
 	brush = CreateSolidBrush(RGB(150, 75, 0));
 	oldBrush = SelectObject(hdc, brush);
 
-	Rectangle(hdc, m_tRect.left + GAP + 35, m_tRect.top + GAP + 5, m_tRect.right - GAP - 35, m_tRect.bottom - GAP - 5);
+	Rectangle(hdc, m_tScrollRect.left + GAP + 35, m_tScrollRect.top + GAP + 5, m_tScrollRect.right - GAP - 35, m_tScrollRect.bottom - GAP - 5);
 	SelectObject(hdc, oldBrush);
 	DeleteObject(brush);
 
 	brush = CreateSolidBrush(RGB(0, 0, 0));
 	oldBrush = SelectObject(hdc, brush);
 
-	Rectangle(hdc, m_tRect.left + GAP + 5, m_tRect.top + GAP + 10, m_tRect.right - GAP - 5, m_tRect.top + GAP + 50);
+	Rectangle(hdc, m_tScrollRect.left + GAP + 5, m_tScrollRect.top + GAP + 10, m_tScrollRect.right - GAP - 5, m_tScrollRect.top + GAP + 50);
 	SelectObject(hdc, oldBrush);
 	DeleteObject(brush);
 }
@@ -135,7 +137,7 @@ void CItem::DrawLance(HDC hdc) {
 	brush = CreateSolidBrush(RGB(150, 75, 0));
 	oldBrush = SelectObject(hdc, brush);
 
-	Rectangle(hdc, m_tRect.left + GAP + 35, m_tRect.top + GAP + 5, m_tRect.right - GAP - 35, m_tRect.bottom - GAP - 5);
+	Rectangle(hdc, m_tScrollRect.left + GAP + 35, m_tScrollRect.top + GAP + 5, m_tScrollRect.right - GAP - 35, m_tScrollRect.bottom - GAP - 5);
 	SelectObject(hdc, oldBrush);
 	DeleteObject(brush);
 }
@@ -157,13 +159,13 @@ void CItem::DrawApple(HDC hdc) {
 	brush = CreateSolidBrush(RGB(255, 0, 0));
 	oldBrush = SelectObject(hdc, brush);
 
-	Ellipse(hdc, m_tRect.left + GAP, m_tRect.top + GAP, m_tRect.right - GAP, m_tRect.bottom - GAP);
+	Ellipse(hdc, m_tScrollRect.left + GAP, m_tScrollRect.top + GAP, m_tScrollRect.right - GAP, m_tScrollRect.bottom - GAP);
 	
 	SelectObject(hdc, oldBrush);
 	DeleteObject(brush);
 
-	MoveToEx(hdc, m_tInfo.fX, m_tInfo.fY, nullptr);
-	LineTo(hdc, m_tInfo.fX, m_tRect.top + GAP + 10);
+	//MoveToEx(hdc, m_tInfo.fX, m_tInfo.fY, nullptr);
+	//LineTo(hdc, m_tInfo.fX, m_tRect.top + GAP + 10);
 }
 
 void CItem::DrawCloud(HDC hdc) {

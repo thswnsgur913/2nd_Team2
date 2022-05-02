@@ -65,5 +65,6 @@ protected:
 	bool m_Dir; //이동 방향 확인
 
 	bool m_isGround;
+	float m_fDropTime;
 };
 

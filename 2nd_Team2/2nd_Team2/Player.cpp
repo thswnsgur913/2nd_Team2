@@ -39,6 +39,7 @@ void CPlayer::Initialize(void)
 	m_bJump = true;
 	m_fJumpPower = 25.f;
 	m_fJumpTime = 0.f;
+	m_fDropTime = 0.f;
 
 	m_isGround = false;
 
@@ -109,7 +110,7 @@ int CPlayer::Update(void)
 	Drop();
 	Jumping();
 
-	m_godModeTimer->Update();
+	//m_godModeTimer->Update();
 
 	Update_Rect();
 
@@ -118,7 +119,6 @@ int CPlayer::Update(void)
 
 void CPlayer::Late_Update(void)
 {
-	
 }
 
 void CPlayer::Render(HDC hDC)
@@ -208,6 +208,12 @@ void CPlayer::Render(HDC hDC)
 
 void CPlayer::Release(void)
 {
+}
+
+
+void CPlayer::Set_PosX(float _fA)
+{
+	m_tInfo.fX = _fA;
 }
 
 void CPlayer::CollisionEnter(CObj* _sour)

@@ -6,48 +6,92 @@ CObjLine::CObjLine()
 {
 }
 
+CObjLine::CObjLine(LINEPOINT _LeftP, LINEPOINT _RightP)
+	:POINT1(_LeftP),POINT2(_RightP)
+{
+	m_bOnLeft = false;
+	m_bOnRight = false;
+}
+
 
 CObjLine::~CObjLine()
+{
+	Release();
+}
+
+void CObjLine::Initialize(void)
+{
+	m_tInfo.fWidth = 10.f;
+	m_tInfo.fHeight = abs(POINT1.fY - POINT2.fY);
+}
+
+int CObjLine::Update(void)
+{
+	return 0;
+}
+
+void CObjLine::Late_Update(void)
 {
 }
 
 void CObjLine::Render(HDC hDC)
 {
-	LINEPOINT LLinePoint[] =
+	// 좌표를 받아오자..
+	// 우측 충돌용, 좌측용 따로 판단하는 것도 필요함.
+	MoveToEx(hDC, (int)(POINT1.fX + CScrollMgr::Get_Scroll()->Get_ScrollX()), (int)(POINT1.fY + CScrollMgr::Get_Scroll()->Get_ScrollY()), nullptr);
+	LineTo(hDC, (int)(POINT2.fX + CScrollMgr::Get_Scroll()->Get_ScrollX()), (int)(POINT2.fY + CScrollMgr::Get_Scroll()->Get_ScrollY()));
+}
+
+void CObjLine::Release(void)
+{
+}
+
+void CObjLine::CollisionEnter(CObj * _sour)
+{
+}
+
+void CObjLine::Collision_OBJLINE(CObj * pObj)
+{
+	if ((pObj->Get_Info().fX > POINT1.fX) && (pObj->Get_Info().fX - pObj->Get_Info().fWidth * 0.5) < POINT1.fX)
 	{
-		{ 300.f,(float)WINCY - 250.f },//LAND1_2번 좌표
-		{ 300.f,(float)WINCY - 150.f },//3
-		{ 1400.f,(float)WINCY - 400.f },//6
-		{ 1400.f,(float)WINCY + 500.f },//7
-		{ 1600.f,(float)WINCY + 500.f },//8
-		{ 1600.f,(float)WINCY - 400.f },//9
-		{ 1800.f,(float)WINCY - 400.f },//10
-		{ 1800.f,(float)WINCY - 250.f },//11
-		{ 2100.f,(float)WINCY - 150.f },//13
-		{ 2100.f,(float)WINCY + 500.f },//14
-		{ 2300.f,(float)WINCY + 500.f },//15
-		{ 2300.f,(float)WINCY - 250.f },//16번 좌표
-		{ 2700.f,(float)WINCY - 450.f },//1번 계단.
-		{ 2800.f,(float)WINCY - 450.f },
-		{ 2800.f,(float)WINCY - 550.f },//2번 계단.
-		{ 2900.f,(float)WINCY - 550.f },
-		{ 2900.f,(float)WINCY - 650.f },//3번 계단.
-		{ 3000.f,(float)WINCY - 650.f },
-		{ 3000.f,(float)WINCY - 750.f },//4번 계단.
-		{ 3100.f,(float)WINCY - 750.f },
-		{ 3100.f,(float)WINCY - 850.f },//5번 계단.
-		{ 3200.f,(float)WINCY - 850.f }
-	};
-	for (int i = 0; 22 > i; ++i)
+		m_bOnRight = true;
+	}
+	else 
 	{
-		if ((1 == i) || (3==i)||(5==i)||(7==i)||(9==i)||(11==i)||(13==i)||(15==i)||(17==i)||(19==i)||(21==i))
+		m_bOnLeft = false;
+		m_bOnRight = false;
+	}
+
+	/*f ((pObj->Get_Info().fX < POINT1.fX) && (pObj->Get_Info().fX + pObj->Get_Info().fWidth * 0.5) > POINT1.fX)
+	{
+		m_bOnLeft = true;
+	}
+	else
+	{
+		m_bOnLeft = false;
+		m_bOnRight = false;
+	}*/
+
+	// OBJ를 오른쪽으로 튕겨냄.(POINT1이 위에)
+	
+	if ((POINT1.fY < POINT2.fY) && (pObj->Get_Info().fY > POINT1.fY))
+	{
+		if (m_bOnRight)
 		{
-			continue;
-		}
-		else
-		{
-			MoveToEx(hDC, (int)(LLinePoint[i].fX), (int)(LLinePoint[i].fY), nullptr);
-			LineTo(hDC, (int)(LLinePoint[i + 1].fX), (int)(LLinePoint[i + 1].fY));
+			pObj->Set_pos((POINT1.fX + pObj->Get_Info().fWidth * 0.5 + 1.f), pObj->Get_Info().fY);
+			m_bOnLeft = false;
+			m_bOnRight = false;
 		}
 	}
+	// OBJ를 왼쪽으로 튕겨냄.(POINT2가 위에)
+	else if (POINT2.fY < POINT1.fY && (pObj->Get_Info().fY > POINT2.fY))
+	{
+		if (m_bOnLeft)
+		{
+			pObj->Set_pos((POINT1.fX - pObj->Get_Info().fWidth * 0.5), pObj->Get_Info().fY);
+			m_bOnLeft = false;
+			m_bOnRight = false;
+		}
+	}
+	
 }
