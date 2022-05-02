@@ -37,8 +37,6 @@ void CBehaviorBoss::Initialize(void)
 
 	currentState = Create;
 
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/DragonL.bmp", L"BossMonster");
-
 }
 
 void CBehaviorBoss::Release(void)
@@ -47,6 +45,8 @@ void CBehaviorBoss::Release(void)
 
 void CBehaviorBoss::Render(HDC hDC)
 {
+	CBmpMgr::Destroy_Instance();
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/DragonL.bmp", L"BossMonster");
 	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"BossMonster");
 	GdiTransparentBlt(hDC, 					// 복사 받을, 최종적으로 그림을 그릴 DC
 		int(m_tScrollRect.left),	// 2,3 인자 :  복사받을 위치 X, Y
@@ -59,7 +59,7 @@ void CBehaviorBoss::Render(HDC hDC)
 		(int)m_tInfo.fWidth,				// 복사할 비트맵의 가로, 세로 길이
 		(int)m_tInfo.fHeight,
 		RGB(255, 255, 255));			// 제거하고자 하는 색상
-	    Rectangle(hDC, m_tScrollRect.left, m_tScrollRect.top, m_tScrollRect.right, m_tScrollRect.bottom);
+	   // Rectangle(hDC, m_tScrollRect.left, m_tScrollRect.top, m_tScrollRect.right, m_tScrollRect.bottom);
 }
 
 void CBehaviorBoss::BehaviorEnter()

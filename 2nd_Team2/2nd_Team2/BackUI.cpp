@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "BackUI.h"
 #include "UIManager.h"
+#include "BmpMgr.h"
 
 
 CBackUI::CBackUI() :
@@ -13,7 +14,9 @@ CBackUI::~CBackUI()
 }
 
 void CBackUI::Initialize() {
+
 	//srand(unsigned(time(nullptr)));
+
 
 	for (int i = 0; i < CloudMAX; ++i) {
 		int randomX = rand() % ((int)WINCX + 100) - 100;
@@ -48,6 +51,8 @@ void CBackUI::Late_Update() {
 }
 
 void CBackUI::Render(HDC hdc) {
+
+
 	HBRUSH	brush;
 	HGDIOBJ h_old_brush;
 
@@ -55,15 +60,20 @@ void CBackUI::Render(HDC hdc) {
 	int g = COLOR_LIMIT(212 - m_playerDepth);
 	int b = COLOR_LIMIT(247 - m_playerDepth);
 
+
 	brush = CreateSolidBrush(RGB(r, g, b));
 	h_old_brush = SelectObject(hdc, brush);
 	Rectangle(hdc, 0, 0, WINCX, WINCY);
 	SelectObject(hdc, h_old_brush);
 	DeleteObject(brush);
 
+	HDC hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Map");
+	BitBlt(hdc, 0, 0, WINCX, WINCY, hMemDC, 0, 0, SRCCOPY);
+
 	for (auto& cloud : m_Clouds) {
 		cloud->Render(hdc);
 	}
+
 }
 
 void CBackUI::Release() {
