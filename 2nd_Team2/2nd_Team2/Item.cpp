@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Item.h"
 #include "MainGame.h"
+#include "BmpMgr.h"
 
 CItem::CItem():
 	GAP(10) {
@@ -13,11 +14,11 @@ CItem::~CItem() {
 
 
 void CItem::Initialize() {
-	m_tInfo.fWidth = 80.f;
-	m_tInfo.fHeight = 80.f;
+	m_tInfo.fWidth = 40.f;
+	m_tInfo.fHeight = 40.f;
 
-	m_tInfo.fColWidth = 80.f;
-	m_tInfo.fColHeight = 80.f;
+	m_tInfo.fColWidth = 40.f;
+	m_tInfo.fColHeight = 40.f;
 
 	m_score = 100;
 
@@ -44,30 +45,134 @@ void CItem::Render(HDC hdc) {
 	int	iScrollX = (int)CScrollMgr::Get_Scroll()->Get_ScrollX();
 	int	iScrollY = (int)CScrollMgr::Get_Scroll()->Get_ScrollY();
 
-	Rectangle(hdc, m_tScrollRect.left, m_tScrollRect.top, m_tScrollRect.right, m_tScrollRect.bottom);
-	Rectangle(hdc, m_tScrollRect.left + GAP, m_tScrollRect.top + GAP, m_tScrollRect.right - GAP, m_tScrollRect.bottom - GAP);
+
+	//Rectangle(hdc, m_tScrollRect.left, m_tScrollRect.top, m_tScrollRect.right, m_tScrollRect.bottom);
+	//Rectangle(hdc, m_tScrollRect.left + GAP, m_tScrollRect.top + GAP, m_tScrollRect.right - GAP, m_tScrollRect.bottom - GAP);
 
 	switch (m_type) {
-	case ITEM_LIFE:
+	case ITEM_LIFE: 
+	{
+
+		CBmpMgr::Destroy_Instance();
+		CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/LifeItem.bmp", L"ITEM_LIFE");
+
+		HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"ITEM_LIFE");
+		GdiTransparentBlt(hdc, 					// 복사 받을, 최종적으로 그림을 그릴 DC
+			int(m_tScrollRect.left),	// 2,3 인자 :  복사받을 위치 X, Y
+			int(m_tScrollRect.top),
+			int(m_tInfo.fWidth),				// 4,5 인자 : 복사받을 가로, 세로 길이
+			int(m_tInfo.fHeight),
+			hMemDC,							// 비트맵을 가지고 있는 DC
+			0,								// 비트맵 출력 시작 좌표, X,Y
+			0,
+			(int)m_tInfo.fWidth,				// 복사할 비트맵의 가로, 세로 길이
+			(int)m_tInfo.fHeight,
+			RGB(255, 255, 255));
+	}
 		break;
 
 	case ITEM_GOD:
+	{
+		CBmpMgr::Destroy_Instance();
+		CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/GodModeItem.bmp", L"ITEM_GOD");
+
+		HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"ITEM_GOD");
+		GdiTransparentBlt(hdc, 					// 복사 받을, 최종적으로 그림을 그릴 DC
+			int(m_tScrollRect.left),	// 2,3 인자 :  복사받을 위치 X, Y
+			int(m_tScrollRect.top),
+			int(m_tInfo.fWidth),				// 4,5 인자 : 복사받을 가로, 세로 길이
+			int(m_tInfo.fHeight),
+			hMemDC,							// 비트맵을 가지고 있는 DC
+			0,								// 비트맵 출력 시작 좌표, X,Y
+			0,
+			(int)m_tInfo.fWidth,				// 복사할 비트맵의 가로, 세로 길이
+			(int)m_tInfo.fHeight,
+			RGB(255, 255, 255));
+	}
 		break;
 
 	case ITEM_SCORE:
-		DrawApple(hdc);
+	{
+		CBmpMgr::Destroy_Instance();
+		CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/CoinItem.bmp", L"ITEM_SCORE");
+
+		HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"ITEM_SCORE");
+		GdiTransparentBlt(hdc, 					// 복사 받을, 최종적으로 그림을 그릴 DC
+			int(m_tScrollRect.left),	// 2,3 인자 :  복사받을 위치 X, Y
+			int(m_tScrollRect.top),
+			int(m_tInfo.fWidth),				// 4,5 인자 : 복사받을 가로, 세로 길이
+			int(m_tInfo.fHeight),
+			hMemDC,							// 비트맵을 가지고 있는 DC
+			0,								// 비트맵 출력 시작 좌표, X,Y
+			0,
+			(int)m_tInfo.fWidth,				// 복사할 비트맵의 가로, 세로 길이
+			(int)m_tInfo.fHeight,
+			RGB(255, 255, 255));
+	}
+		//DrawApple(hdc);
 		break;
 
 	case ITEM_CLOCK:
+	{
+		CBmpMgr::Destroy_Instance();
+		CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/TimeItem.bmp", L"ITEM_CLOCK");
+
+		HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"ITEM_CLOCK");
+		GdiTransparentBlt(hdc, 					// 복사 받을, 최종적으로 그림을 그릴 DC
+			int(m_tScrollRect.left),	// 2,3 인자 :  복사받을 위치 X, Y
+			int(m_tScrollRect.top),
+			int(m_tInfo.fWidth),				// 4,5 인자 : 복사받을 가로, 세로 길이
+			int(m_tInfo.fHeight),
+			hMemDC,							// 비트맵을 가지고 있는 DC
+			0,								// 비트맵 출력 시작 좌표, X,Y
+			0,
+			(int)m_tInfo.fWidth,				// 복사할 비트맵의 가로, 세로 길이
+			(int)m_tInfo.fHeight,
+			RGB(255, 255, 255));
+	}
 		//DrawClock(hdc);
 		break;
 
 	case ITEM_WEAPON_HAMMER:
-		DrawHammer(hdc);
+	{
+		CBmpMgr::Destroy_Instance();
+		CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/HammerItem.bmp", L"ITEM_WEAPON_HAMMER");
+
+		HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"ITEM_WEAPON_HAMMER");
+		GdiTransparentBlt(hdc, 					// 복사 받을, 최종적으로 그림을 그릴 DC
+			int(m_tScrollRect.left),	// 2,3 인자 :  복사받을 위치 X, Y
+			int(m_tScrollRect.top),
+			int(m_tInfo.fWidth),				// 4,5 인자 : 복사받을 가로, 세로 길이
+			int(m_tInfo.fHeight),
+			hMemDC,							// 비트맵을 가지고 있는 DC
+			0,								// 비트맵 출력 시작 좌표, X,Y
+			0,
+			(int)m_tInfo.fWidth,				// 복사할 비트맵의 가로, 세로 길이
+			(int)m_tInfo.fHeight,
+			RGB(255, 255, 255));
+	}
+		//DrawHammer(hdc);
 		break;
 
 	case ITEM_WEAPON_LANCE:
-		DrawLance(hdc);
+	{
+		CBmpMgr::Destroy_Instance();
+		CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/LanceItem.bmp", L"ITEM_WEAPON_LANCE");
+
+		HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"ITEM_WEAPON_LANCE");
+		GdiTransparentBlt(hdc, 					// 복사 받을, 최종적으로 그림을 그릴 DC
+			int(m_tScrollRect.left),	// 2,3 인자 :  복사받을 위치 X, Y
+			int(m_tScrollRect.top),
+			int(m_tInfo.fWidth),				// 4,5 인자 : 복사받을 가로, 세로 길이
+			int(m_tInfo.fHeight),
+			hMemDC,							// 비트맵을 가지고 있는 DC
+			0,								// 비트맵 출력 시작 좌표, X,Y
+			0,
+			(int)m_tInfo.fWidth,				// 복사할 비트맵의 가로, 세로 길이
+			(int)m_tInfo.fHeight,
+			RGB(255, 255, 255));
+	}
+		//DrawLance(hdc);
 		break;
 	}
 

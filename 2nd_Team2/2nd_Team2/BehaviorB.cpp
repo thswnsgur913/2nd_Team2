@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "BehaviorB.h"
+#include "BmpMgr.h"
 
 
 CBehaviorB::CBehaviorB()
@@ -33,6 +34,12 @@ void CBehaviorB::Initialize(void)
 	m_fJumpPower = 18.f;
 	m_fJumpTime = 0.f;
 	m_fSpeed = 10.f;
+
+	m_bJump = false;
+
+	currentState = Create;
+	
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/ScolpionL.bmp", L"MonsterB");
 }
 
 void CBehaviorB::Release(void)
@@ -41,6 +48,20 @@ void CBehaviorB::Release(void)
 
 void CBehaviorB::Render(HDC hDC)
 {
+	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"MonsterB");
+
+
+	GdiTransparentBlt(hDC, 					// 복사 받을, 최종적으로 그림을 그릴 DC
+		int(m_tRect.left),	// 2,3 인자 :  복사받을 위치 X, Y
+		int(m_tRect.top),
+		int(m_tInfo.fWidth),				// 4,5 인자 : 복사받을 가로, 세로 길이
+		int(m_tInfo.fHeight),
+		hMemDC,							// 비트맵을 가지고 있는 DC
+		0,								// 비트맵 출력 시작 좌표, X,Y
+		0,
+		(int)m_tInfo.fWidth,				// 복사할 비트맵의 가로, 세로 길이
+		(int)m_tInfo.fHeight,
+		RGB(255, 255, 255));			// 제거하고자 하는 색상
 	Rectangle(hDC, m_tScrollRect.left, m_tScrollRect.top, m_tScrollRect.right, m_tScrollRect.bottom);
 }
 

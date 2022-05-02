@@ -17,6 +17,8 @@
 #include "BackUI.h"
 #include "WeaponBag.h"
 
+#include "BmpMgr.h"
+
 int CMainGame::Life = 3;
 int CMainGame::TotalKillCount = 0;
 int CMainGame::KillCount = 0;
@@ -41,6 +43,7 @@ CMainGame::~CMainGame()
 
 void CMainGame::Initialize(void)
 {
+
 	m_player = dynamic_cast<CPlayer*>(CAbstractFactory<CPlayer>::Create());
 	CObjManager::Instance()->AddObject(OBJ_OBSTACLE, CObjLine::Create({ 300.f, (float)WINCY - 250.f },{ 300.f, (float)WINCY - 150.f }));
 
@@ -66,9 +69,6 @@ void CMainGame::Initialize(void)
 
 	CUIManager::Instance()->AddUI(UI_FRONT, CAbstractFactory<CWeaponBag>::Create());
 
-	m_monster = CAbstractFactory<CBehaviorBoss>::Create((m_player->Get_Info().fX + 650.f));
-	dynamic_cast<CBehaviorBoss*>(m_monster)->BehaviorStart(m_player);
-	CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
 
 	m_timer = new CTimer;
 	m_timer->StartTimer(ENERMY_PER_SECOND, [&]() {
@@ -256,6 +256,8 @@ void CMainGame::Update(void)
 		m_player = nullptr;
 	}
 
+	RandomMonster();
+
 	const int mapHalfHeight = 250;
 
 	if (m_player) {
@@ -289,7 +291,7 @@ void CMainGame::Release(void)
 
 void CMainGame::RandomMonster(void)
 {
-	if (m_dwTime + 5000 < GetTickCount())
+	if (m_dwTime + 1000 < GetTickCount())
 	{
 		srand((unsigned int)time((nullptr)));
 		int iRanMon = rand() % 4 + 1;

@@ -5,6 +5,8 @@
 #include "KeyMgr.h"
 #include "Label.h"
 
+#include "BmpMgr.h"
+
 CTitleScene::CTitleScene():
 	m_currentMenuSelect(0),
 	MenubarStartY(WINCY - 200),
@@ -20,6 +22,9 @@ CTitleScene::~CTitleScene() {
 }
 
 void CTitleScene::Initialize(void) {
+
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Title.bmp", L"Title");
+
 	m_SelectHighlight.fX = WINCX * 0.5;
 	m_SelectHighlight.fY = MenubarStartY + (m_currentMenuSelect * (MenuItemHieght + MenuItemItemGap));
 	TargetHighlightPosition.x = m_SelectHighlight.fX;
@@ -92,6 +97,7 @@ void CTitleScene::Late_Update(void) {
 };
 
 void CTitleScene::Render(HDC hdc) {
+
 	HBRUSH	brush;
 	HGDIOBJ hOldBrush;
 	brush = CreateSolidBrush(RGB(255, 255, 255));
@@ -101,6 +107,9 @@ void CTitleScene::Render(HDC hdc) {
 
 	SelectObject(hdc, hOldBrush);
 	DeleteObject(brush);
+
+	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Title");
+	BitBlt(hdc, 0, 0, WINCX, WINCY, hMemDC, 0, 0, SRCCOPY);
 
 	if (m_bBarVisible) {
 		brush = CreateSolidBrush(RGB(0, 0, 0));
