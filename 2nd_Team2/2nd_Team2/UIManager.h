@@ -16,6 +16,7 @@ public:
 	void FrontRender(HDC hDC);
 	void CUIManager::DebugRender(HDC hDC);
 	void Release(void);
+	void Clear();
 
 public:
 	static CUIManager* Instance(void) {

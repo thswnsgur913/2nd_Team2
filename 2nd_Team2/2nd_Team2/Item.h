@@ -37,6 +37,15 @@ public:
 	}
 
 private:
+	void DrawHammer(HDC);
+	void DrawLance(HDC);
+	void DrawClock(HDC);
+	void DrawApple(HDC);
+
+	void DrawCloud(HDC);
+
+private:
+	const int GAP;
 	ITEMTYPE m_type;
 	int m_score;
 };
