@@ -117,7 +117,16 @@ bool CLinePlat::Collision_Line(CObj* _sour)//플레이어, 몬스터입력가능.
 
 	float distY = fYY - pY;
 
+
 	_sour->PlatEnter(pY);
+	//if (fCY > fHeight) {
+	//}
+
+	if (dynamic_cast<CPlayer*>(_sour)) {
+		dynamic_cast<CPlayer*>(_sour)->SetStartPoint({ fX1 + 100.f , pY - 100.f });
+	}
+
+
 
 	return true;
 }

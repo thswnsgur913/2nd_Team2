@@ -12,7 +12,7 @@ CMovePlatform::~CMovePlatform()
 }
 
 void CMovePlatform::Initialize() {
-	m_tInfo.fWidth = 120.f;
+	m_tInfo.fWidth = 180.f;
 	m_tInfo.fHeight = 50.f;
 	m_tInfo.fColWidth = 120.f;
 	m_tInfo.fColHeight = 50.f;

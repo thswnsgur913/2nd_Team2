@@ -23,6 +23,15 @@ void CObjManager::AddMap(CLinePlat* pObj) {
 	m_map.push_back(pObj);
 }
 
+bool CObjManager::ContainsCheck(OBJID eID, CObj* pObj) {
+	for (auto* check : m_ObjList[eID]) {
+		if (check == pObj)
+			return true;
+	}
+
+	return false;
+}
+
 int CObjManager::Update(void) {
 	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_BULLET]);
 	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_MONSTER]);

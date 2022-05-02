@@ -17,8 +17,8 @@ void CTimer::StartTimer(const float _repeatRateSecond, std::function<void()> _pC
   	m_iRepeatRate = _repeatRateSecond;
 	pExcuteCallBack = _pCallBack;
 
-	m_iCurrentTime = g_dwCurrentTime;
-	m_iCurrentCount = 0;
+	m_iCurrentTime = GetTickCount64();
+	m_iCurrentCount = TIMESCALE;
 	m_bRunTimer = true;
 }
 
@@ -26,7 +26,9 @@ void CTimer::Update() {
 	if (!pExcuteCallBack || !m_bRunTimer)
 		return;
 
-	if (1 <= g_dwCurrentTime - m_iCurrentTime) {
+	DWORD currentTime = GetTickCount64();
+
+	if (TICKSCALE <= currentTime - m_iCurrentTime) {
 		m_iCurrentCount += TIMESCALE;
 
 		if (m_iCurrentCount >= m_iRepeatRate) {
@@ -36,5 +38,8 @@ void CTimer::Update() {
 		}
 	}
 
-	m_iCurrentTime = g_dwCurrentTime;
+	// 정밀도가 뭔가 떨어짐...
+	// 3f로 설정하면 6초후 실행됨..
+
+	m_iCurrentTime = currentTime;
 }

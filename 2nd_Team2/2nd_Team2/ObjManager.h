@@ -25,6 +25,7 @@ public:
 public:
 	void AddObject(OBJID eID, CObj* pObj);
 	void AddMap(CLinePlat* pObj);
+	bool ContainsCheck(OBJID eID, CObj* pObj);
 
 	int	 Update(void);
 	void Late_Update(void);

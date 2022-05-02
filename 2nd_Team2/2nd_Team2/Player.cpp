@@ -20,13 +20,12 @@ void CPlayer::Initialize(void)
 	m_tPstat = { 5,3,false,false };
 
 	m_tInfo.fX = 100.f;
-	//m_tInfo.fY = WINCY - PlayerSize-500 ;
 	m_tInfo.fY = WINCY - 250.f;
 
-	m_tInfo.fWidth = PlayerSize;
+	m_tInfo.fWidth = 120;
 	m_tInfo.fHeight = PlayerSize;
 
-	m_tInfo.fColWidth = 80.f;
+	m_tInfo.fColWidth = 120;
 	m_tInfo.fColHeight = 130.f;
 
 	m_fSpeed = PlayerSpeed;
@@ -43,9 +42,6 @@ void CPlayer::Initialize(void)
 	m_GodMode = false;
 
 	m_godModeTimer = new CTimer;
-
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/KirbyNormalR.bmp", L"Player");
-
 }
 
 int CPlayer::Update(void)
@@ -61,6 +57,8 @@ int CPlayer::Update(void)
 	Jumping();
 
 	m_godModeTimer->Update();
+
+	DeadYCheck();
 
 	Update_Rect();
 
@@ -126,7 +124,7 @@ void CPlayer::Render(HDC hDC)
 		0,
 		(int)m_tInfo.fWidth,
 		(int)m_tInfo.fHeight,
-		RGB(255, 255, 255));
+		RGB(255, 174, 201));
 
 }
 
@@ -144,7 +142,6 @@ void CPlayer::CollisionEnter(CObj* _sour)
 {
 
 	CMonster* MonsterObj = dynamic_cast<CMonster*>(_sour);
-	//CBullet* bulletObj = dynamic_cast<CBullet*>(_sour);
 
 	if (dynamic_cast<CBullet*>(_sour))
 	{
@@ -195,12 +192,21 @@ void CPlayer::CollisionEnter(CObj* _sour)
 
 void CPlayer::Set_Damage()
 {
-	//CObjManager::Instance()->AddObject(OBJ_EFFECT, CAbstractFactory<CEffect>::Create((float)m_tInfo.fX, (float)m_tInfo.fY));
+	CMainGame::DeadTime -= 5.f;
+}
+
+void CPlayer::Die() {
+	CMainGame::Life -= 1;
 	CMainGame::DeadTime -= 5.f;
 
-	//m_tInfo.fX = 100.f;
-	//m_tInfo.fY = WINCY - 250.f;
+	m_tInfo.fX = m_startPoint.x;
+	m_tInfo.fY = m_startPoint.y;
+}
 
+void CPlayer::DeadYCheck() {
+	if (!m_isGround && m_tInfo.fY >= m_deadY) {
+		Die();
+	}
 }
 
 void CPlayer::KeyInput(void)
@@ -324,8 +330,8 @@ void CPlayer::KeyInput(void)
 
 void CPlayer::GodMode(void)
 {
-
-	m_godModeTimer->StartTimer(GodModeSecond, [&]() {m_GodMode = false; m_godModeTimer->StopTimer();});
+	m_GodMode = true;
+	m_godModeTimer->StartTimer(3.f, [&]() { m_GodMode = false; m_godModeTimer->StopTimer();});
 }
 
 void CPlayer::OffSet(void)

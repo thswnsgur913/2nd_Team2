@@ -56,9 +56,9 @@ void CBackUI::Render(HDC hdc) {
 	HBRUSH	brush;
 	HGDIOBJ h_old_brush;
 
-	int r = COLOR_LIMIT(154 - m_playerDepth);
-	int g = COLOR_LIMIT(212 - m_playerDepth);
-	int b = COLOR_LIMIT(247 - m_playerDepth);
+	int r = COLOR_LIMIT(255 - m_playerDepth);
+	int g = COLOR_LIMIT(216 - m_playerDepth);
+	int b = COLOR_LIMIT(192 - m_playerDepth);
 
 
 	brush = CreateSolidBrush(RGB(r, g, b));
@@ -68,7 +68,7 @@ void CBackUI::Render(HDC hdc) {
 	DeleteObject(brush);
 
 	HDC hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Map");
-	BitBlt(hdc, 0, 0, WINCX, WINCY, hMemDC, 0, 0, SRCCOPY);
+	BitBlt(hdc, 0, static_cast<int>(WINCY * 0.3f), WINCX, WINCY, hMemDC, 0, 0, SRCCOPY);
 
 	for (auto& cloud : m_Clouds) {
 		cloud->Render(hdc);

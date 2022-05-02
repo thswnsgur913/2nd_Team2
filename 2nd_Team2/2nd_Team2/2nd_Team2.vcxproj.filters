@@ -226,6 +226,9 @@
     <ClInclude Include="MovePlatform.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="EndingScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -341,6 +344,9 @@
     </ClCompile>
     <ClCompile Include="MovePlatform.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="EndingScene.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

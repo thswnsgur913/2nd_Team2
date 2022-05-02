@@ -53,26 +53,31 @@ public:
 
 	void Set_GodMode(bool GodMode) { m_GodMode = GodMode;}
 	void Set_Damage();
+	void Die();
 	STAT&	Get_Stat(void) { return m_tPstat; }
 	void Set_PosX(float _fA);
+	void GodMode();
+
+	void SetStartPoint(const Vector2D _startPoint) { m_startPoint = _startPoint; }
+	void SetDeadY(const float _deadY) { m_deadY = _deadY; };
 
 private:
 	void KeyInput();
+	void DeadYCheck();
 
-	void GodMode();
 
 	void OffSet(void);
 
 public:
 	enum WEAPONID { NO_WEAPON, HAMMER, LANCE };
 	bool m_GodMode;
-	//int m_iCount;
-	
-
 
 private:
 	const float GodModeSecond;
 	CTimer* m_godModeTimer;
+
+	Vector2D m_startPoint;
+	float m_deadY;
 
 	STAT m_tPstat; //플레이어 스테이터스
 };

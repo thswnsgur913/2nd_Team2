@@ -14,12 +14,13 @@ class GameClient;
 
 #define		OBJ_NOEVENT	0	
 #define		OBJ_DEAD	1
-#define		PlayerSize  60
+#define		PlayerSize  130
 #define		PlayerSpeed  6
 #define		FallSpeed    8
 
-#define		TIMESCALE	0.1f
-#define		TICKSCALE	TIMESCALE * 0.1f
+#define		TICKSECOND  1000
+#define		TIMESCALE	0.01f
+#define		TICKSCALE	TICKSECOND * TIMESCALE
 
 #define		BOSS_APPEAR_COUNT 15
 #define		ENERMY_PER_SECOND 0.7f

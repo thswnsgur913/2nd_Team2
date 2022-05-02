@@ -20,10 +20,10 @@ void CBehaviorC::Initialize(void)
 {
 	m_tInfo.fX = m_fXPoint;
 	m_tInfo.fY = 0.f;
-	m_tInfo.fWidth = 50.f;
-	m_tInfo.fHeight = 50.f;
-	m_tInfo.fColWidth = 50.f;
-	m_tInfo.fColHeight = 50.f;
+	m_tInfo.fWidth = 66.f;
+	m_tInfo.fHeight = 83.f;
+	m_tInfo.fColWidth = 66.f;
+	m_tInfo.fColHeight = 83.f;
 	currentState = Create;
 	m_dwTime = GetTickCount();
 	m_iHP = 10;
@@ -52,7 +52,7 @@ void CBehaviorC::Render(HDC hDC)
 		0,
 		(int)m_tInfo.fWidth,				// 복사할 비트맵의 가로, 세로 길이
 		(int)m_tInfo.fHeight,
-		RGB(255, 255, 255));			// 제거하고자 하는 색상
+		RGB(255, 174, 201));			// 제거하고자 하는 색상
 										//Rectangle(hDC, m_tScrollRect.left, m_tScrollRect.top, m_tScrollRect.right, m_tScrollRect.bottom);
 	//Rectangle(hDC, m_tScrollRect.left, m_tScrollRect.top, m_tScrollRect.right, m_tScrollRect.bottom);
 }

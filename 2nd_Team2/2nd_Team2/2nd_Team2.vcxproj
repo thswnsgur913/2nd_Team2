@@ -155,6 +155,7 @@
     <ClInclude Include="CollisionMgr.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Effect.h" />
+    <ClInclude Include="EndingScene.h" />
     <ClInclude Include="Enum.h" />
     <ClInclude Include="FrontUI.h" />
     <ClInclude Include="Functor.h" />
@@ -201,6 +202,7 @@
     <ClCompile Include="Cloud.cpp" />
     <ClCompile Include="CollisionMgr.cpp" />
     <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="EndingScene.cpp" />
     <ClCompile Include="FrontUI.cpp" />
     <ClCompile Include="GameClient.cpp" />
     <ClCompile Include="Hammer.cpp" />

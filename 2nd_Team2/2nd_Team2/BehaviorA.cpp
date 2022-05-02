@@ -20,10 +20,10 @@ void CBehaviorA::Initialize(void)
 {
 	m_tInfo.fX = m_fXPoint;
 	m_tInfo.fY = 0.f;
-	m_tInfo.fWidth = 50.f;
-	m_tInfo.fHeight = 50.f;
-	m_tInfo.fColWidth = 50.f;
-	m_tInfo.fColHeight = 50.f;
+	m_tInfo.fWidth = 89.f;
+	m_tInfo.fHeight = 111.f;
+	m_tInfo.fColWidth = 89.f;
+	m_tInfo.fColHeight = 111.f;
 	currentState = Create;
 	m_dwTime = GetTickCount();
 	m_iHP = 10;
@@ -50,7 +50,7 @@ void CBehaviorA::Render(HDC hDC)
 		0,
 		(int)m_tInfo.fWidth,
 		(int)m_tInfo.fHeight,
-		RGB(255, 255, 253));
+		RGB(255, 174, 201));
 }
 
 void CBehaviorA::BehaviorEnter()

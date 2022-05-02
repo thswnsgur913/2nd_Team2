@@ -2,6 +2,7 @@
 #include "TitleScene.h"
 #include "GameClient.h"
 #include "MainGame.h"
+#include "EndingScene.h"
 #include "KeyMgr.h"
 #include "Label.h"
 
@@ -108,7 +109,7 @@ void CTitleScene::Render(HDC hdc) {
 	SelectObject(hdc, hOldBrush);
 	DeleteObject(brush);
 
-	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Title");
+	HDC	hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Title");
 	BitBlt(hdc, 0, 0, WINCX, WINCY, hMemDC, 0, 0, SRCCOPY);
 
 	if (m_bBarVisible) {
@@ -144,7 +145,7 @@ void CTitleScene::Release(void) {
 void CTitleScene::RunSeleteMenu() {
 	m_bSeleted = true;
 
-	seletedAnimeTimer->StartTimer(0.1f, [&]() {
+	seletedAnimeTimer->StartTimer(0.05f, [&]() {
 		if (m_animeCount >= 4) {
 			switch (m_currentMenuSelect) {
 			case START:

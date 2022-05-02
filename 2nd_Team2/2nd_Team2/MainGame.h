@@ -58,6 +58,7 @@ private:
 	CTimer* m_timer;
 
 	CPlayer* m_player;
+	CObj* m_bossMosnter;
 	CProgressBar* m_timeProgress;
 	CObj* m_monster;
 	CBackUI* m_backUI;
