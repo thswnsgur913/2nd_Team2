@@ -12,6 +12,7 @@
 #include "ProgressBar.h"
 
 class CBackUI;
+class CPlayer;
 
 class CMainGame : public CScene {
 public:
@@ -52,7 +53,7 @@ private:
 	// map
 	CTimer* m_timer;
 
-	CObj* m_player;
+	CPlayer* m_player;
 	CProgressBar* m_timeProgress;
 	CObj* m_monster;
 	CBackUI* m_backUI;
@@ -61,7 +62,5 @@ private:
 
 	float m_test;
 	DWORD m_dwTime;
-
-	list<CLinePlat*> m_map;
 };
 

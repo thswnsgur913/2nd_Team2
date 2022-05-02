@@ -19,6 +19,10 @@ void CObjManager::AddObject(OBJID eID, CObj * pObj) {
 	m_ObjList[eID].push_back(pObj);
 }
 
+void CObjManager::AddMap(CLinePlat* pObj) {
+	m_map.push_back(pObj);
+}
+
 int CObjManager::Update(void) {
 	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_BULLET]);
 	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_MONSTER]);
@@ -48,9 +52,17 @@ void CObjManager::Late_Update(void) {
 		for (auto& iter : m_ObjList[i])
 			iter->Late_Update();
 	}
+
+	CCollisionMgr::Collision_Plat(m_map, m_ObjList[OBJ_PLAYER]);
+	CCollisionMgr::Collision_Plat(m_map, m_ObjList[OBJ_MONSTER]);
+	CCollisionMgr::Collision_Plat(m_map, m_ObjList[OBJ_ITEM]);
 }
 
 void CObjManager::Render(HDC hDC) {
+	for (auto& plat : m_map) {
+		plat->Render(hDC);
+	}
+
 	for (int i = 0; i < OBJ_END; ++i) {
 		for (auto& iter : m_ObjList[i])
 			iter->Render(hDC);

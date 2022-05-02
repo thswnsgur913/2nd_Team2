@@ -1,6 +1,9 @@
 #pragma once
 
 #include "Scene.h"
+#include "Timer.h"
+
+class CLabel;
 
 class CTitleScene : public CScene
 {
@@ -24,9 +27,19 @@ private:
 		MENU_LENGTH
 	};
 
+	const int MenubarStartY;
+	const int MenuItemHieght;
+	const int MenuItemItemGap;
+
 	INFO m_SelectHighlight;
 	Vector2D TargetHighlightPosition;
 
 	int m_currentMenuSelect;
+
+	bool m_bSeleted;
+	bool m_bBarVisible;
+
+	CTimer* seletedAnimeTimer;
+	int m_animeCount;
 };
 

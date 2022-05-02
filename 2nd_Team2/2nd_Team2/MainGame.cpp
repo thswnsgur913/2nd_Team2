@@ -41,7 +41,7 @@ CMainGame::~CMainGame()
 
 void CMainGame::Initialize(void)
 {
-	m_player = CAbstractFactory<CPlayer>::Create();
+	m_player = dynamic_cast<CPlayer*>(CAbstractFactory<CPlayer>::Create());
 	CObjManager::Instance()->AddObject(OBJ_PLAYER, m_player);
 	CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEM_LIFE,	{ 100.f, 200.f }));
 	CObjManager::Instance()->AddObject(OBJ_ITEM, CItem::Create(CItem::ITEM_CLOCK,	{ 200.f, 200.f }));
@@ -64,13 +64,7 @@ void CMainGame::Initialize(void)
 	m_timer->StartTimer(ENERMY_PER_SECOND, [&]() {
 	});
 
-	CLinePlat* plat = new CLinePlat;
-	plat->Initialize();
-	m_map.push_back(plat);
-	
-	//dynamic_cast<CPlayer*>(m_player)->Set_line(plat);
-	
-	m_map.push_back(
+	CObjManager::Instance()->AddMap(
 		new CLinePlat(
 			vector<LINEPOINT>{
 				{ -100.f, (float) WINCY - 250.f },
@@ -80,7 +74,7 @@ void CMainGame::Initialize(void)
 		})
 	);
 
-	m_map.push_back(
+	CObjManager::Instance()->AddMap(
 		new CLinePlat(
 			vector<LINEPOINT>{
 				//{ 300.f, (float) WINCY - 150.f },
@@ -94,7 +88,7 @@ void CMainGame::Initialize(void)
 		})
 	);
 
-	m_map.push_back(
+	CObjManager::Instance()->AddMap(
 		new CLinePlat(
 			vector<LINEPOINT>{
 				//{ 1400.f, (float)WINCY + 500.f },
@@ -109,7 +103,7 @@ void CMainGame::Initialize(void)
 		})
 	);
 
-	m_map.push_back(
+	CObjManager::Instance()->AddMap(
 		new CLinePlat(
 			vector<LINEPOINT>{
 				{ 2300.f, (float)WINCY + 500.f },
@@ -136,7 +130,7 @@ void CMainGame::Initialize(void)
 	// bool타입을 추가해서 스테이지를 update에서 추가생성.
 
 	//2스테이지: SKY시작.
-	m_map.push_back(
+	CObjManager::Instance()->AddMap(
 		new CLinePlat(
 			vector<LINEPOINT>{
 				{ 3200.f, (float)WINCY - 850.f },
@@ -179,7 +173,7 @@ void CMainGame::Initialize(void)
 	));
 
 	//3스테이지: UNDERGROUND시작.
-	m_map.push_back(
+	CObjManager::Instance()->AddMap(
 		new CLinePlat(
 			vector<LINEPOINT> {
 				{ 7000.f, (float)WINCY + 150.f },
@@ -236,8 +230,8 @@ void CMainGame::Update(void)
 	CObjManager::Instance()->Update();
 
 	DeadTime -= 0.01f;
-	if (DeadTime <= 0) {
-		//pPlayer->Set_Damage();
+	if (DeadTime <= 0 && m_player) {
+		m_player->Set_Damage();
 		DeadTime = StageDeadTime;
 	}
 
@@ -254,29 +248,19 @@ void CMainGame::Update(void)
 	if (m_player) {
 		m_backUI->SetPlayerDepth(static_cast<int>((m_player->Get_Info().fY - mapHalfHeight) / 10));
 		m_timer->Update();
-
-		for (auto& plat : m_map) {
-			if (plat->Collision_Line(m_player)) {
-				m_player->CollisionEnter(plat);
-			};
-		}
 	}
 
 	if (m_monster) {
 		m_backUI->SetPlayerDepth(static_cast<int>((m_monster->Get_Info().fY - mapHalfHeight) / 10));
 		m_timer->Update();
-
-		for (auto& plat : m_map) {
-			if (plat->Collision_Line_M(m_monster)) {
-				m_monster->CollisionEnter(plat);
-			};
-		}
 	}
 }
 
 void CMainGame::Late_Update(void)
 {
 	CObjManager::Instance()->Late_Update();
+
+
 }
 
 void CMainGame::Render(HDC hdc)
@@ -286,10 +270,6 @@ void CMainGame::Render(HDC hdc)
 	CObjManager::Instance()->Render(hdc);
 
 	CUIManager::Instance()->FrontRender(hdc);
-
-	for (auto& plat : m_map) {
-		plat->Render(hdc);
-	}
 }
 
 void CMainGame::Release(void)

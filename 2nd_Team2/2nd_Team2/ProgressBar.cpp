@@ -27,17 +27,17 @@ void CProgressBar::Late_Update() {
 
 void CProgressBar::Render(HDC hdc) {
 	HBRUSH	brush;
-	HGDIOBJ h_old_brush;
+	HGDIOBJ oldBrush;
 	brush = CreateSolidBrush(RGB(255, 0, 0));
 
 	//Frame
 	Rectangle(hdc, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 
 	// progress
-	h_old_brush = SelectObject(hdc, brush);
+	oldBrush = SelectObject(hdc, brush);
 	Rectangle(hdc, m_tRect.left, m_tRect.top, m_tRect.left + static_cast<int>(m_tInfo.fWidth * m_rate), m_tRect.bottom);
 
-	SelectObject(hdc, h_old_brush);
+	SelectObject(hdc, oldBrush);
 	DeleteObject(brush);
 }
 

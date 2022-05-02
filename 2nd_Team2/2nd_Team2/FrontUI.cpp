@@ -16,9 +16,28 @@ CFrontUI::~CFrontUI()
 void CFrontUI::Initialize() {
 	m_player = dynamic_cast<CPlayer*>(CObjManager::Instance()->GetPlayer());
 
-	/*m_playTimeLabel = new CLabel;
-	m_playTimeLabel->Set_pos(static_cast<int>(WINCX * 0.5) - 50, 80);
-	CUIManager::Instance()->AddUI(UI_FRONT, m_playTimeLabel);*/
+	m_playTimeLabel = new CLabel;
+	m_playTimeLabel->Set_pos(static_cast<int>(WINCX * 0.5), WINCY - 50);
+
+	m_lifeLabel = new CLabel;
+	m_lifeLabel->Set_pos(20, 40);
+	m_lifeLabel->SetAlign(CLabel::alignType::ALIGN_LEFT)
+		.SetFontSize(30)
+		.SetColor(RGB(255, 255, 255));
+
+	m_gameOverLabel = new CLabel(L"GAME OVER");
+	m_gameOverLabel->Set_pos(static_cast<int>(WINCX * 0.5), static_cast<int>(WINCY * 0.5));
+	m_gameOverLabel->SetFontSize(80);
+
+	m_scoreTitle = new CLabel(L"Score");
+	m_scoreTitle->Set_pos(static_cast<int>(WINCX * 0.5), 30);
+	m_scoreTitle->SetFontSize(20)
+		.SetColor(RGB(255, 255, 255));
+
+	m_scoreLabel = new CLabel;
+	m_scoreLabel->Set_pos(static_cast<int>(WINCX * 0.5), 50);
+	m_scoreLabel->SetFontSize(20)
+		.SetColor(RGB(255, 255, 255));
 }
 
 int CFrontUI::Update() {
@@ -34,20 +53,33 @@ void CFrontUI::Late_Update() {
 }
 
 void CFrontUI::Render(HDC hdc) {
+	HBRUSH	brush;
+	HGDIOBJ hOldBrush;
+	brush = CreateSolidBrush(RGB(0, 0, 0));
+	hOldBrush = SelectObject(hdc, brush);
+
 	TCHAR	szBuff[32] = L"";
+
+	Rectangle(hdc, 0, 0, WINCX, 80);
+
+	SelectObject(hdc, hOldBrush);
+	DeleteObject(brush);
+
 
 	if (!CObjManager::Instance()->GetPlayer()) {
 		m_player = nullptr;
-
-		swprintf_s(szBuff, L"GAME OVER");
-		TextOut(hdc, static_cast<int>(WINCX * 0.5f) - 50, static_cast<int>(WINCY * 0.5f), szBuff, lstrlen(szBuff));
+		m_gameOverLabel->Render(hdc);
 	}
 
 	swprintf_s(szBuff, L"Life : %d", CMainGame::Life);
-	TextOut(hdc, 50, 50, szBuff, lstrlen(szBuff));
+	m_lifeLabel->SetText(szBuff);
+	m_lifeLabel->Render(hdc);
 
-	swprintf_s(szBuff, L"SCORE : %d", CMainGame::Score);
-	TextOut(hdc, static_cast<int>(WINCX * 0.5f) - 50, 50, szBuff, lstrlen(szBuff));
+	swprintf_s(szBuff, L"%d", CMainGame::Score);
+	m_scoreLabel->SetText(szBuff);
+	m_scoreLabel->Render(hdc);
+
+	m_scoreTitle->Render(hdc);
 
 	swprintf_s(szBuff, L"KILL : %d", CMainGame::TotalKillCount);
 	TextOut(hdc, 650, 950, szBuff, lstrlen(szBuff));
@@ -76,10 +108,8 @@ void CFrontUI::Render(HDC hdc) {
 	int minute = currentPlayTime % 60;
 
 	swprintf_s(szBuff, L"PlayTime: %02d:%02d", minute, second);
-	TextOut(hdc, static_cast<int>(WINCX * 0.5) - 50, 80, szBuff, lstrlen(szBuff));
-	//m_playTimeLabel->SetText(szBuff);
-
-	//CUIManager::Instance()->FrontRender(hdc);
+	m_playTimeLabel->SetText(szBuff);
+	m_playTimeLabel->Render(hdc);
 }
 
 void CFrontUI::Release() {
