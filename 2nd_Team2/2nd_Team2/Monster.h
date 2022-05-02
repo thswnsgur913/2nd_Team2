@@ -87,6 +87,7 @@ protected:
 	int m_iScore;
 
 	float m_fXPoint;
+	float m_fTemp;
 
 private:
 	bool m_bRunEffect;

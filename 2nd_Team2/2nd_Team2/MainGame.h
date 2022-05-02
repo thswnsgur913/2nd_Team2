@@ -61,6 +61,8 @@ private:
 
 	bool m_debug;
 
+	bool m_bMonsterOnOff;
+
 	float m_test;
 	DWORD m_dwTime;
 };

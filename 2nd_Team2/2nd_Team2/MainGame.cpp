@@ -31,7 +31,8 @@ int CMainGame::PlayTime = 0;
 float CMainGame::DeadTime = 0.f;
 
 CMainGame::CMainGame()
-	: m_dwTime(GetTickCount())
+	: m_dwTime(GetTickCount()),
+	  m_bMonsterOnOff(false)
 {
 }
 
@@ -113,7 +114,6 @@ void CMainGame::Initialize(void)
 	CUIManager::Instance()->AddUI(UI_FRONT, newTimeProgress);
 
 	CUIManager::Instance()->AddUI(UI_FRONT, CAbstractFactory<CWeaponBag>::Create());
-
 
 	m_timer = new CTimer;
 	m_timer->StartTimer(ENERMY_PER_SECOND, [&]() {
@@ -339,30 +339,39 @@ void CMainGame::Release(void)
 
 void CMainGame::RandomMonster(void)
 {
-	if (m_dwTime + 1000 < GetTickCount())
+	if (CKeyMgr::Get_Instance()->Key_Up('M')) // M 키를 늘러야 일반 몬스터 랜덤생성이 시작됨.
 	{
-		srand((unsigned int)time((nullptr)));
-		int iRanMon = rand() % 4 + 1;
-		switch (iRanMon)
+		if (true == m_bMonsterOnOff) { m_bMonsterOnOff = false; }
+		if (false == m_bMonsterOnOff) { m_bMonsterOnOff = true; }
+	}
+
+	if (m_bMonsterOnOff)
+	{
+		if (m_dwTime + 10000 < GetTickCount())
 		{
-		case 1:
-			CreateMonster(MONSTER_A); // A
-			break;
+			srand((unsigned int)time((nullptr)));
+			int iRanMon = rand() % 3 + 1;
+			switch (iRanMon)
+			{
+			case 1:
+				CreateMonster(MONSTER_A); // A
+				break;
 
-		case 2:
-			CreateMonster(MONSTER_B); // B
-			break;
+			case 2:
+				CreateMonster(MONSTER_B); // B
+				break;
 
-		case 3:
-			CreateMonster(MONSTER_C); // C
-			break;
+			case 3:
+				CreateMonster(MONSTER_C); // C
+				break;
 
-		case 4:
-			CreateMonster(MONSTER_BOSS); // BOSS
-			break;
+			//case 4:
+			//	CreateMonster(MONSTER_BOSS); // BOSS
+			//	break;
+			}
+
+			m_dwTime = GetTickCount();
 		}
-
-		m_dwTime = GetTickCount();
 	}
 }
 
@@ -388,10 +397,10 @@ void CMainGame::CreateMonster(MONSTERTYPE _type)
 		CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
 		break;
 
-	case MONSTER_BOSS:
+	/*case MONSTER_BOSS:
 		m_monster = CAbstractFactory<CBehaviorBoss>::Create((m_player->Get_Info().fX + 650.f));
 		dynamic_cast<CBehaviorBoss*>(m_monster)->BehaviorStart(m_player);
 		CObjManager::Instance()->AddObject(OBJ_MONSTER, m_monster);
-		break;
+		break;*/
 	}
 }

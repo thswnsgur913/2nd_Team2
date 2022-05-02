@@ -13,7 +13,8 @@ CMonster::CMonster():
 	m_bDisplayInfo(false),
 	m_effectCount(0),
 	m_iScore(0),
-	effectDecreasePoint(15){
+	effectDecreasePoint(15),
+	m_fTemp(0){
 }
 
 CMonster::~CMonster() {
@@ -78,6 +79,8 @@ bool CMonster::TargetMove() {
 	if (targetPosition.x < m_tInfo.fX)
 	{
 		m_tInfo.fX -= m_fSpeed;
+		if(m_fTemp == m_tInfo.fX){ return true; }
+		m_fTemp = m_tInfo.fX;
 		return false;
 	}
 	else { return true; }
@@ -87,6 +90,8 @@ bool CMonster::TargetMoveX() {
 	if (targetPosition.x > m_tInfo.fX)
 	{
 	m_tInfo.fX += m_fSpeed;
+	if (m_fTemp == m_tInfo.fX) { return true; }
+	m_fTemp = m_tInfo.fX;
 	return false;
 	}
 	else { return true; }
