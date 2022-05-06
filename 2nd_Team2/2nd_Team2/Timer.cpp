@@ -17,7 +17,7 @@ void CTimer::StartTimer(const float _repeatRateSecond, std::function<void()> _pC
   	m_iRepeatRate = _repeatRateSecond;
 	pExcuteCallBack = _pCallBack;
 
-	m_iCurrentTime = GetTickCount64();
+	m_iCurrentTime = static_cast<int>(GetTickCount64());
 	m_iCurrentCount = TIMESCALE;
 	m_bRunTimer = true;
 }
@@ -26,7 +26,7 @@ void CTimer::Update() {
 	if (!pExcuteCallBack || !m_bRunTimer)
 		return;
 
-	DWORD currentTime = GetTickCount64();
+	DWORD currentTime = static_cast<DWORD>(GetTickCount64());
 
 	if (TICKSCALE <= currentTime - m_iCurrentTime) {
 		m_iCurrentCount += TIMESCALE;

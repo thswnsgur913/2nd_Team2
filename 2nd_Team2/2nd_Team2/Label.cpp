@@ -58,7 +58,7 @@ void CLabel::Render(HDC hDC) {
 		break;
 	}
 
-	TextOut(hDC, labelPosX, m_tInfo.fY - textHalfHeight, m_text, lstrlen(m_text));
+	TextOut(hDC, labelPosX, static_cast<int>(m_tInfo.fY - textHalfHeight), m_text, lstrlen(m_text));
 
 	SelectObject(hDC, oldFont);
 	DeleteObject(textFont);

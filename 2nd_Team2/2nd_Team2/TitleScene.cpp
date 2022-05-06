@@ -27,12 +27,12 @@ void CTitleScene::Initialize(void) {
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Title.bmp", L"Title");
 
 	m_SelectHighlight.fX = WINCX * 0.5;
-	m_SelectHighlight.fY = MenubarStartY + (m_currentMenuSelect * (MenuItemHieght + MenuItemItemGap));
+	m_SelectHighlight.fY = static_cast<float>(MenubarStartY + (m_currentMenuSelect * (MenuItemHieght + MenuItemItemGap)));
 	TargetHighlightPosition.x = m_SelectHighlight.fX;
 	TargetHighlightPosition.y = m_SelectHighlight.fY;
 
 	m_SelectHighlight.fWidth = 300.f;
-	m_SelectHighlight.fHeight = MenuItemHieght;
+	m_SelectHighlight.fHeight = static_cast<float>(MenuItemHieght);
 
 	CLabel* title = new CLabel(L"ÄÚµùÀÇ ¼¶", L"¸¼Àº °íµñ");
 	title->Set_pos(static_cast<int>(WINCX * 0.5), 220);
@@ -47,12 +47,12 @@ void CTitleScene::Initialize(void) {
 	CUIManager::Instance()->AddUI(UI_FRONT, subTitle);
 
 	CLabel* menuItem1 = new CLabel(L"°ÔÀÓ½ÃÀÛ");
-	menuItem1->Set_pos(static_cast<int>(WINCX * 0.5), MenubarStartY);
+	menuItem1->Set_pos(WINCX * 0.5, static_cast<float>(MenubarStartY));
 	menuItem1->SetFontSize(30);
 	CUIManager::Instance()->AddUI(UI_FRONT, menuItem1);
 
 	CLabel* menuItem2 = new CLabel(L"°ÔÀÓÁ¾·á");
-	menuItem2->Set_pos(static_cast<int>(WINCX * 0.5), MenubarStartY + (MenuItemHieght + MenuItemItemGap));
+	menuItem2->Set_pos(WINCX * 0.5, static_cast<float>(MenubarStartY + (MenuItemHieght + MenuItemItemGap)));
 	menuItem2->SetFontSize(30);
 	CUIManager::Instance()->AddUI(UI_FRONT, menuItem2);
 
@@ -80,7 +80,7 @@ void CTitleScene::Update(void) {
 		++m_currentMenuSelect;
 		m_currentMenuSelect = m_currentMenuSelect % MENU_LENGTH;
 		
-		TargetHighlightPosition.y = MenubarStartY + (m_currentMenuSelect * (MenuItemHieght + MenuItemItemGap));
+		TargetHighlightPosition.y = static_cast<float>(MenubarStartY + (m_currentMenuSelect * (MenuItemHieght + MenuItemItemGap)));
 	}
 
 	if (CKeyMgr::Get_Instance()->Key_Down(VK_DOWN)) {
@@ -88,7 +88,7 @@ void CTitleScene::Update(void) {
 		if (m_currentMenuSelect < 0)
 			m_currentMenuSelect = MENU_LENGTH - 1;
 
-		TargetHighlightPosition.y = MenubarStartY + (m_currentMenuSelect * (MenuItemHieght + MenuItemItemGap));
+		TargetHighlightPosition.y = static_cast<float>(MenubarStartY + (m_currentMenuSelect * (MenuItemHieght + MenuItemItemGap)));
 	}
 
 };
@@ -119,7 +119,7 @@ void CTitleScene::Render(HDC hdc) {
 
 	int selectBarHalfWidth = static_cast<int>(m_SelectHighlight.fWidth * 0.5f);
 	int selectBarHalfHeight = static_cast<int>(m_SelectHighlight.fHeight * 0.5f);
-	Rectangle(hdc, static_cast<int>(m_SelectHighlight.fX) - selectBarHalfWidth, m_SelectHighlight.fY - selectBarHalfHeight, m_SelectHighlight.fX + selectBarHalfWidth, m_SelectHighlight.fY + selectBarHalfHeight);
+	Rectangle(hdc, static_cast<int>(m_SelectHighlight.fX - selectBarHalfWidth), static_cast<int>(m_SelectHighlight.fY - selectBarHalfHeight), static_cast<int>(m_SelectHighlight.fX + selectBarHalfWidth), static_cast<int>(m_SelectHighlight.fY + selectBarHalfHeight));
 
 	if (m_bBarVisible) {
 		SelectObject(hdc, hOldBrush);

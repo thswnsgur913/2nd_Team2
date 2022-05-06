@@ -62,7 +62,7 @@ void CMovePlatform::Release() {
 
 void CMovePlatform::CollisionEnter(CObj* _sour) {
 	if (_sour->Get_Rect().bottom > m_tRect.top) {
-		_sour->PlatEnter(m_tRect.top);
+		_sour->PlatEnter(static_cast<float>(m_tRect.top));
 		m_targetObj = _sour;
 	}
 }

@@ -161,11 +161,11 @@ void CItem::DrawLance(HDC hdc) {
 void CItem::DrawClock(HDC hdc) {
 	Ellipse(hdc, m_tRect.left + GAP, m_tRect.top + GAP, m_tRect.right - GAP, m_tRect.bottom - GAP);
 	
-	MoveToEx(hdc, m_tInfo.fX, m_tInfo.fY, nullptr);
-	LineTo(hdc, m_tInfo.fX, m_tRect.top + GAP + 10);
+	MoveToEx(hdc, static_cast<int>(m_tInfo.fX), static_cast<int>(m_tInfo.fY), nullptr);
+	LineTo(hdc, static_cast<int>(m_tInfo.fX), static_cast<int>(m_tRect.top + GAP + 10));
 
-	MoveToEx(hdc, m_tInfo.fX, m_tInfo.fY, nullptr);
-	LineTo(hdc, m_tRect.right - GAP + 10, m_tInfo.fY);
+	MoveToEx(hdc, static_cast<int>(m_tInfo.fX), static_cast<int>(m_tInfo.fY), nullptr);
+	LineTo(hdc, static_cast<int>(m_tRect.right - GAP + 10), static_cast<int>(m_tInfo.fY));
 }
 
 void CItem::DrawApple(HDC hdc) {

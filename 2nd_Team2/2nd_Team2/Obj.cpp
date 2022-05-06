@@ -55,7 +55,7 @@ void CObj::Jumping(void) {
 	const float gravity = 9.8f;
 
 	m_tInfo.fY -= m_fJumpPower * m_fJumpTime - gravity * m_fJumpTime * m_fJumpTime * 0.5f;
-	m_fJumpTime += 0.1f;
+	m_fJumpTime += 0.15f;
 }
 
 void CObj::PlatEnter(float _fY) {
@@ -67,7 +67,7 @@ void CObj::PlatEnter(float _fY) {
 	if (!m_isGround && fCY > fHeight) {
 		m_isGround = true;
 		m_bJump = false;
-		m_tInfo.fY = _fY - (m_tInfo.fHeight * 0.5);
+		m_tInfo.fY = static_cast<float>(_fY - (m_tInfo.fHeight * 0.5));
 	}
 	else {
 		m_isGround = false;

@@ -17,7 +17,7 @@ CPlayer::~CPlayer()
 
 void CPlayer::Initialize(void)
 {
-	m_tPstat = { 5,3,false,false };
+	m_tPstat = { 5, 3, false, false };
 
 	m_tInfo.fX = 100.f;
 	m_tInfo.fY = WINCY - 250.f;
@@ -31,7 +31,7 @@ void CPlayer::Initialize(void)
 	m_fSpeed = PlayerSpeed;
 
 	m_bJump = true;
-	m_fJumpPower = 14.f;
+	m_fJumpPower = 20.f;
 	m_fJumpTime = 0.f;
 	m_fDropTime = 0.f;
 

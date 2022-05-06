@@ -19,15 +19,15 @@ void CBackUI::Initialize() {
 
 
 	for (int i = 0; i < CloudMAX; ++i) {
-		int randomX = rand() % ((int)WINCX + 100) - 100;
-		int randomY = rand() % (int)WINCY * 0.4f;
+		int randomX = rand() % static_cast<int>((WINCX + 100) - 100);
+		int randomY = rand() % static_cast<int>(WINCY * 0.4f);
 		int ramdomSize = 150;//rand() % (int)150 + 80;
 		int randomSpeed = rand() % 3 + 1;
 
 		CCloud* newCloud = new CCloud;
 		newCloud->Initialize();
-		newCloud->Set_pos(randomX, randomY);
-		newCloud->SetSize(ramdomSize);
+		newCloud->Set_pos(static_cast<float>(randomX), static_cast<float>(randomY));
+		newCloud->SetSize(static_cast<float>(ramdomSize));
 		newCloud->Set_Speed(randomSpeed * 0.1f);
 
 		m_Clouds.push_back(newCloud);

@@ -11,7 +11,7 @@ CLinePlat::CLinePlat(vector<LINEPOINT> _linePoints) {
 		m_LineList.push_back(new CLine(_linePoints[index], _linePoints[index + 1]));
 	}
 
-	pointSize = _linePoints.size() - 1;
+	pointSize = static_cast<int>(_linePoints.size() - 1);
 	m_DrawLineList = new POINT[_linePoints.size()];
 	m_ScrollDrawLineList = new POINT[_linePoints.size()];
 
@@ -62,7 +62,7 @@ void CLinePlat::Render(HDC hDC)
 	HBRUSH brush = CreateSolidBrush(RGB(171, 113, 80));
 	HGDIOBJ oldBrush = SelectObject(hDC, brush);
 
-	Polygon(hDC, m_ScrollDrawLineList, m_LineList.size()); // 좌표의 수.
+	Polygon(hDC, m_ScrollDrawLineList, static_cast<int>(m_LineList.size())); // 좌표의 수.
 
 	SelectObject(hDC, oldBrush);
 	DeleteObject(brush);
@@ -78,7 +78,7 @@ void CLinePlat::Release(void)
 bool CLinePlat::Collision_Line(CObj* _sour)//플레이어, 몬스터입력가능.
 {
 	float fXX = _sour->Get_Info().fX;
-	float fYY = _sour->Get_Rect().bottom;
+	float fYY = static_cast<float>(_sour->Get_Rect().bottom);
 
 	if (m_LineList.empty())
 		return false;
@@ -100,8 +100,8 @@ bool CLinePlat::Collision_Line(CObj* _sour)//플레이어, 몬스터입력가능.
 	if (!pLine)
 		return false;
 
-	float fXXL = _sour->Get_Rect().left;
-	float fXXR = _sour->Get_Rect().right;
+	float fXXL = static_cast<float>(_sour->Get_Rect().left);
+	float fXXR = static_cast<float>(_sour->Get_Rect().right);
 
 	float fX1 = pLine->Get_LINE().tLPoint.fX;
 	float fY1 = pLine->Get_LINE().tLPoint.fY;
